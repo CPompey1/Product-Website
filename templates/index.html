@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product website</title>
+</head>
+<body>
+    <h1> Product Site</h1>
+    <div id="root"></div>
+
+    <!-- Load our React component. -->
+    <!-- <script src="bundle.js"></script>
+    <script src="static/bundle.js"></script> -->
+    <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+</body>
+</html>
