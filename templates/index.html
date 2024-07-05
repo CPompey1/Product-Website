@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product website</title>
 </head>
+<h1>Product website</h1>
 <body>
-    <h1> Product Site</h1>
+    
     <div id="root"></div>
-
-    <!-- Load our React component. -->
-    <!-- <script src="bundle.js"></script>
-    <script src="static/bundle.js"></script> -->
-    <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    {% if dev_mode %}
+        <script src="http://localhost:9000/js/bundle.js"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    {% endif %}
 </body>
 </html>

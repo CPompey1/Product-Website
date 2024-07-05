@@ -1,0 +1,223 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.main-header {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background-color: #000;
+  padding: 20px;
+}
+.header-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #000;
+  padding: 20px;
+  align-self: stretch;
+  flex-grow: 1;
+  max-width: 1200px;
+}
+.image-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 0;
+  padding: 20px 8px 20px 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.full-width-image {
+  aspect-ratio: 5.3;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  margin-top: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  overflow: hidden;
+}
+.main-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 0;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.button-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 0;
+  padding: 20px;
+  width: 100%;
+}
+.button-group {
+  display: flex;
+  gap: 20px;
+}
+@media (max-width: 991px) {
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+}
+.button-column {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 33%;
+  margin-left: 0;
+}
+@media (max-width: 991px) {
+  .button-column {
+    width: 100%;
+  }
+}
+.action-button {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 20px;
+  appearance: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  padding: 15px 25px;
+}
+.content-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100px;
+  padding: 20px;
+  width: 100%;
+}
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 20px 0 -2px;
+}
+.content-columns {
+  display: flex;
+  gap: 20px;
+}
+@media (max-width: 991px) {
+  .content-columns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+}
+.image-column {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 50%;
+  margin-left: 0;
+}
+@media (max-width: 991px) {
+  .image-column {
+    width: 100%;
+  }
+}
+.content-image {
+  aspect-ratio: 2.77;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  margin-top: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  overflow: hidden;
+}
+.text-column {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 50%;
+  margin-left: 20px;
+}
+@media (max-width: 991px) {
+  .text-column {
+    width: 100%;
+  }
+}
+.text-wrapper {
+  position: relative;
+  margin-top: 20px;
+  height: auto;
+}
+.main-footer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 200px;
+  min-height: 100px;
+  padding: 20px;
+}
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 200px;
+  min-height: 100px;
+  padding: 20px;
+  width: 100%;
+  align-self: stretch;
+  flex-grow: 1;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
