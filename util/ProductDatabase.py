@@ -1,5 +1,6 @@
 from pymongo import MongoClient
-import globals
+import pymongo
+from util import globals
 import json
 class ProductDatabase:
     def __init__(self):
@@ -9,6 +10,20 @@ class ProductDatabase:
         self.collections = {}
         for collectionName in colNames:
             self.collections[collectionName] = Collection(self.db,collectionName=collectionName)
+        
+        #Pend until db is up
+        serverStarted = False
+        while not serverStarted:
+            try:
+                with pymongo.timeout(5):
+                    self.client.list_database_names()
+                serverStarted = True
+                self.db = self.client[globals.DATABASE]
+            except pymongo.errors.ServerSelectionTimeoutError:
+                #start database 
+                print('Server not started')
+    def list_collections(self):
+        return self.collections.keys()
         
 
 class Collection:

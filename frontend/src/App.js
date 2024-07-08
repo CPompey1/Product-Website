@@ -1,22 +1,28 @@
 import React, {useState,
-              useEffect,BrowserRouter as Router,
-              Routes,
-              Route,
-              Navigate, }from 'react'
+              useEffect }from 'react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+             
 import './App.css';
+import AddProduct from './page_components/AddProduct.js';
+import backendUrl from './globals.js';
 const Button = ({ children, openLinkInNewTab }) => (
   <button className="action-button" target={openLinkInNewTab ? "_blank" : "_self"}>
     {children}
   </button>
 );
 
-const ImageSection = ({ src, alt }) => (
+const LogoSection = ({ src, alt }) => (
   <section className="image-section">
     <img loading="lazy" src={src} alt={alt} className="full-width-image" />
   </section>
 );
 
-const ButtonGroup = () => (
+const Navigation = () => (
   <div className="button-group">
     {[1, 2, 3].map((index) => (
       <div key={index} className="button-column">
@@ -26,7 +32,7 @@ const ButtonGroup = () => (
   </div>
 );
 
-const ContentSection = ({ imageSrc, imageAlt, text }) => (
+const ProductSection = ({ imageSrc, imageAlt, text }) => (
   <section className="content-section">
     <div className="content-wrapper">
       <div className="content-columns">
@@ -48,7 +54,7 @@ function ProductList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchResult = await fetch("/products")
+      const fetchResult = await fetch("/productlist")
       const jsonResult = fetchResult.json()
       setData(jsonResult)
     }
@@ -57,13 +63,13 @@ function ProductList() {
 
   return(
     <main className="main-content">
-      <ContentSection
+      <ProductSection
         imageSrc="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a"
         imageAlt="Content illustration"
         text="somestuff somestuff somestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuff"
       />
 
-      <ContentSection
+      <ProductSection
         imageSrc="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a"
         imageAlt="Content illustration"
         text="somestuff somestuff somestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuff"
@@ -78,12 +84,12 @@ function MainPage() {
         <section className="header-content" />
       </header>
 
-      <ImageSection
+      <LogoSection
         src="/frontend/public/tempLogo.jpeg"
-        alt="Decorative banner image"
+        alt="Logo"
       />
       <section className="button-section">
-          <ButtonGroup />
+          <Navigation />
       </section>
       
       <ProductList/>
@@ -99,28 +105,16 @@ function App() {
 
   // render()
   return (
-    
     <>
         {/* This is the alias of BrowserRouter i.e. Router */}
         <Router>
             <Routes>
-                {/* This route is for home component 
-        with exact path "/", in component props 
-        we passes the imported component*/}
-                <Route
-                    exact
-                    path="/"
-                    component={<MainPage />}
-                />
+               
+                <Route path="/" element={<MainPage />}/>
 
-                {/* If any route mismatches the upper 
-        route endpoints then, redirect triggers 
-        and redirects app to home component with to="/" */}
-                {/* <Redirect to="/" /> */}
-                <Route
-                    path="*"
-                    element={<Navigate to="/" />}
-                />
+                <Route path="/add_product" element={<AddProduct />} />
+
+                <Route path="*" element={<Navigate to="/" />}/>
             </Routes>
         </Router>
     </>

@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - mynetwork
+  frontend: 
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+
+  mongo:
+    image: mongo:4.2.5  
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+    driver: bridge

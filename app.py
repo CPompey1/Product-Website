@@ -1,16 +1,7 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request
 from flask import *
+from util import api_functions
 import os
-
-# app = Flask(__name__)
-# @app.route("/")
-# def index():
-#     resp = make_response(send_from_directory('public/', 'index.html'))
-#     # add headers
-#     resp.headers['X-Content-Type-Options'] = 'nosniff'
-
-#     return resp
-
 
 
 app = Flask(__name__)
@@ -27,12 +18,47 @@ def getPage(path):
     if not path.__contains__("frontend/public"):
         root = 'frontend/public'
     resp = make_response(send_from_directory(root,path))
-    resp.headers['X-Content-Type-Options'] = 'nosniff'
+    api_functions.add_default_headers(resp)
     return resp
 
 @app.route('/products')
 def products():
     data = {'key1': 'value1', 'key2': 'value2'}
     return jsonify(data)
+
+@app.route('/add_product',methods=['POST'])
+def add_product():
+    forminput = request.form.to_dict()
+    #print(forminput.keys())
+    uploads = request.files
+    #print(uploads)
+    #save uploads
+    if uploads:
+        for filename in uploads.keys():
+            print(filename)
+            file_data = uploads[filename].read()
+            # print(f"upload name: {uploads[filename].filename}")
+            # print(f"upload type: {uploads[filename].content_type}")
+
+            #save file
+            file_path = f"{os.getcwd()}/dynamic_assets/images/productimages/{uploads[filename].filename}"
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, 'wb') as file_to_write:
+                file_to_write.write(file_data)
+                file_to_write.close()
+
+            #update form input fields
+            forminput["Image"] = uploads[filename].filename
+    
+    resp = make_response(jsonify(forminput))
+    
+    #add to database
+    api_functions.insert_new_product(forminput)
+    print(forminput)
+    
+    #set some headers
+    api_functions.add_default_headers(resp)
+    resp.mimetype = 'application/json'
+    return resp, 200
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True)
