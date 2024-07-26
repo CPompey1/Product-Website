@@ -17,15 +17,27 @@ def getPage(path):
     root = '.'
     if not path.__contains__("frontend/public"):
         root = 'frontend/public'
+    
     resp = make_response(send_from_directory(root,path))
     api_functions.add_default_headers(resp)
     return resp
 
+@app.route('/product_list')
+def product_list():
+    # resp = make_response(send_from_directory(f"{os.getcwd()}/dynamic_assets",f"/images/productimages/products.json"))
+    
+    #set some headers
+    # api_functions.add_default_headers(resp)
+    # resp.mimetype = 'application/json'
+    # return resp, 200
+    with open('dynamic_assets/images/productimages/products.json') as f:
+        data = json.load(f)
+    # data = {'key1': 'value1', 'key2': 'value2'}
+    return jsonify(data)
 @app.route('/products')
 def products():
     data = {'key1': 'value1', 'key2': 'value2'}
     return jsonify(data)
-
 @app.route('/add_product',methods=['POST'])
 def add_product():
     forminput = request.form.to_dict()

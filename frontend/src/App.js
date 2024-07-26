@@ -50,31 +50,83 @@ const ProductSection = ({ imageSrc, imageAlt, text }) => (
 );
 
 function ProductList() {
-  const [data,setData] = useState([{}])
-
+  const [data,setData] = useState([])
+  // const [listResultF,setListResult] = useState([])
   useEffect(() => {
     const fetchData = async () => {
-      const fetchResult = await fetch("/productlist")
-      const jsonResult = fetchResult.json()
-      setData(jsonResult)
+      const fetchResult = await fetch("/product_list")
+
+      if (fetchResult.ok){
+        const jsonResult = await fetchResult.json()
+        // console.log(jsonResult)
+        // const listResult = jsonResult.map(product => 
+          
+
+        //   <ul key = {product.title}> 
+        //         <ProductSection
+        //           key = {product.id}
+        //           imageSrc={product.imageSrc}
+        //           imageAlt={product.imageAlt}
+        //           text={product.text}
+        //         />
+        //   </ul>
+        // );
+        setData(jsonResult)
+        console.log(data)
+        // setListResult(listResult)
+        // console.log(jsonResult)
+        // console.log(jsonResult[0]['key1'])
+        // setData(datalistResult.map(() => {imageSrc:item.imageSrc; 
+        //                                   imageAlt: item.imageAlt; 
+        //                                   text: item.text }))
+      }
+      
+
+    //  console.log("list result" + listResult)
+      // setListResult(listResult)
+        // if (fetchResult.ok) {
+        //   const jsonResult = fetchResult.data.json()
+        //   console.log(jsonResult)
+        //   const listResult = JSON.parse(jsonResult)
+        //   // setData(datalistResult.map(() => {imageSrc:item.imageSrc; 
+        //   //                               imageAlt: item.imageAlt; 
+        //   //                               text: item.text }))
+        //   console.log(listResult)
+        //   setData({data: listResult.map()})}
+      
+      
     }
+    
     fetchData()
   },[])
 
   return(
-    <main className="main-content">
-      <ProductSection
-        imageSrc="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a"
-        imageAlt="Content illustration"
-        text="somestuff somestuff somestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuff"
-      />
+    // <main className="main-content">
+    //   <ProductSection
+    //     imageSrc="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a"
+    //     imageAlt="Content illustration"
+    //     text="somestuff somestuff somestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuff"
+    //   />
 
-      <ProductSection
-        imageSrc="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a"
-        imageAlt="Content illustration"
-        text="somestuff somestuff somestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuff"
-      />
-    </main>
+    //   <ProductSection
+    //     imageSrc="https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a"
+    //     imageAlt="Content illustration"
+    //     text="somestuff somestuff somestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuff"
+    //   />
+    // </main>
+    // <main className='main-content'>
+    //    <ul>{listResultF}</ul>
+    // </main>
+    <div>
+      {data.map(product => (
+        <ProductSection
+          key={product.id}
+          imageSrc={product.imageSrc}
+          imageAlt = {product.imageAlt}
+          text={product.text}
+        />
+      ))}
+    </div>
   )
 }
 function MainPage() {
@@ -85,7 +137,7 @@ function MainPage() {
       </header>
 
       <LogoSection
-        src="/frontend/public/tempLogo.jpeg"
+        src="/frontend/public/logo.png"
         alt="Logo"
       />
       <section className="button-section">

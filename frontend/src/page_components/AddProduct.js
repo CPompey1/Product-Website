@@ -62,7 +62,7 @@ function AddProduct() {
           </label>
         </div>
 
-        <div>
+        {/* <div>
 
           <label htmlFor="type">Type:
     
@@ -74,7 +74,7 @@ function AddProduct() {
           </select>
 
           </label>
-        </div>
+        </div> */}
 
         <div>
           <label>Description:

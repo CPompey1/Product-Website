@@ -1,0 +1,24 @@
+[
+    {
+        "key1": 
+            {
+                "id": 0,
+                "title" : "product one",
+                "imageSrc":"https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a",
+                "imageAlt" :"Content illustration",
+                "text":"somestuff somestuff somestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuff"
+              
+            }
+    },
+    {
+        "key2": 
+            {   
+                "id": 1,
+                "title" : "product two",
+                "imageSrc":"https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2F72c80f114dc149019051b6852a9e3b7a",
+                "imageAlt" :"Content illustration",
+                "text":"somestuff somestuff somestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuffsomestuff somestuff"
+              
+            }
+    }
+]
