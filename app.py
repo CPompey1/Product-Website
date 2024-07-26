@@ -30,7 +30,7 @@ def product_list():
     # api_functions.add_default_headers(resp)
     # resp.mimetype = 'application/json'
     # return resp, 200
-    with open('dynamic_assets/images/productimages/products.json') as f:
+    with open('dynamic_assets/images/productimages/products1.json') as f:
         data = json.load(f)
     # data = {'key1': 'value1', 'key2': 'value2'}
     return jsonify(data)
