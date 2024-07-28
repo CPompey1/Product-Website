@@ -38,7 +38,7 @@ trap 'stop_processes' SIGINT
 wait
 
 
-# In this script:
+# In this script: (chatgpt)
 # 1. Replace `process1_command` and `process2_command` with the actual commands you want to run for each process.
 # 2. The processes are started in the background using `&`.
 # 3. The PIDs of the processes are stored in variables for later reference.
