@@ -15,6 +15,15 @@ def index():
 def getPage(path):
     # print(path)
     root = '.'
+
+    # This may not be safe
+    if path.__contains__("dynamic_assets/images/productimages"):
+        resp = make_response(send_from_directory(root,path))
+        api_functions.add_default_headers(resp)
+        print("uhhh")
+        return resp
+    
+
     if not path.__contains__("frontend/public"):
         root = 'frontend/public'
     
@@ -33,6 +42,9 @@ def product_list():
     with open('dynamic_assets/images/productimages/products1.json') as f:
         data = json.load(f)
     # data = {'key1': 'value1', 'key2': 'value2'}
+    # print(api_functions.get_all_products())
+    data = api_functions.get_all_products()
+    # print(type(api_functions.get_all_products()[0]))
     return jsonify(data)
 @app.route('/products')
 def products():
@@ -53,7 +65,7 @@ def add_product():
             # print(f"upload type: {uploads[filename].content_type}")
 
             #save file
-            file_path = f"{os.getcwd()}/dynamic_assets/images/productimages/{uploads[filename].filename}"
+            file_path = f"{os.getcwd()}dynamic_assets/images/productimages/{uploads[filename].filename}"
             os.makedirs(os.path.dirname(file_path), exist_ok=True)
             with open(file_path, 'wb') as file_to_write:
                 file_to_write.write(file_data)
@@ -62,6 +74,7 @@ def add_product():
             #update form input fields
             forminput["Image"] = uploads[filename].filename
     
+
     resp = make_response(jsonify(forminput))
     
     #add to database

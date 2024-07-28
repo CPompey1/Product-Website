@@ -52,11 +52,11 @@ function AddProduct() {
       <form action='/add_product' method="post" encType="multipart/form-data">
         
         <div>
-          <label>Strain:
+          <label>Title:
           <input
             type="text" 
-            name="Strain" 
-            value={inputs.Strain || ""} 
+            name="Title" 
+            value={inputs.Title || ""} 
             onChange={handleChange}
           />
           </label>
