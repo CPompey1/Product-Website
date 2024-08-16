@@ -3,8 +3,8 @@
     flex-direction: column;
     position: relative;
     min-height: 100px;
-    padding: 20px;
     width: 100%;
+    margin-inline: 2%;
   }
 
   .content-wrapper {

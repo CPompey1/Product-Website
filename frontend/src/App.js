@@ -31,7 +31,7 @@ const LogoSection = ({ src, alt }) => (
 // );
 function MainPage() {
   return (
-    <>
+    <div>
       <Header/>
       <LogoSection
         src="https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F081600701cd246c09e2ac06a37be697f"
@@ -42,10 +42,10 @@ function MainPage() {
       
       <ProductList/>
 
-      <footer className="main-footer">
+      {/* <footer className="main-footer">
         <section className="footer-content" />
-      </footer>
-    </>
+      </footer> */}
+    </div>
   )
 }
 
