@@ -12,6 +12,11 @@ import AddProduct from './page_components/AddProduct.js';
 import backendUrl from './globals.js';
 import ProductList from './page_components/ProductList.js'
 import Navigation from './page_components/Navigation.js'
+import SellersProducts from './page_components/SellersProducts';
+import { Button } from '@builder.io/react';
+import { Builder } from '@builder.io/react';
+import Header from './page_components/Header';
+import { BuilderComponent } from '@builder.io/react';
 
 const LogoSection = ({ src, alt }) => (
   <section className="image-section">
@@ -19,20 +24,21 @@ const LogoSection = ({ src, alt }) => (
   </section>
 );
 
+// const Header = () => (
+//   <header className="main-header">
+//         <section className="header-content" />
+//   </header>
+// );
 function MainPage() {
   return (
     <>
-      <header className="main-header">
-        <section className="header-content" />
-      </header>
-
+      <Header/>
       <LogoSection
-        src="/frontend/public/logo.png"
+        src="https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F081600701cd246c09e2ac06a37be697f"
         alt="Logo"
       />
-      <section className="button-section">
-          <Navigation />
-      </section>
+      <Navigation />
+      
       
       <ProductList/>
 
@@ -45,7 +51,7 @@ function MainPage() {
 
 function App() {
 
-  // render()
+
   return (
     <>
         {/* This is the alias of BrowserRouter i.e. Router */}
@@ -56,6 +62,9 @@ function App() {
 
                 <Route path="/add_product" element={<AddProduct />} />
 
+
+                <Route path="/sellers_product" element={<SellersProducts/>}/>
+
                 <Route path="*" element={<Navigate to="/" />}/>
             </Routes>
         </Router>
@@ -63,4 +72,17 @@ function App() {
     // <MainPage/>
   );
 }
+
+Builder.registerComponent(LogoSection, { 
+  name: 'LogoSection',
+  inputs: [{ src: 'https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F081600701cd246c09e2ac06a37be697f', alt: 'Logo' }],
+})
+Builder.registerComponent(Header, { 
+  name: 'Header',
+  inputs: [{ }],
+})
+
+Builder.registerComponent(Navigation,{ name: 'Navigation'})
+
+Builder.registerComponent(ProductList,{name:'ProductList',inputs: [{}]})
 export default App;

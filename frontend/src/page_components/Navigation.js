@@ -12,25 +12,34 @@ function Navigation () {
         navigate('/add_product');
       };
     return (
-        <div className="button-group">
-        {/* {[1, 2, 3].map((index) => (
-          <div key={index} className="button-column">
-            <Button openLinkInNewTab={false}>Click me!</Button>
+      <>
+        <section className="button-section">
+          <div className="button-group">
+            {/* {[1, 2, 3].map((index) => (
+              <div key={index} className="button-column">
+                <Button openLinkInNewTab={false}>Click me!</Button>
+              </div>
+            ))} */}
+            
+              <div className="button-column">
+                <Button openLinkInNewTab={false}>Click me!</Button>
+              </div>
+      
+              <div  className="button-column">
+                <Button openLinkInNewTab={false}>Click me!</Button>
+              </div>
+      
+              <div className="button-column">
+                <Button action={clickSell} openLinkInNewTab={false}>Sell</Button>
+              </div>
+
+              <div  className="button-column">
+                <Button openLinkInNewTab={false}>Click me!</Button>
+              </div>
+              
           </div>
-        ))} */}
-        
-          <div className="button-column">
-            <Button openLinkInNewTab={false}>Click me!</Button>
-          </div>
-  
-          <div  className="button-column">
-            <Button openLinkInNewTab={false}>Click me!</Button>
-          </div>
-  
-          <div className="button-column">
-            <Button action={clickSell} openLinkInNewTab={false}>Sell</Button>
-          </div>
-      </div>
+        </section>
+      </>
     );
 }
 // const Navigation = () => (

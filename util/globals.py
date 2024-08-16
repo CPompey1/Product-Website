@@ -1,5 +1,5 @@
 CLIENT = 'localhost'
 DATABASE = 'ProductDb'
-COLLECTIONS = 'products,customers,sellers'
+COLLECTIONS = 'products,accounts,stores, '
 
 CONTENT_2_MIME_TYPE = {"image/jpeg": "jpeg"}
