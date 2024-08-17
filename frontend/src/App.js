@@ -17,12 +17,10 @@ import { Button } from '@builder.io/react';
 import { Builder } from '@builder.io/react';
 import Header from './page_components/Header';
 import { BuilderComponent } from '@builder.io/react';
-
-const LogoSection = ({ src, alt }) => (
-  <section className="image-section">
-    <img loading="lazy" src={src} alt={alt} className="full-width-image" />
-  </section>
-);
+import RegisterAccountPage from './page_components/RegisterAccountPage';
+import LogoSection from './page_components/LogoSection';
+import Footer from './page_components/Footer';
+import LoginAccountPage from './page_components/LoginPage';
 
 // const Header = () => (
 //   <header className="main-header">
@@ -42,6 +40,7 @@ function MainPage() {
       
       <ProductList/>
 
+      <Footer/>
       {/* <footer className="main-footer">
         <section className="footer-content" />
       </footer> */}
@@ -66,6 +65,10 @@ function App() {
                 <Route path="/sellers_product" element={<SellersProducts/>}/>
 
                 <Route path="*" element={<Navigate to="/" />}/>
+
+                <Route path="/register" element={<RegisterAccountPage/>}/>
+
+                <Route path="/login" element={<LoginAccountPage/>}/>
             </Routes>
         </Router>
     </>
@@ -75,6 +78,7 @@ function App() {
 
 Builder.registerComponent(LogoSection, { 
   name: 'LogoSection',
+  src: 'https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F081600701cd246c09e2ac06a37be697f',
   inputs: [{ src: 'https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F081600701cd246c09e2ac06a37be697f', alt: 'Logo' }],
 })
 Builder.registerComponent(Header, { 
@@ -85,4 +89,6 @@ Builder.registerComponent(Header, {
 Builder.registerComponent(Navigation,{ name: 'Navigation'})
 
 Builder.registerComponent(ProductList,{name:'ProductList',inputs: [{}]})
+
+Builder.registerComponent(Footer,{name: 'Footer',inputs: [{}]})
 export default App;

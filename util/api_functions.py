@@ -16,13 +16,20 @@ def get_all_products():
     records = []
     n = 0
     for raw_record in raw_records:
-        print(raw_record["Image"])
-        records.append({        
-            "id": n,
-            "title" : raw_record["Title"],
-            "imageSrc":f"dynamic_assets/images/productimages/{raw_record["Image"]}",
-            "imageAlt" :"blah",
-            "text": raw_record["Description"]
-        })
-        n+=1
+        try:
+
+            print(raw_record["Image"])
+            records.append({        
+                "id": n,
+                "title" : raw_record["Title"],
+                "imageSrc":f"dynamic_assets/images/productimages/{raw_record["Image"]}",
+                "imageAlt" :"blah",
+                "text": raw_record["Description"]
+            })
+            n+=1
+        except KeyError:
+            print(f"Key not found in {raw_record}")
+        finally:
+            print(f"Exception: ")
+
     return records

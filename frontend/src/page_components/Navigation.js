@@ -22,11 +22,11 @@ function Navigation () {
             ))} */}
             
               <div className="button-column">
-                <Button openLinkInNewTab={false}>Click me!</Button>
+                <Button openLinkInNewTab={false}>Categories</Button>
               </div>
       
               <div  className="button-column">
-                <Button openLinkInNewTab={false}>Click me!</Button>
+                <Button openLinkInNewTab={false}>Stores</Button>
               </div>
       
               <div className="button-column">
@@ -34,7 +34,7 @@ function Navigation () {
               </div>
 
               <div  className="button-column">
-                <Button openLinkInNewTab={false}>Click me!</Button>
+                <Button openLinkInNewTab={false}>Deliver</Button>
               </div>
               
           </div>

@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './AddProduct.css'
 import backendUrl from '../globals';
+import { redirect } from 'react-router-dom';
 function AddProduct() {
     const [inputs, setInputs] = useState({});
     const [response,setResponse] = useState({});
@@ -45,11 +46,14 @@ function AddProduct() {
           console.log(jsonResult)
         }
         fetchData()
+        return (
+          <redirect to="/"></redirect>
+        )
         
       }
   return (
     <div className = "add-product-form">
-      <form action='/add_product' method="post" encType="multipart/form-data">
+      <form onSubmit={HandleSubmit} method="post" encType="multipart/form-data">
         
         <div>
           <label>Title:

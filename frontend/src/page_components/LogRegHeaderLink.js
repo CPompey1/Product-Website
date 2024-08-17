@@ -3,9 +3,9 @@ import './LogRegHeaderLink.css'
 function LogRegHeaderLink () {
   return (
     <div className='container-class'>
-            <a className='text' href="https://www.mozilla.org/en-US/">Login</a>
+            <a className='text' href="/login/">Login</a>
             <a className='text'>/</a>
-            <a className='text' href="https://www.mozilla.org/en-US/">Register</a>
+            <a className='text' href="/register">Register</a>
     </div>
   )
 };

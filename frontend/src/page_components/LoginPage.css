@@ -1,0 +1,45 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 12px solid;
+    width: 334px;
+    height: 301.3px;
+    max-width: 500px;
+    border-radius: 16px;
+    margin: 67px auto 6%;
+  }
+  
+  .formLabel {
+    width: 224px;
+    text-align: center;
+    font-size: 24px;
+    margin: 10px auto 0;
+  }
+  
+  .formInput {
+    width: 224px;
+    margin: 10px auto 0;
+    border: 2px solid #000;
+  }
+  
+  .submitButton {
+    font-size: 24px;
+    margin: 10px auto 0;
+  }
+  
+  .messageContainer {
+    margin-top: 10px;
+  }
+  
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
