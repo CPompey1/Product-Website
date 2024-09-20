@@ -1,0 +1,4 @@
+FROM nginx
+
+# Copy custom configuration file to the container
+COPY nginx_configuration.conf /etc/nginx/nginx.conf

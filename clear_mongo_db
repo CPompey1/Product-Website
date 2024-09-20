@@ -9,20 +9,3 @@ DATABASE_NAME=ProductDb
 echo "Connecting to MongoDB server..."
 mongosh $MONGO_HOST:$MONGO_PORT/$DATABASE_NAME --eval "db.dropDatabase()"
 echo "Database $DATABASE_NAME has been cleared."
-# ```
-
-# 3. Replace `your_database_name` with the actual name of the database you want to clear.
-
-# 4. Save the script and make it executable by running the following command in the terminal:
-
-# ```bash
-# chmod +x clear_mongo_db.sh
-# ```
-
-# 5. Execute the script by running the following command:
-
-# ```bash
-# ./clear_mongo_db.sh
-# ```
-
-# This script will connect to the MongoDB server running on `localhost` at port `27017`, drop the specified database, and display a message indicating that the database has been cleared. Please make sure to replace the `MONGO_HOST`, `MONGO_PORT`, and `DATABASE_NAME` variables with the appropriate values for your MongoDB setup.

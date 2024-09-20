@@ -8,45 +8,25 @@ import {
 } from "react-router-dom";
              
 import './App.css';
-import AddProduct from './page_components/AddProduct.js';
-import backendUrl from './globals.js';
-import ProductList from './page_components/ProductList.js'
-import Navigation from './page_components/Navigation.js'
-import SellersProducts from './page_components/SellersProducts';
-import { Button } from '@builder.io/react';
-import { Builder } from '@builder.io/react';
-import Header from './page_components/Header';
-import { BuilderComponent } from '@builder.io/react';
-import RegisterAccountPage from './page_components/RegisterAccountPage';
-import LogoSection from './page_components/LogoSection';
-import Footer from './page_components/Footer';
-import LoginAccountPage from './page_components/LoginPage';
 
+import AddProduct from './components/page_components/AddProduct.js';
+import ProductList from './components/page_components/ProductList.js'
+import Navigation from './components/page_components/Navigation.js'
+import SellersProducts from './components/page_components/SellersProducts';
+import LogoSection from './components/page_components/LogoSection';
+import Footer from './components/page_components/Footer';
+
+import { Builder } from '@builder.io/react';
+import Header from './components/page_components/Header';
+import RegisterAccountPage from './components/Pages/RegisterAccountPage';
+import LoginAccountPage from './components/Pages/LoginPage';
+import validateUser from './util/accounts_manager'
+import MainPage from './components/Pages/MainPage';
 // const Header = () => (
 //   <header className="main-header">
 //         <section className="header-content" />
 //   </header>
 // );
-function MainPage() {
-  return (
-    <div>
-      <Header/>
-      <LogoSection
-        src="https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F081600701cd246c09e2ac06a37be697f"
-        alt="Logo"
-      />
-      <Navigation />
-      
-      
-      <ProductList/>
-
-      <Footer/>
-      {/* <footer className="main-footer">
-        <section className="footer-content" />
-      </footer> */}
-    </div>
-  )
-}
 
 function App() {
 
@@ -64,11 +44,13 @@ function App() {
 
                 <Route path="/sellers_product" element={<SellersProducts/>}/>
 
-                <Route path="*" element={<Navigate to="/" />}/>
+                {/* <Route path="*" element={<Navigate to="/" />}/> */}
 
                 <Route path="/register" element={<RegisterAccountPage/>}/>
 
-                <Route path="/login" element={<LoginAccountPage/>}/>
+                {/* I have no idea what the fuck is going on here and it shuold be fixed */}
+                {/* this should be path to the form, not the endpoint. Yet it works. */}
+                <Route path="/login_account" element={<LoginAccountPage/>}/>
             </Routes>
         </Router>
     </>
