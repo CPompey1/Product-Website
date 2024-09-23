@@ -22,6 +22,9 @@ import RegisterAccountPage from './components/Pages/RegisterAccountPage';
 import LoginAccountPage from './components/Pages/LoginPage';
 import validateUser from './util/accounts_manager'
 import MainPage from './components/Pages/MainPage';
+import CategoryPage from './components/Pages/CategoryPage';
+import StoresPage from './components/Pages/StoresPage';
+import DeliverPage from './components/Pages/DeliverPage';
 // const Header = () => (
 //   <header className="main-header">
 //         <section className="header-content" />
@@ -51,6 +54,13 @@ function App() {
                 {/* I have no idea what the fuck is going on here and it shuold be fixed */}
                 {/* this should be path to the form, not the endpoint. Yet it works. */}
                 <Route path="/login_account" element={<LoginAccountPage/>}/>
+
+                <Route path="/category_page" element={<CategoryPage/>}/>
+
+                <Route path="/stores" element={<StoresPage/>}/>
+
+                <Route path="/deliver" element={<DeliverPage/>}/>
+                
             </Routes>
         </Router>
     </>

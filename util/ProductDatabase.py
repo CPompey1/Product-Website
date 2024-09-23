@@ -42,6 +42,9 @@ class CollectionWr:
             records.append(i)
         return records
     
+    def get_most_recent_record(self):
+        return self.colHandle.find_one(sort=[('_id', pymongo.DESCENDING)])
+        
     def jsonify_records(self,records):
         return json.dumps(records)
     
@@ -78,5 +81,6 @@ class ProductDatabase:
             except pymongo.errors.ServerSelectionTimeoutError:
                 #start database 
                 print('Server not started')
+    
         
 

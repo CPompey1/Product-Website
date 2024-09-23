@@ -70,7 +70,29 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,200)
         self.assertEqual(response1.status_code,200)
 
-        response
+    def test_register_login_validate(self):
+        test_email = f"{str(random.randbytes(10))}@gmail.com"
+        test_user = f"{str(random.randbytes(10))}"
+        test_password = str(random.randbytes(10))
+        response = self.app.post("/register_account", data={
+            "Email": test_email,
+            "User": test_user,
+            "Password": test_password,
+            "Password_re": test_password
+        })
+
+        
+        response1 = self.app.post("/login_account", data={
+            "Email": test_email,
+            "Password": test_password
+        })
+
+        AccountsManager()._delete_user_by_email(test_email)
+
+        
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(response1.status_code,200)
+
 
 
 

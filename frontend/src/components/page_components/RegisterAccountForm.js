@@ -44,6 +44,7 @@ export default function RegisterAccountForm() {
   const [response, setResponse] = useState([{}])
   const [inputs,setInputs] = useState({})
   const [invalidPassword,setInValid] = useState(false)
+  const navigate = useNavigate()
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -51,6 +52,7 @@ export default function RegisterAccountForm() {
     console.log("in handle change")
     setInputs(values => ({...values, [name]: value}))
   }
+
   const handleSubmit = async  (event) => {
 
 
@@ -76,7 +78,7 @@ export default function RegisterAccountForm() {
   }
     fetchData()
    
-    window.location.replace('/')
+    navigate('/')
       
   };
 
@@ -99,27 +101,29 @@ export default function RegisterAccountForm() {
     )
   }
   return (
-    <form onSubmit={handleSubmit} className="formContainer">
-      <h2 className={'formLabel'}>Email</h2>
-      <FormInput name="Email" placeholder="janedoe@example.com" type="Email" value={inputs.Email} onChangeF={handleChange} required />
-      
-      <h2 className={'formLabel'}>User</h2>
-      <FormInput name="User" placeholder="" type="User" value={inputs.User} onChangeF={handleChange} required  />
+    <div>
+      <form onSubmit={handleSubmit} className="formContainer">
+        <h2 className={'formLabel'}>Email</h2>
+        <FormInput name="Email" placeholder="janedoe@example.com" type="Email" value={inputs.Email} onChangeF={handleChange} required />
+        
+        <h2 className={'formLabel'}>User</h2>
+        <FormInput name="User" placeholder="" type="User" value={inputs.User} onChangeF={handleChange} required  />
 
-      <h2 className={'formLabel'}>Password</h2>
-      <FormInput name="Password" placeholder="" type="Password" value={inputs.Password} onChangeF={handleChange} required />
-      
-      <h2 className={'formLabel'}>Retype Password</h2>
-      <FormInput name="Password_re" placeholder="" type="Password_re" value={inputs.Password_re} onChangeF={handleChange} required />
-      
-      {/* <button type="submit" className={'submitButton'} button/> */}
-      {/* <input type="submit" /> */}
-      <button className={'submitButton'} >
-        <a className="submitButtonText">Register</a>
-      </button>
-      {/* <BuilderComponent model='test-builder-page'></BuilderComponent> */}
-      {/* {renderMessage()} */}
-    </form>
+        <h2 className={'formLabel'}>Password</h2>
+        <FormInput name="Password" placeholder="" type="Password" value={inputs.Password} onChangeF={handleChange} required />
+        
+        <h2 className={'formLabel'}>Retype Password</h2>
+        <FormInput name="Password_re" placeholder="" type="Password_re" value={inputs.Password_re} onChangeF={handleChange} required />
+        
+        {/* <button type="submit" className={'submitButton'} button/> */}
+        {/* <input type="submit" /> */}
+        <button className={'submitButton'} >
+          <a className="submitButtonText">Register</a>
+        </button>
+        {/* <BuilderComponent model='test-builder-page'></BuilderComponent> */}
+        {/* {renderMessage()} */}
+      </form>
+    </div>
   );
 };
 

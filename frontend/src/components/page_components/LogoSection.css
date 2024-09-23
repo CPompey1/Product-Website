@@ -3,15 +3,14 @@
     flex-direction: column;
     position: relative;
     min-height: 0;
-    margin: 0 auto;
+    text-align: center;
+    margin: 1%
   }
 
   .full-width-image {
     aspect-ratio: 5.3;
     object-fit: cover;
-    object-position: center;
-    width: 100%;
-    margin-top: 20px;
+    margin-top: 1%;
     min-height: 20px;
     overflow: hidden;
   }

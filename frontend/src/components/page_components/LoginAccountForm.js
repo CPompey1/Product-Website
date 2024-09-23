@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import './RegisterLogin.css';
-import { BuilderComponent } from "@builder.io/react";
-import MainPage from "../Pages/MainPage";
+import { Navigate, useNavigate } from "react-router-dom";
 // import FormInput from './FormInput';
 
 const FormInput = ({ name, placeholder, type, required }) => {
@@ -26,7 +25,8 @@ export default function LoginAccountForm() {
   const [formState, setFormState] = useState('unsubmitted');
   const [response, setResponse] = useState([{}])
   const [inputs,setInputs] = useState({})
-  
+  const navigate = useNavigate()
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -51,7 +51,7 @@ export default function LoginAccountForm() {
       
     }
     fetchData()
-    window.open('/')
+    navigate('/')
 
     //Can check response here if needed
   }

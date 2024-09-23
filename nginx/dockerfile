@@ -1,4 +1,5 @@
-FROM nginx
+FROM nginx:1.27.1
+
 
 # Copy custom configuration file to the container
 COPY nginx_configuration.conf /etc/nginx/nginx.conf

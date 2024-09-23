@@ -4,7 +4,7 @@
     position: relative;
     border: 12px solid;
     width: 43%;
-    height: 301.3px;
+    height: 316.3px;
     max-width: 500px;
     border-radius: 16px;
     /* margin: 67px auto 6%; */
@@ -39,7 +39,7 @@
     border-radius: 12px;
     text-align: center;
     cursor: pointer;
-    margin: 20px auto 0;
+    margin-block: 11%;
     padding: 15px 25px;
   }
 

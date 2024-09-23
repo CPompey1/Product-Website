@@ -4,13 +4,16 @@ from util import Status, api_functions
 from util.Status import Status
 from util.AccountsManager import AccountsManager
 from util.appdata import *
+import os
 from util.globals import GlobalStrings
 app = Flask(__name__)
 
 
 
 @app.route("/<path:path>")
-def getPage(path):
+def getContent(path):
+    #this function might be tad overcomplicated 
+    
     # print(path)
     root = PROJDIR
 
@@ -18,13 +21,19 @@ def getPage(path):
     if path.__contains__(f"dynamic_assets/images/productimages"):
         resp = make_response(send_from_directory(root,path))
         api_functions.add_default_headers(resp)
+
+        if os.path.exists(os.path.join(root,path)):
+            resp.status = 200
         return resp
     
 
     if not path.__contains__("frontend/public"):
         root = 'frontend/public'
     
+    
     resp = make_response(send_from_directory(root,path))
+    if os.path.exists(os.path.join(root,path)):
+        resp.status = 200
     api_functions.add_default_headers(resp)
     return resp
 
@@ -72,11 +81,6 @@ def add_product():
     api_functions.add_default_headers(resp)
     resp.mimetype = 'application/json'
     
-    def foo():
-        while True:
-            pass
-
-    foo()
     return resp, 200
 
 @app.route('/register_account', methods=['POST'])
@@ -126,12 +130,21 @@ def login_account():
             response.set_cookie(GlobalStrings.AUTHTOKEN,token)
 
             #record logged in user
-            loggedInUsers.add_user(token)
+            loggedInUserTracker.add_user(token)
 
     return response 
     
+@app.route('/api/validate_token', methods=['GET'])
+def validate_token():
+    reqData = request.form.to_dict()
+    token = reqData['auth_token']
 
-
+    if loggedInUserTracker.user_valid():    
+        response = make_response('hello') #remove
+        response.status = 200
+    else:
+        response.status = 403
+    return response
     
 
 

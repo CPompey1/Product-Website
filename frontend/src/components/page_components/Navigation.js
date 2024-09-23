@@ -11,22 +11,29 @@ function Navigation () {
     const clickSell = () => {
         navigate('/add_product');
       };
+    
+    const clickCategories = () => {
+      navigate('/category_page')
+    };
+
+    const clickStores = () => {
+      navigate('/stores')
+    }
+
+    const clickDeliver = () => {
+      navigate('/deliver')
+    }
     return (
       <>
         <section className="button-section">
           <div className="button-group">
-            {/* {[1, 2, 3].map((index) => (
-              <div key={index} className="button-column">
-                <Button openLinkInNewTab={false}>Click me!</Button>
-              </div>
-            ))} */}
             
               <div className="button-column">
-                <Button openLinkInNewTab={false}>Categories</Button>
+                <Button action={clickCategories} openLinkInNewTab={false}>Categories</Button>
               </div>
       
               <div  className="button-column">
-                <Button openLinkInNewTab={false}>Stores</Button>
+                <Button action={clickStores} openLinkInNewTab={false}>Stores</Button>
               </div>
       
               <div className="button-column">
@@ -34,7 +41,7 @@ function Navigation () {
               </div>
 
               <div  className="button-column">
-                <Button openLinkInNewTab={false}>Deliver</Button>
+                <Button action={clickDeliver} openLinkInNewTab={false}>Deliver</Button>
               </div>
               
           </div>

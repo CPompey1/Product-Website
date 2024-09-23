@@ -5,6 +5,7 @@ import bcrypt
 import html
 import jwt
 
+
 from util.globals import JWT_SALT
 from util.appdata import PWD_SALT
 

@@ -21,29 +21,31 @@ export default function Header() {
     }
 
   }
-  if (userLoggedIn) {
+  // if (userLoggedIn) {
 
 
-    return (
-      <>      
-        <header className="main-header">
-            <section className="header-content">
+  //   return (
+  //     <>      
+  //       <header className="main-header">
+  //           <section className="header-content">
           
-              <AvatarIcon imgSrc={profileImg}/>
-            </section>
+  //             <AvatarIcon imgSrc={profileImg}/>
+  //           </section>
             
-        </header>
-    </>    
-    )
-  } 
+  //       </header>
+  //   </>    
+  //   )
+  // } 
   return (
     <>
       
       <header className="main-header">
           <section className="header-content">
-            <LogRegHeaderLink/>
+
+            {userLoggedIn ? (<></>):(<LogRegHeaderLink/>)}
             
-            <AvatarIcon/>
+            {userLoggedIn ? (<AvatarIcon/>):(<></>)}
+            
           </section>
           
       </header>
