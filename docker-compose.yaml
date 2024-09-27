@@ -28,8 +28,19 @@ services:
   
   nginx:
     build: ./nginx
+    depends_on:
+      - client_com
+      - frontend
+      - backend
     ports:
       - "3001:3001"
+    networks:
+      - mynetwork
+  
+  client_com:
+    build: ./ClientCommunications
+    ports:
+      - "3002:3002"
     networks:
       - mynetwork
 

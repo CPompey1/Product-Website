@@ -69,3 +69,7 @@ fi
 # past commands the $PATH changes we made may not be respected
 hash -r 2> /dev/null
 export MONGO_HOST=localhost
+export BACKEND_HOST=localhost
+export CLIENT_COM_HOST=localhost
+export GO_SERVER_HOST=localhost:3002
+export FRONTEND_ORIGIN=http://localhost:3000

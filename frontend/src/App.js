@@ -25,6 +25,7 @@ import MainPage from './components/Pages/MainPage';
 import CategoryPage from './components/Pages/CategoryPage';
 import StoresPage from './components/Pages/StoresPage';
 import DeliverPage from './components/Pages/DeliverPage';
+import TestWsPage from './components/Pages/TestWsPage';
 // const Header = () => (
 //   <header className="main-header">
 //         <section className="header-content" />
@@ -60,6 +61,8 @@ function App() {
                 <Route path="/stores" element={<StoresPage/>}/>
 
                 <Route path="/deliver" element={<DeliverPage/>}/>
+
+                <Route path="/test_socket" element={<TestWsPage/>}/>
                 
             </Routes>
         </Router>

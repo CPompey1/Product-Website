@@ -6,7 +6,7 @@ sys.path.append(".")
 from util.Status import Status
 from util.AccountsManager import AccountsManager
 
-class TestMyClass(unittest.TestCase):
+class TestAccountsManager(unittest.TestCase):
     def test_register(self):
         test_username = str(random.randbytes(10))
         test_email = f"{str(random.randbytes(10))}@gmail.com"
