@@ -6,6 +6,7 @@
 # python3 app.py
 #!/bin/bash
 
+source .venv/bin/activate
 sudo systemctl start mongod.service
 # Start process 1 in the background
 python3 app.py &
