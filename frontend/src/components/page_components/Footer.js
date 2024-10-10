@@ -19,39 +19,12 @@ const socialIcons = [
   return (
     <>
         {/* <BuilderComponent model='test-builder-page'/> */}
-        <footer className={'footer'}>
+        <div className={'footer'}>
             <div className={'logoContainer'}>
             <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2Fc18f62248cbb4d0c8ca7c9c848550237" alt="Company logo" className={'logo'} />
-            {/* <div className={socialIcons}>
-                {socialIcons.map((icon, index) => (
-                <SocialIcon key={index} src={icon.src} alt={icon.alt} />
-                ))}
-            </div> */}
             </div>
             
-            {/* <nav className='navColumn'>
-                <h2 className='visually-hidden'>About Us</h2>
-                <ul className='navList'>
-                    <li className='navItem'>
-                        <a href="#" aria-label='About Us'>About Us</a>
-                    </li>
-                    <li className='navItem'>
-                        <a href="#" aria-label='Contact Us'>Contact Us</a>
-                    </li>
-                </ul>
-            </nav>
-
-            <nav className='navColumn'>
-                <h2 className='visually-hidden'>Help</h2>
-                <ul className='navList'>
-                    <li className='navItem'>
-                        <a href="#" aria-label='About Us'>FAQs</a>
-                    </li>
-                    <li className='navItem'>
-                        <a href="#" aria-label='Contact Us'>Contact Us</a>
-                    </li>
-                </ul>
-            </nav> */}
+        
             {navItems.map((column, index) => (
             <nav key={index} className={'navColumn'}>
                 <h2 className="visually-hidden">{column.title}</h2>
@@ -64,7 +37,7 @@ const socialIcons = [
                 </ul>
             </nav>
             ))}
-        </footer>
+        </div>
     </>
   );
 };

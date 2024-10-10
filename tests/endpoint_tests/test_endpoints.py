@@ -1,6 +1,10 @@
+import json
 import pytest
 import sys
+
 sys.path.append(".")
+from util.globals import CATEGORIES
+
 import unittest
 from app import app  # Import the Flask app from the app module
 from pathlib import Path
@@ -30,6 +34,8 @@ class FlaskTestCase(unittest.TestCase):
             "Title": randomTitle,
             "Description": "description added by flask test",
             "Image": "/home/linus/workspace/Product-Website/tests/resources/testFile",
+        
+        
         })
 
 
@@ -47,6 +53,9 @@ class FlaskTestCase(unittest.TestCase):
         assert str(db_res["_id"]) in [str(product['_id'])  for product in product_list_res]
 
         if db_res: print("res item:\n\t" + str(db_res))
+        
+        #assert empty values are none
+        self.assertIsNone(db_res.get('Category'))
 
     def test_register_login(self):
         test_email = f"{str(random.randbytes(10))}@gmail.com"
@@ -93,7 +102,16 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,200)
         self.assertEqual(response1.status_code,200)
 
+    def get_category(self):
+        REAL_CATEGORIES =  json.dumps(
+            {
+            "categories": CATEGORIES.split(',')
+            }
+        )
+        response = self.app.get("/api/get_categories")
+        self.assertEqual(response.status_code,200)
 
+        self.assertEqual(response.get_data(),REAL_CATEGORIES)
 
 
 

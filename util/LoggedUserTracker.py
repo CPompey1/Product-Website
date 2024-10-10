@@ -21,6 +21,7 @@ class LoggedUserTracker:
     TIME_CREATED_STRING = "time_created"
     EXPIRATION_TIME_STRING = "expiration"
     AUTH_TOKEN_STRING = "auth_token"
+
     DB_LOG_RECORD_STRING = "map"
 
     TIME_REPR_STRING = "%Y-%m-%d %H:%M:%S"
@@ -62,8 +63,8 @@ class LoggedUserTracker:
         expiration = (datetime.now() + self.EXPIRATION_LENGTH)
         self._logged_in_user_map[token] = {
             self.AUTH_TOKEN_STRING: token,
-            self.TIME_CREATED_STRING: time_created,
-            self.EXPIRATION_TIME_STRING: expiration
+            self.TIME_CREATED_STRING: time_created.strftime(LoggedUserTracker.TIME_REPR_STRING),
+            self.EXPIRATION_TIME_STRING: expiration.strftime(LoggedUserTracker.TIME_REPR_STRING)
         }
 
     
@@ -71,8 +72,8 @@ class LoggedUserTracker:
 
         if token in self._logged_in_user_map.keys():
 
-            #Check if token expired
-            if datetime.now() > self._logged_in_user_map[self.EXPIRATION_TIME_STRING]:
+            #Check if token expired (now > token.expiration)
+            if datetime.now() > datetime.strptime(self._logged_in_user_map[token][self.EXPIRATION_TIME_STRING],LoggedUserTracker.TIME_REPR_STRING):
                 self._remove_user(token)
                 return False
             
@@ -82,6 +83,7 @@ class LoggedUserTracker:
 
     def _remove_user(self,token: str) -> None:
         self._logged_in_user_map.pop(token)
+        self._try_backup_tracker()
 
     def _try_backup_tracker(self) -> None:
 
@@ -109,4 +111,5 @@ class LoggedUserTracker:
             # if now - mostRecentMapTime > self._last_cleaned  
 
             self._logged_in_user_map = mostRecentMap[self.DB_LOG_RECORD_STRING]
+        
         

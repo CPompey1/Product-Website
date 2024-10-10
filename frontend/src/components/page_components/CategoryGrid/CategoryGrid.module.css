@@ -80,6 +80,8 @@
   color: #fff;
   font-family: "Arial Black", sans-serif;
   font-size: 37px;
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: thin;
 }
 
 .visually-hidden {

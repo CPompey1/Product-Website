@@ -38,6 +38,9 @@ function AddProduct() {
           formData.append("Title",inputs.Title)
           formData.append("Description",inputs.Description)
           formData.append('Image',imginputs.Image)
+          formData.append("Category",inputs.Category)
+          formData.append("Store",inputs.Store)
+          formData.append("Cost","$" + inputs.Cost) 
           
           const fetchResult = await fetch("/add_product", {
             method: "POST",
@@ -64,6 +67,39 @@ function AddProduct() {
             type="text" 
             name="Title" 
             value={inputs.Title || ""} 
+            onChange={handleChange}
+          />
+          </label>
+        </div>
+
+        <div>
+          <label>Category:
+          <input
+            type="Category" 
+            name="Category" 
+            value={inputs.Category || ""} 
+            onChange={handleChange}
+          />
+          </label>
+        </div>
+
+        <div>
+          <label>Store:
+          <input
+            type="Store" 
+            name="Store" 
+            value={inputs.Store || ""} 
+            onChange={handleChange}
+          />
+          </label>
+        </div>
+        
+        <div>
+          <label>Cost:
+          <input
+            type="Cost" 
+            name="Cost" 
+            value={inputs.Cost || ""} 
             onChange={handleChange}
           />
           </label>

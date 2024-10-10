@@ -26,44 +26,50 @@ import CategoryPage from './components/Pages/CategoryPage';
 import StoresPage from './components/Pages/StoresPage';
 import DeliverPage from './components/Pages/DeliverPage';
 import TestWsPage from './components/Pages/TestWsPage';
-// const Header = () => (
-//   <header className="main-header">
-//         <section className="header-content" />
-//   </header>
-// );
+import CategoryProductsPage from './components/Pages/CategoryProductsPage';
+// import { routes } from './util/routes';
+
 
 function App() {
+  // console.log("routes: ", routes)
+  
+    {/* I have no idea what the fuck is going on here and it shuold be fixed */}
+    {/* this should be path to the form, not the endpoint. Yet it works. */}
+    
+  const routes = [
+    {"path":"/","element":<MainPage />},
 
+    {"path":"/add_product","element":<AddProduct />},
 
+    {"path":"/sellers_product","element":<SellersProducts />},
+
+    {"path":"/register","element":<RegisterAccountPage />},
+
+    {"path":"/login_account","element":<LoginAccountPage />},
+
+    {"path":"/category_page","element":<CategoryPage />},
+
+    {"path":"/stores","element":<StoresPage />},
+
+    {"path":"/deliver","element":<DeliverPage />},
+    
+    {"path":"/test_socket","element":<TestWsPage />},
+
+    {"path":"/category/:category", "element":<CategoryProductsPage/>}
+    
+    
+]
   return (
     <>
         {/* This is the alias of BrowserRouter i.e. Router */}
         <Router>
             <Routes>
                
-                <Route path="/" element={<MainPage />}/>
-
-                <Route path="/add_product" element={<AddProduct />} />
-
-
-                <Route path="/sellers_product" element={<SellersProducts/>}/>
-
-                {/* <Route path="*" element={<Navigate to="/" />}/> */}
-
-                <Route path="/register" element={<RegisterAccountPage/>}/>
-
-                {/* I have no idea what the fuck is going on here and it shuold be fixed */}
-                {/* this should be path to the form, not the endpoint. Yet it works. */}
-                <Route path="/login_account" element={<LoginAccountPage/>}/>
-
-                <Route path="/category_page" element={<CategoryPage/>}/>
-
-                <Route path="/stores" element={<StoresPage/>}/>
-
-                <Route path="/deliver" element={<DeliverPage/>}/>
-
-                <Route path="/test_socket" element={<TestWsPage/>}/>
-                
+               {routes.map(route => ( 
+                <Route path={route.path} element={route.element}/> 
+               ))} 
+               
+    
             </Routes>
         </Router>
     </>

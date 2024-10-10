@@ -1,8 +1,9 @@
 
-export default function validateUser  ()  {
+export default async function validateUser ()  {
     var valid = false
-    return valid
     const token = getCookie('auth_token')
+
+    
     var response
     const checkUser = async () => {
         let form = new FormData()
@@ -12,11 +13,15 @@ export default function validateUser  ()  {
             body: form
         })
 
-        if (response.ok){
+        if (await response.ok){
             valid = true
         }
         
     }
+
+    checkUser()
+    return valid
+
 }
 
 function getCookie(cname) {

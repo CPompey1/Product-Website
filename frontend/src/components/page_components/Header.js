@@ -8,19 +8,27 @@ import { useState } from 'react'
 export default function Header() {
 
   const [profileImg,setProfileImg] = useState('')
-  var userLoggedIn = validateUser()
+  var fetchResult
+  var userLoggedIn
 
   const fetchData = async () => {
-    const fetchResult = await fetch ("/get_profile_pic", {
-      method: 'POST'
-    })
+     userLoggedIn = await validateUser()
+
+    if (userLoggedIn) {
+      fetchResult = await fetch ("/get_profile_pic", {
+        method: 'POST'
+      })
+
+      if (fetchResult.ok){
+        setProfileImg(await fetchResult.json()['img'])
+      }
+ 
+    }  
+
     
-
-    if (fetchResult.ok){
-       setProfileImg(await fetchResult.json()['img'])
-    }
-
   }
+  fetchData()
+  
   // if (userLoggedIn) {
 
 
@@ -41,10 +49,10 @@ export default function Header() {
       
       <header className="main-header">
           <section className="header-content">
-
-            {userLoggedIn ? (<></>):(<LogRegHeaderLink/>)}
             
-            {userLoggedIn ? (<AvatarIcon/>):(<></>)}
+            {userLoggedIn ? (<div/>):(<LogRegHeaderLink/>)}
+            
+            {userLoggedIn ? (<a href='/'> <AvatarIcon/> </a>):(<div/>)}
             
           </section>
           

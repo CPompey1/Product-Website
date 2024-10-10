@@ -6,6 +6,7 @@ import json
 class CollectionWr:
     def __init__(self,db,collectionName):
         self.colHandle: pymongo.collection.Collection = db[collectionName] 
+    
     def insert_record(self,record: dict):
         try:
             # print(record)
@@ -15,8 +16,18 @@ class CollectionWr:
             return
         return
     
+    def insert_records(self, records: list):
+        try:
+            self.colHandle.insert_many(records)
+        except:
+            print("error adding records")
+            return
+        
     def find_one_record(self, record: dict)-> dict:     
         return self.colHandle.find_one(record)
+    
+    def find_records_by_field(self,field:dict) -> list:
+        return list(self.colHandle.find(field))
     
     def find_records(self,record: dict) -> list:
         return list(self.colHandle.find(record))
@@ -27,7 +38,9 @@ class CollectionWr:
         except:
             print("error updating record")
             return
+        
     
+        
     def delete_record_by_match(self, record_to_delete: dict):
         try:
             self.colHandle.delete_one(record_to_delete)
@@ -35,7 +48,7 @@ class CollectionWr:
             print("error deleting record")
             return
     
-    def get_all_records(self):
+    def get_all_records(self) -> list:
         records = []
         cursor = self.colHandle.find({"_id":{"$ne":0}})
         for i in cursor:
@@ -81,6 +94,10 @@ class ProductDatabase:
             except pymongo.errors.ServerSelectionTimeoutError:
                 #start database 
                 print('Server not started')
+    
+    def _clear_all_collections(self) -> None:
+        for collection in self.collections.values():
+            collection.colHandle.delete_many({})
     
         
 

@@ -1,11 +1,11 @@
-from flask import Flask,jsonify,request
+from flask import Flask,jsonify,request, Blueprint
 from flask import *
 from util import Status, api_functions
 from util.Status import Status
 from util.AccountsManager import AccountsManager
 from util.appdata import *
 import os
-from util.globals import GlobalStrings
+from util.globals import CATEGORIES, GlobalStrings
 app = Flask(__name__)
 
 
@@ -18,13 +18,14 @@ def getContent(path):
     root = PROJDIR
 
     # Clean request
-    if path.__contains__(f"dynamic_assets/images/productimages"):
+    if path.__contains__(f"dynamic_assets/images"):
         resp = make_response(send_from_directory(root,path))
         api_functions.add_default_headers(resp)
 
         if os.path.exists(os.path.join(root,path)):
             resp.status = 200
         return resp
+    
     
 
     if not path.__contains__("frontend/public"):
@@ -134,22 +135,45 @@ def login_account():
 
     return response 
     
-@app.route('/api/validate_token', methods=['GET'])
+api = Blueprint('api',__name__,url_prefix='/api')
+@api.route('/validate_token', methods=['POST'])
 def validate_token():
     reqData = request.form.to_dict()
     token = reqData['auth_token']
+    response = make_response() 
 
-    if loggedInUserTracker.user_valid():    
-        response = make_response('hello') #remove
+    if loggedInUserTracker.user_valid(token):    
         response.status = 200
     else:
         response.status = 403
     return response
     
 
+@api.route('/categories',methods=['GET'])
+def get_categories():
+    
+    categories = api_functions.get_all_categories()
+    
+    
+    
+    resp = jsonify(
+        categories
+    )
+    
+    resp.status = 200
+    
+    return resp
 
+
+@api.route('/category/<category>',methods=['GET'])
+def get_products_by_category(category):
+    products = api_functions.get_products_by_category(category)
+    resp = jsonify(products)
+    resp.status = 200
+    return resp
     
     
+app.register_blueprint(api)
 
         
     
