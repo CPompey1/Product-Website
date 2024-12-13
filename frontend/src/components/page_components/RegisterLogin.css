@@ -10,6 +10,7 @@
     margin-top: 10%;
     margin-bottom: 10%;
     align-items: center;
+    height: 230px;
   }
   
   .formLabel {
@@ -20,7 +21,6 @@
   }
   
   .formInput {
-    width: 224px;
     margin: 10px auto 0;
     border: 2px solid #000;
   }

@@ -9,7 +9,6 @@ import ProductList from '../page_components/ProductList'
 export default function MainPage() {
     var a = validateUser()
     return (
-
         <div>
             <Header/>
             <LogoSection
@@ -17,10 +16,9 @@ export default function MainPage() {
                 alt="Logo"
             />
             <Navigation />
-            
-            
-            <ProductList/>
-
+            <ProductList
+                endPoint="/api/product_list"
+            />
             <Footer/>
             {/* <BuilderComponent model='test-builder-page'></BuilderComponent> */}
         </div>

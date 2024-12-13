@@ -1,0 +1,194 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100px;
+  padding: 20px;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100px;
+  padding: 20px;
+  width: 100%;
+  align-self: stretch;
+  flex-grow: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.productWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 20px;
+}
+
+.checkoutContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 20px;
+  height: auto;
+  padding-bottom: 30px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 20px;
+  width: auto;
+}
+
+.twoColumnLayout {
+  gap: 20px;
+  display: flex;
+}
+
+.priceCalculator {
+  position: relative;
+  padding-bottom: 30px;
+  flex-direction: column;
+  display: flex;
+  height: auto;
+  margin: auto;
+}
+
+.calculatorWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
+  margin: 20px auto 0;
+}
+
+.calculatorGrid {
+  gap: 20px;
+  display: flex;
+}
+
+.quantityColumn {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 33%;
+  margin-left: 0;
+}
+
+.quantityInput {
+  height: auto;
+  border-radius: 6px;
+  flex-grow: 1;
+  margin: 0% auto 56%;
+  border: 5px solid #000;
+}
+
+.multiplyColumn {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 33%;
+  margin-left: 20px;
+}
+
+.multiplySymbol {
+  position: relative;
+  margin-top: 20px;
+  height: auto;
+  align-self: center;
+  font-size: 55px;
+}
+
+.priceColumn {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 33%;
+  margin-left: 20px;
+}
+
+.priceDisplay {
+  position: relative;
+  height: auto;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  font: 60px Impact, sans-serif;
+}
+
+.formColumn {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 50%;
+  margin-left: 20px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: auto;
+  padding-bottom: 30px;
+  border: 5px solid;
+  border-radius: 6px;
+  margin: 0px 0% 0 20%;
+}
+
+.checkoutForm {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 15px;
+  border: none;
+  margin: auto 10%;
+}
+
+.formField {
+  margin-top: 12px;
+}
+
+.formInput {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.messageContainer {
+  margin-top: 10px;
+}
+
+
+.submitButton {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 20px;
+  appearance: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  padding: 15px 25px;
+  margin: 0% 20% 0% 20%;
+}
+
+@media (max-width: 640px) {
+  .twoColumnLayout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .formColumn,
+  .quantityColumn {
+    width: 100%;
+    margin-left: 0;
+  }
+}

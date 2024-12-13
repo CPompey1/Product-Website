@@ -34,11 +34,8 @@ const categories1 = [
 function CategoryGrid() {
   const [categories, setCategories] = useState([]);
 
-
-
-
   const fetchData = async () => {
-    const fetchResult = await fetch("/api/categories");
+    const fetchResult = await fetch("/api/get_categories");
     var cleanResult = []
     if (fetchResult.ok) {
       
@@ -57,10 +54,6 @@ function CategoryGrid() {
   }, []);
 
 
-
-
-  
-  
   return (
     <main className={styles.container}>
       <section className={styles.content}>
@@ -71,10 +64,10 @@ function CategoryGrid() {
             <div className={styles.grid}>
               {row.map((category) => (
                 <CategoryItem key={category._id} 
-                              name={category.Title} 
-                              link ={category.Redirect} 
+                              name={category.title} 
+                              link ={category.redirect} 
                               // https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F6032d2b5327e4c0687019aafbe79d0c2
-                              imgLink={category.ImgLink} 
+                              imgLink={category.imgLink} 
                               isStore={false}/>
               ))}
             </div>

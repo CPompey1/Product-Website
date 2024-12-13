@@ -3,34 +3,39 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './ProductList.css'
-import backendUrl from '../../globals';
-const ProductSection = ({ id,imageSrc, imageAlt, text }) => (
-    <div>
-      <section className="content-section">
-        <div className="content-wrapper">
-          <div className="content-columns">
-            <div className="image-column">
+import { Builder } from '@builder.io/react';
+const ProductSection = ({ id, imageSrc, imageAlt, text, link }) => (
+  <div>
+    <section className="content-section">
+      <div className="content-wrapper">
+        <div className="content-columns">
+          <div className="image-column">
+            <a href={link} >
               <img loading="lazy" src={imageSrc} alt={imageAlt} className="content-image" />
-            </div>
-            <div className="text-column">
-              <div className="text-wrapper">
-                <p>{text}</p>
-              </div>
+            </a>
+          </div>
+          <div className="text-column">
+            <div className="text-wrapper">
+              <p>{text}</p>
             </div>
           </div>
         </div>
-      </section>
       </div>
-  );
+    </section>
+  </div>
+);
   
-  function ProductList() {
+  function ProductList({endPoint,category,store}) {
     const [data,setData] = useState([])
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    // const [listResultF,setListResult] = useState([])
     useEffect(() => {
       const fetchData = async () => {
-        const fetchResult = await fetch("/product_list")
+        const fetchResult = await fetch(endPoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({category:category,store:store})
+        })
       
         if (fetchResult.ok){
           const jsonResult = await fetchResult.json()
@@ -48,14 +53,17 @@ const ProductSection = ({ id,imageSrc, imageAlt, text }) => (
       <div>
         {data.map(product => (
           <ProductSection
-            key={product.id}
+            key={product._id}
             imageSrc={product.imageSrc}
             imageAlt = {product.imageAlt}
             text={product.text}
             title={product.title}
+            link={`/product/${product._id}`}
           />
         ))}
       </div>
     )
   }
+
   export default ProductList;
+  export {ProductSection}

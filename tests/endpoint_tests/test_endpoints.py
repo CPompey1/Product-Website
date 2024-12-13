@@ -102,7 +102,7 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,200)
         self.assertEqual(response1.status_code,200)
 
-    def get_category(self):
+    def test_get_category(self):
         REAL_CATEGORIES =  json.dumps(
             {
             "categories": CATEGORIES.split(',')

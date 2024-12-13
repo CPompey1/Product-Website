@@ -10,8 +10,8 @@ import {
 import './App.css';
 
 import AddProduct from './components/page_components/AddProduct.js';
-import ProductList from './components/page_components/ProductList.js'
-import Navigation from './components/page_components/Navigation.js'
+import ProductList, { ProductSection } from './components/page_components/ProductList.js'
+import Navigation, { Button } from './components/page_components/Navigation.js'
 import SellersProducts from './components/page_components/SellersProducts';
 import LogoSection from './components/page_components/LogoSection';
 import Footer from './components/page_components/Footer';
@@ -27,6 +27,8 @@ import StoresPage from './components/Pages/StoresPage';
 import DeliverPage from './components/Pages/DeliverPage';
 import TestWsPage from './components/Pages/TestWsPage';
 import CategoryProductsPage from './components/Pages/CategoryProductsPage';
+import ProductPage from './components/Pages/ProductPage';
+import StorePage from './components/Pages/StorePage';
 // import { routes } from './util/routes';
 
 
@@ -55,8 +57,13 @@ function App() {
     
     {"path":"/test_socket","element":<TestWsPage />},
 
-    {"path":"/category/:category", "element":<CategoryProductsPage/>}
-    
+    {"path":"/category/:category", "element":<CategoryProductsPage/>},
+
+    {"path": "/product/:productId","element":<ProductPage/> },
+
+    {"path": "/stores/:storeId", "element": <StorePage/> }
+
+
     
 ]
   return (
@@ -69,7 +76,6 @@ function App() {
                 <Route path={route.path} element={route.element}/> 
                ))} 
                
-    
             </Routes>
         </Router>
     </>
@@ -91,5 +97,11 @@ Builder.registerComponent(Navigation,{ name: 'Navigation'})
 
 Builder.registerComponent(ProductList,{name:'ProductList',inputs: [{}]})
 
-Builder.registerComponent(Footer,{name: 'Footer',inputs: [{}]})
+//Register sample ProductSection component with sample inputs
+Builder.registerComponent(ProductSection, {name: 'ProductSection',inputs: [{}]})
+
+Builder.registerComponent(Button, {name: 'Button',inputs: [{}]})  
+
+
+
 export default App;

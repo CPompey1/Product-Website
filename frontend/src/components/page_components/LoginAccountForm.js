@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './RegisterLogin.css';
 import { Navigate, useNavigate } from "react-router-dom";
+import { Button } from "./Navigation";
 // import FormInput from './FormInput';
 
 const FormInput = ({ name, placeholder, type, required }) => {
@@ -65,9 +66,10 @@ export default function LoginAccountForm() {
         <h2 className={'formLabel'}>Password</h2>
         <FormInput name="Password" placeholder="" type="Password" value={inputs.password} onChangeF={handleChange} required />
         
-        <button className={'submitButton'}>
+        <Button action={handleSubmit1} openLinkInNewTab={false}>Login</Button>
+        {/* <button className={'submitButton'}>
           <a className="submitButtonText">Login</a>
-        </button>
+        </button> */}
         
         {/* {renderMessage()} */}
       </form>

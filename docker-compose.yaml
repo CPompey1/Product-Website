@@ -21,6 +21,11 @@ services:
 
   mongo:
     image: mongo:4.2.5  
+    volumes:
+      # Mount the init folder containing the data and script
+      - ./mongo/init:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_DATABASE: ProductDb
     ports:
       - "27017:27017"
     networks:
