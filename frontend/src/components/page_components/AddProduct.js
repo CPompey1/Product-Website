@@ -35,17 +35,18 @@ function AddProduct() {
         event.preventDefault();
         const fetchData = async () => {
           const formData = new FormData()
-          formData.append("Title",inputs.Title)
-          formData.append("Description",inputs.Description)
-          formData.append('Image',imginputs.Image)
-          formData.append("Category",inputs.Category)
-          formData.append("Store",inputs.Store)
-          formData.append("Cost","$" + inputs.Cost) 
+          formData.append("title",inputs.Title)
+          formData.append("description",inputs.Description)
+          formData.append('image',imginputs.Image)
+          formData.append("category",inputs.Category)
+          formData.append("store",inputs.Store)
+          formData.append("cost","$" + inputs.Cost) 
           
           const fetchResult = await fetch("/add_product", {
             method: "POST",
             body: formData,
           });
+
           const jsonResult = await fetchResult.json()
           setResponse(jsonResult)
           console.log(jsonResult)

@@ -113,7 +113,7 @@ export default function RegisterAccountForm() {
         <FormInput name="Password" placeholder="" type="Password" value={inputs.Password} onChangeF={handleChange} required />
         
         <h2 className={'formLabel'}>Retype Password</h2>
-        <FormInput name="Password_re" placeholder="" type="Password_re" value={inputs.Password_re} onChangeF={handleChange} required />
+        <FormInput name="Password_re" placeholder="" type="Password" value={inputs.Password_re} onChangeF={handleChange} required />
         
         {/* <button type="submit" className={'submitButton'} button/> */}
         {/* <input type="submit" /> */}

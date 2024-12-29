@@ -3,6 +3,8 @@ import pymongo
 import pymongo.collection
 from util import globals
 import json
+from bson.objectid import ObjectId
+
 class CollectionWr:
     def __init__(self,db,collectionName):
         self.colHandle: pymongo.collection.Collection = db[collectionName] 
@@ -23,8 +25,9 @@ class CollectionWr:
             print("error adding records")
             return
         
-    def find_one_record(self, record: dict)-> dict:     
-        return self.colHandle.find_one(record)
+    def find_one_record(self, record: dict)-> dict:    
+        out =  self.colHandle.find_one(record)
+        return out
     
     def find_records_by_field(self,field:dict) -> list:
         return list(self.colHandle.find(field))
@@ -55,14 +58,17 @@ class CollectionWr:
             records.append(i)
         return records
     
-    def get_most_recent_record(self):
+    def get_most_recent_record(self) -> dict:
         return self.colHandle.find_one(sort=[('_id', pymongo.DESCENDING)])
         
     def jsonify_records(self,records):
         return json.dumps(records)
     
     def delete_record_by_id(self,id: str) -> None:
-        self.colHandle.delete_one({"_id":id})
+        self.colHandle.delete_one({"_id":ObjectId(id)})
+    
+    def find_record_by_id(self,id: str) -> dict:
+        return list([self.colHandle.find_one({"_id":ObjectId(id)})])
     
 class ProductDatabase:
     def __init__(self):

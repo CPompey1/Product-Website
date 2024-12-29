@@ -8,7 +8,7 @@
   }
 
   .full-width-image {
-    max-width: 500px;
+    max-width: 300px;
     object-fit: cover;
     margin-top: 1%;
     min-height: 20px;
