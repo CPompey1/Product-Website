@@ -38,8 +38,8 @@ const [storeData, setStoreData] = useState({})
 
         <Navigation/>
         {/* Change in future to say products, store name will be given by logo */}
-        <SubTitle title={storeId}/>
-        <ProductList endPoint="/api/product_list" store={storeId}/>
+        <SubTitle title={storeData.title}/>
+        <ProductList endPoint="/api/product_list" store={storeData.title}/>
         <Footer/>
 
 

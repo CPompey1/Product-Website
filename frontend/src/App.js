@@ -29,11 +29,9 @@ import TestWsPage from './components/Pages/TestWsPage';
 import CategoryProductsPage from './components/Pages/CategoryProductsPage';
 import ProductPage from './components/Pages/ProductPage';
 import StorePage from './components/Pages/StorePage';
-// import { routes } from './util/routes';
 
 
 function App() {
-  // console.log("routes: ", routes)
   
     {/* I have no idea what the fuck is going on here and it shuold be fixed */}
     {/* this should be path to the form, not the endpoint. Yet it works. */}
