@@ -5,6 +5,7 @@ frontend/package-lock.json
 __pycache__/
 utilities/__pycache__/
 .vscode/
+util/__pycache__/
 
 # React Component Preview
 previewConfig.json
