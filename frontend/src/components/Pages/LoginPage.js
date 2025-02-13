@@ -3,7 +3,7 @@ import React from 'react'
 import Header from '../page_components/Header'
 import LogoSection from '../page_components/LogoSection'
 import Navigation from '../page_components/Navigation'
-import LoginAccountForm from '../page_components/LoginAccountForm'
+import LoginAccountForm from '../page_components/RegisterLogin/LoginAccountForm'
 import Footer from '../page_components/Footer'
 export default function LoginAccountPage() {
   return (

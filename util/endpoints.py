@@ -2,40 +2,21 @@ from bson import ObjectId
 from flask import Flask,jsonify,request, Blueprint
 from flask import *
 from util import Status, api_functions
+from util.ContentManager.ContentManagerLocal import ContentManagerLocal
 from util.Status import Status
 from util.AccountsManager import AccountsManager
 from util.appdata import *
 import os
 from util.globals import CATEGORIES, GlobalStrings
+
 app = Flask(__name__)
 
 
-
 @app.route("/<path:path>")
-def getContent(path):
-    #this function might be tad overcomplicated 
+def getContent(path: str):
+    #this function might be tad overcomplicated but it's to prevent directory traversal attacks
     
-    # print(path)
-    root = PROJDIR
-
-    # Clean request
-    if path.__contains__(f"dynamic_assets/images"):
-        resp = make_response(send_from_directory(root,path))
-        api_functions.add_default_headers(resp)
-
-        if os.path.exists(os.path.join(root,path)):
-            resp.status = 200
-        return resp
-    
-    
-
-    if not path.__contains__("frontend/public"):
-        root = 'frontend/public'
-    
-    
-    resp = make_response(send_from_directory(root,path))
-    if os.path.exists(os.path.join(root,path)):
-        resp.status = 200
+    resp = ContentManagerLocal().get_file(path)
     api_functions.add_default_headers(resp)
     return resp
 
@@ -44,17 +25,13 @@ def product_list():
     data = api_functions.get_all_products()
     return jsonify(data)
 
-@app.route('/products')
-def products():
-    data = {'key1': 'value1', 'key2': 'value2'}
-    return jsonify(data)
 
 @app.route('/add_product',methods=['POST'])
 def add_product():
     # print("in add product")
     # print((request.get_json()))
 
-    forminput = request.form.to_dict()
+    requestInput = request.get_json()
     # print(forminput)
 
     # print("files: " +  str(request.files))
@@ -71,13 +48,13 @@ def add_product():
                 file_to_write.close()
 
             #update form input fields
-            forminput["Image"] = uploads[filename].filename
+            requestInput["Image"] = uploads[filename].filename
     
 
-    resp = make_response(jsonify(forminput))
+    resp = make_response(jsonify(requestInput))
 
     #add to database
-    api_functions.insert_new_product(forminput)
+    api_functions.insert_new_product(requestInput)
     
     #set some headers
     api_functions.add_default_headers(resp)
@@ -88,16 +65,16 @@ def add_product():
 @app.route('/register_account', methods=['POST'])
 def register_account():
     res = "-1"
-    formInput = request.form.to_dict()
+    # formInput = request.form.to_dict()
 
     accountsManager = AccountsManager()
-
-    res = accountsManager.register_user(formInput['User'],formInput['Email'],formInput["Password"])
+    
+    request_dict = request.get_json()
+    res = accountsManager.register_user(request_dict['user'],request_dict['email'],request_dict["password"])
 
 
     #Replace with exception handling
     if res == Status.REGISTER_SUCCESS: 
-
         return api_functions.default_success_response()
 
     else:
@@ -111,13 +88,15 @@ def register_account():
 
 @app.route('/login_account', methods=['POST'])
 def login_account():
-    formInput = request.form.to_dict()
-
+    # formInput = request.form.to_dict()
+    request_dict = request.get_json()
+    print(request_dict)
     #login user
-    status,token =  AccountsManager().login_user(formInput['Email'],formInput['Password'])
+    status,token =  AccountsManager().login_user(request_dict['email'],request_dict['password'])
 
-    response = make_response()
     
+    response = make_response()
+    api_functions.add_default_headers(response)
     match status:
         case Status.LOGIN_FAIL_EMAIL_DNE:
             #if wrong, repley access denied
@@ -129,6 +108,7 @@ def login_account():
             response.status = 401
         case Status.LOGIN_SUCCESS:
             response.status = 200
+            print("login success")
             response.set_cookie(GlobalStrings.AUTHTOKEN,token)
 
             #record logged in user
@@ -142,7 +122,7 @@ def validate_token():
     reqData = request.form.to_dict()
     token = reqData['auth_token']
     response = make_response() 
-
+    api_functions.add_default_headers(response)
     if loggedInUserTracker.user_valid(token):    
         response.status = 200
     else:
@@ -157,10 +137,52 @@ def get_categories():
     resp.status = 200
     return resp
 
-@api.route('/stores/get_stores',methods=['GET'])
-def get_stores():
+@api.route('/stores/add_store',methods=['POST'])
+def add_store():
+    resp = make_response()
+    store = request.get_json()
+    auth_token = request.cookies.get(GlobalStrings.AUTHTOKEN)
+    
+    if not loggedInUserTracker.user_valid(auth_token):
+        resp = jsonify({"status":"failed","message":"invalid token"})
+        resp.status = 403
+        return resp
+    
+    user = AccountsManager().decode_user_from_token(auth_token)
+    
+    store['userOwnerId'] = user['_id']
+    
+    api_functions.insert_new_store(store)
+    
+    resp = jsonify({"status":"success"})
+    resp.status = 200
+    return resp
+
+@api.route('/stores/get_stores', defaults={'userStores': None}, methods=['GET'])
+@api.route('/stores/get_stores/<userStores>',methods=['GET'])
+def get_stores(userStores: None):
+    
+    if userStores != None:
+        auth_token = request.cookies.get(GlobalStrings.AUTHTOKEN)
+        if not loggedInUserTracker.user_valid(auth_token):
+            resp = jsonify({"status":"failed","message":"invalid token"})
+            resp.status = 403
+            return resp
+        else:
+            user =  AccountsManager().decode_user_from_token(auth_token)
+            userId = str(user['_id'])
+            stores = []
+            
+            with ProductDatabase() as pdb:
+                stores =  pdb.get_collection('stores').find_records_by_field({'userOwnerId':userId})
+            
+            resp = jsonify(api_functions.stringify_ids(stores))
+            resp.status = 200
+            api_functions.add_default_headers(resp)
+            return resp
     stores = api_functions.get_all_stores()
     resp = jsonify(stores)
+    api_functions.add_default_headers(resp)
     resp.status = 200
     return resp
 
@@ -227,9 +249,12 @@ def checkout(productId):
 def get_store(storeId):
     store = api_functions.search_item('stores',{'_id':ObjectId(storeId)})
     return jsonify(store)
+
+
 # @api.route('/testEndpoint/<test>/<extra>',methods=['GET'])
 # def testEndpoint(test,extra):
 #     return jsonify({'test':test,'extra':extra})
+
 app.register_blueprint(api)
 
         

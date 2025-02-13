@@ -25,7 +25,7 @@ class LoggedUserTracker:
     DB_LOG_RECORD_STRING = "map"
 
     TIME_REPR_STRING = "%Y-%m-%d %H:%M:%S"
-    EXPIRATION_LENGTH = timedelta(days=15)
+    EXPIRATION_LENGTH = timedelta(days=4)
     BACKUP_REFRESH_PERIOD = timedelta(hours=1)
 
     def __init__(self):

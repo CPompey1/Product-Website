@@ -14,12 +14,12 @@ export default async function validateUser ()  {
         })
 
         if (await response.ok){
-            valid = true
+             valid = true
         }
         
     }
 
-    checkUser()
+    await checkUser()
     return valid
 
 }

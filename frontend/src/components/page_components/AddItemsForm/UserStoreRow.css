@@ -1,0 +1,15 @@
+.store-list-item-ai {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-radius: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--hover-color);
+}
+
+.store-list-item {
+    justify-items: center;
+} 

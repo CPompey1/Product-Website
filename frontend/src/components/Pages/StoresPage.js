@@ -5,7 +5,7 @@ import Footer from '../page_components/Footer'
 import builder, { BuilderComponent } from '@builder.io/react'
 import StoresGrid from '../page_components/StoresGrid/StoresGrid'
 import LogoSection from '../page_components/LogoSection'
-import SubTitle from '../page_components/global_components/stores/SubTitle'
+import SubTitleSection from '../page_components/global_components/stores/SubTitle'
 
 export default function StoresPage() {
   return (
@@ -17,7 +17,7 @@ export default function StoresPage() {
         />
         <Navigation/>
         {/* <StoresPage/> */}
-        <SubTitle title="Stores"/>
+        <SubTitleSection title="Stores"/>
         {/* <BuilderComponent model='test-builder-page'></BuilderComponent> */}
         
         <StoresGrid/>

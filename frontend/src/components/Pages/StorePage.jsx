@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../page_components/Header'
 import LogoSection from '../page_components/LogoSection'
 import Navigation from '../page_components/Navigation'
-import SubTitle from '../page_components/global_components/stores/SubTitle'
+import SubTitleSection from '../page_components/global_components/stores/SubTitle'
 import { useParams } from 'react-router-dom'
 import Footer from '../page_components/Footer'
 import ProductList from '../page_components/ProductList'
@@ -38,7 +38,7 @@ const [storeData, setStoreData] = useState({})
 
         <Navigation/>
         {/* Change in future to say products, store name will be given by logo */}
-        <SubTitle title={storeData.title}/>
+        <SubTitleSection title={storeData.title}/>
         <ProductList endPoint="/api/product_list" store={storeData.title}/>
         <Footer/>
 

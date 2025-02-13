@@ -5,7 +5,7 @@ import LogoSection from '../page_components/LogoSection'
 import Footer from '../page_components/Footer'
 import Navigation from '../page_components/Navigation'
 import CategoryGrid from '../page_components/CategoryGrid/CategoryGrid'
-import SubTitle from '../page_components/global_components/stores/SubTitle'
+import SubTitleSection from '../page_components/global_components/stores/SubTitle'
 import { LOGO_URL } from '../../globals';
 
 export default function CategoryPage() {
@@ -18,7 +18,7 @@ export default function CategoryPage() {
             alt="Logo"
         />
         <Navigation />
-        <SubTitle title='Categories'/>
+        <SubTitleSection title='Categories'/>
         {/* <BuilderComponent model='test-builder-page'></BuilderComponent> */}
         
         <CategoryGrid/>

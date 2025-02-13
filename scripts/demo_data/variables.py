@@ -1,3 +1,14 @@
+import bcrypt
+
+from util.appdata import PWD_SALT
+
+demoUser = {
+            "user": 'testUser',
+            "email": 'testUser@gmail.com',
+            "password_hash": bcrypt.hashpw('testPassword'.encode() ,PWD_SALT)
+        }
+
+
 demoCategories = [
     {
         "title": "Consumables",
@@ -58,6 +69,8 @@ demoStores = [
         "title": "Cris's Store",
         "logo": "/dynamic_assets/images/storelogos/Cris's_store.jpeg",
         "location": "123 Main Street, Anytown, USA",
+        "userOwnerId" : "filledByScript"
         
     }
 ]
+

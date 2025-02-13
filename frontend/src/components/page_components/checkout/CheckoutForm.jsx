@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./CheckoutForm.module.css";
 import { ProductSection } from "../ProductList";
-import { Button } from "../Navigation";
+import { Button_b } from "../Navigation";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -138,9 +138,9 @@ export default function CheckoutForm({productId}) {
             </div>
           </div>
         </div>
-        <Button className={styles.submitButton} action={submitForm}>
+        {/* <Button_b className={styles.submitButton} action={submitForm}>
           Submit
-        </Button>
+        </Button_b> */}
       </section>
     </main>
   );

@@ -10,6 +10,7 @@ function CategoryItem({ name, link, imgLink, isStore }) {
   const imgUrlCall = createImgCallFromLink(imgLink)
 
   return (
+    // TODO: fix image not showing
     <div className={styles.gridItem} >
       <a href={link} 
           style={{backgroundImage: imgUrlCall}} 

@@ -4,12 +4,12 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import './Navigation.css'
 import backendUrl from '../../globals';
-
+import Button_b from './global_components/Button_b/Button_b';
 
 function Navigation () {
     const navigate = useNavigate();
     const clickSell = () => {
-        navigate('/add_product');
+        navigate('/sellers_home');
       };
     
     const clickCategories = () => {
@@ -27,21 +27,21 @@ function Navigation () {
       <>
         <section className="button-section">
           <div className="button-group">
-            
+              
               <div className="button-column">
-                <Button action={clickCategories} openLinkInNewTab={false} className={"action-button"}>Categories</Button>
-              </div>
-      
-              <div  className="button-column">
-                <Button action={clickStores} openLinkInNewTab={false} className={"action-button"}>Stores</Button>
+                <Button_b action={clickCategories} openLinkInNewTab={false}>Categories</Button_b>
               </div>
       
               <div className="button-column">
-                <Button action={clickSell} openLinkInNewTab={false} className={"action-button"}>Sell</Button>
+                <Button_b action={clickStores} openLinkInNewTab={false}>Stores</Button_b>
+              </div>
+      
+              <div className="button-column">
+                <Button_b action={clickSell} openLinkInNewTab={false} >Sell</Button_b>
               </div>
 
               <div  className="button-column">
-                <Button action={clickDeliver} openLinkInNewTab={false} className={"action-button"}>Deliver</Button>
+                <Button_b action={clickDeliver} openLinkInNewTab={false}>Deliver</Button_b>
               </div>
               
           </div>
@@ -50,10 +50,4 @@ function Navigation () {
     );
 }
   
-  const Button = ({ children, openLinkInNewTab, action, className }) => (
-    <button className={className} target={openLinkInNewTab ? "_blank" : "_self"} onClick={action}>
-      {children}
-    </button>
-  );
   export default Navigation;
-  export { Button };

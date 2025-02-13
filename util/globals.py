@@ -1,6 +1,7 @@
 import os
 
 CLIENT = os.getenv('MONGO_HOST')
+
 DATABASE = 'ProductDb'
 COLLECTIONS = 'products,accounts,stores,loggedInUsers,categories'
 CATEGORIES = 'Consumables,Electronics,Apparels,Books,Stationary'

@@ -3,8 +3,8 @@ import React from 'react'
 import Header from '../page_components/Header'
 import LogoSection from '../page_components/LogoSection'
 import Navigation from '../page_components/Navigation'
-import RegisterAccountForm from '../page_components/RegisterAccountForm'
 import Footer from '../page_components/Footer'
+import RegisterAccountForm from '../page_components/RegisterLogin/RegisterAccountForm'
 export default function RegisterAccountPage() {
   return (
     <>

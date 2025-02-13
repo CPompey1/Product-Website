@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Header.css'
 import LogRegHeaderLink from './LogRegHeaderLink'
 import { Avatar } from '@mui/material'
@@ -9,41 +9,31 @@ export default function Header() {
 
   const [profileImg,setProfileImg] = useState('')
   var fetchResult
-  var userLoggedIn
+  const [userLoggedIn,setUserLoggedIn] = useState(false)
 
-  const fetchData = async () => {
-     userLoggedIn = await validateUser()
-
-    if (userLoggedIn) {
-      fetchResult = await fetch ("/get_profile_pic", {
-        method: 'POST'
-      })
-
-      if (fetchResult.ok){
-        setProfileImg(await fetchResult.json()['img'])
-      }
- 
-    }  
-
-    
+useEffect(() => {
+  const checkUserLoggedIn = async () => {
+    const loggedIn = await validateUser()
+    setUserLoggedIn(loggedIn)
+    fetchData()
   }
-  fetchData()
+  checkUserLoggedIn()
+},[])
+
+const fetchData = async () => {
+  if (userLoggedIn) {
+    // TODO: Endpoint needs to be implmeneted
+    fetchResult = await fetch ("/get_profile_pic", {
+      method: 'POST'
+    })
+
+    if (fetchResult.ok){
+      setProfileImg(await fetchResult.json()['img'])
+    }
+  }  
+}
   
-  // if (userLoggedIn) {
-
-
-  //   return (
-  //     <>      
-  //       <header className="main-header">
-  //           <section className="header-content">
-          
-  //             <AvatarIcon imgSrc={profileImg}/>
-  //           </section>
-            
-  //       </header>
-  //   </>    
-  //   )
-  // } 
+  
   return (
     <>
       

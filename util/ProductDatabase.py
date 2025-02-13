@@ -4,15 +4,17 @@ import pymongo.collection
 from util import globals
 import json
 from bson.objectid import ObjectId
+from pymongo.results import InsertOneResult
 
 class CollectionWr:
     def __init__(self,db,collectionName):
         self.colHandle: pymongo.collection.Collection = db[collectionName] 
+
     
-    def insert_record(self,record: dict):
+    def insert_record(self,record: dict) -> InsertOneResult:
         try:
             # print(record)
-            self.colHandle.insert_one(record)
+            return self.colHandle.insert_one(record)
         except:
             print("error inserting record")
             return
@@ -82,11 +84,17 @@ class ProductDatabase:
         #Pend until db is up
         self._pend_on_db()
     
+    def __enter__(self):
+        return self
+    
+    def __exit__(self,exc_type,exc_val,exc_tb):
+        self.close()
 
     def list_collections(self) -> list[str]:
         return self.collections.keys()
     
     def get_collection(self,collection_name: str) -> CollectionWr:
+        print(f'clieant: {self.client}')
         return self.collections[collection_name]
     
     def _pend_on_db(self):
@@ -104,6 +112,12 @@ class ProductDatabase:
     def _clear_all_collections(self) -> None:
         for collection in self.collections.values():
             collection.colHandle.delete_many({})
+            
+    def _del_(self):
+        self.close()
+            
+    def close(self):
+        self.client.close()
     
         
 

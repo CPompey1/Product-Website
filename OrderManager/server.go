@@ -1,7 +1,7 @@
 package main
 
 import (
-	"ClientCommunications/globals"
+	"OrderManager/globals"
 	"fmt"
 	"log"
 	"net/http"
