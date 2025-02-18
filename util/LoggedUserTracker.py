@@ -74,17 +74,18 @@ class LoggedUserTracker:
 
             #Check if token expired (now > token.expiration)
             if datetime.now() > datetime.strptime(self._logged_in_user_map[token][self.EXPIRATION_TIME_STRING],LoggedUserTracker.TIME_REPR_STRING):
-                self._remove_user(token)
+                self.remove_user(token)
                 return False
             
             return True
 
         return False
 
-    def _remove_user(self,token: str) -> None:
-        self._logged_in_user_map.pop(token)
+    def remove_user(self,token: str) -> bool:
+        if self._logged_in_user_map.pop(token) == None:
+            return False
         self._try_backup_tracker()
-
+        return True
     def _try_backup_tracker(self) -> None:
 
         now = datetime.now()

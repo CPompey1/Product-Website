@@ -1,4 +1,7 @@
 
+from flask import Flask
+from flask import *
+# app = Flask(__name__)
 import os
 import random
 import bcrypt

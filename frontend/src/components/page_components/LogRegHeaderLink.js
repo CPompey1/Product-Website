@@ -12,4 +12,21 @@ function LogRegHeaderLink () {
     </div>
   )
 };
+
+function LogoutHeaderLink () {
+  
+  const logout = async () => {
+    await fetch("/api/accounts/logout", {
+      method: 'POST'
+    })
+    window.location.reload()
+  }
+
+  return (
+    <div>
+        <a className='text' onClick={logout}> Logout</a>
+    </div>
+  )
+}
+export {LogoutHeaderLink}
 export default LogRegHeaderLink

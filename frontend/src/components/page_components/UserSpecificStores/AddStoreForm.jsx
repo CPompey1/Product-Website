@@ -6,6 +6,7 @@ import { Fab, Grid } from '@mui/material'
 import { AddCircle, AddCircleOutline } from '@mui/icons-material'
 import SubTitleSection, { SubTitleHeaderCustom } from '../global_components/stores/SubTitle'
 import UserStoreRow from './UserStoreRow'
+import UserStoresList from './UserStoresList'
 
 function AddStoreForm() {
   const [inputs, setInputs] = useState({})
@@ -21,7 +22,7 @@ function AddStoreForm() {
 
   const handleSubmit = async () => {
     console.log("in handle submit")
-    const response = await fetch('/add_store', {
+    const response = await fetch('/api/stores/add_store', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,26 +42,7 @@ function AddStoreForm() {
     console.log("AddFormButtonClicked")
     setAddStoreFormVisible(true)
   }
-
-  const fetchUserStores = async () => {
-    //Update to fetch vender specific roles, need to figure out remembering authenticated users
-    const response = await fetch('/api/stores/get_stores/user_stores', 
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-    if (response.ok) {
-      const data = await response.json()
-      setUserStores(data)
-    }
-  }
-
-  useEffect(() => {
-    fetchUserStores()
-
-  }, [addStoreFormVisible])
+  console.log("AddStoreForm")
 
   return (
     <>
@@ -113,13 +95,7 @@ function AddStoreForm() {
       : 
         <></>
       }
-      
-      <div className='store-list-container'>
-        {userStores.map(store => 
-          <UserStoreRow logoSrc={store.logo} title={store.title} description={store.description} location={store.location} />
-        )}
-      </div>
-    
+          
 
     </>
   )

@@ -24,7 +24,7 @@ export default function LoginAccountForm() {
         setLoginState(-1)
       } 
 
-      const fetchResult = await fetch ("/login_account",{
+      const fetchResult = await fetch ("/api/accounts/login_account",{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

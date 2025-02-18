@@ -37,7 +37,7 @@ export default function RegisterAccountForm() {
     
     const fetchData = async () => {
 
-      const fetchResult = await fetch("/register_account",{
+      const fetchResult = await fetch("/api/accounts/register_account",{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

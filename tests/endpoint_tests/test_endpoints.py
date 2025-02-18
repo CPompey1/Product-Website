@@ -17,6 +17,7 @@ import random
 from time import *
 from util.AccountsManager import AccountsManager
 from tests.GlobalTestUtility import GlobalTestUtility
+import flask
 # get the resources folder in the tests folder
 resources = Path(__file__).parent / "resources"
 
@@ -30,14 +31,16 @@ class FlaskTestCase(unittest.TestCase):
         self.user_auth_token = ""
     def test_index(self):
         # Send a GET request to the index route
-        result = self.app.post('/product_list')
+        result = self.app.post('/api/products/product_list',
+                               data=json.dumps({}),
+                                content_type='application/json')
 
         # Assert that the request succeeded (status code 200)
         self.assertEqual(result.status_code, 200)
     
     def test_add_product(self):
         randomTitle = random.randint(1,100).__str__()
-        response = self.app.post("/add_product", data=json.dumps({
+        response = self.app.post("/api/products/add_product", data=json.dumps({
             "title": randomTitle,
             "description": "description added by flask test",
             "image": "/home/linus/workspace/Product-Website/tests/resources/testFile",
@@ -46,7 +49,7 @@ class FlaskTestCase(unittest.TestCase):
 
         self.assertEqual(response.status_code,200)
 
-        product_list_res = self.app.post('/product_list', 
+        product_list_res = self.app.post('/api/products/product_list', 
                                          data = json.dumps({}),
                                          content_type='application/json').get_json()
         
@@ -73,7 +76,7 @@ class FlaskTestCase(unittest.TestCase):
         test_email = f"{str(random.randbytes(10))}@gmail.com"
         test_user = f"{str(random.randbytes(10))}"
         test_password = str(random.randbytes(10))
-        response = self.app.post("/register_account", data= json.dumps({
+        response = self.app.post("/api/accounts/register_account", data= json.dumps({
             "email": test_email,
             "user": test_user,
             "password": test_password,
@@ -82,7 +85,7 @@ class FlaskTestCase(unittest.TestCase):
         content_type='application/json')
 
         
-        response1 = self.app.post("/login_account", data=json.dumps({
+        response1 = self.app.post("/api/accounts/login_account", data=json.dumps({
             "email": test_email,
             "password": test_password
         }),
@@ -98,7 +101,7 @@ class FlaskTestCase(unittest.TestCase):
         test_email = f"{str(random.randbytes(10))}@gmail.com"
         test_user = f"{str(random.randbytes(10))}"
         test_password = str(random.randbytes(10))
-        response = self.app.post("/register_account", data=json.dumps({
+        response = self.app.post("/api/accounts/register_account", data=json.dumps({
             "email": test_email,
             "user": test_user,
             "password": test_password,
@@ -107,7 +110,7 @@ class FlaskTestCase(unittest.TestCase):
         content_type='application/json')
 
         
-        response1 = self.app.post("/login_account", data=json.dumps( {
+        response1 = self.app.post("/api/accounts/login_account", data=json.dumps( {
             "email": test_email,
             "password": test_password
         }),
@@ -121,7 +124,7 @@ class FlaskTestCase(unittest.TestCase):
 
     def test_get_category(self):
         
-        response = self.app.get("/api/get_categories")
+        response = self.app.get("/api/stores/get_categories")
         self.assertEqual(response.status_code,200)
 
         response = json.loads(response.get_data())
@@ -153,7 +156,7 @@ class FlaskTestCase(unittest.TestCase):
             
             self.assertEqual(status,Status.LOGIN_SUCCESS)
             
-            response = self.app.post("/login_account", data=json.dumps({
+            response = self.app.post("/api/accounts/login_account", data=json.dumps({
                 "email": self.test_user['email'],
                 "password": self.test_user_password
             }),
@@ -172,16 +175,20 @@ class FlaskTestCase(unittest.TestCase):
 
         return wrapper
     
-    @generate_login_then_delete_user
-    def test_get_stores_by_user(self):        
-        
-        #Add Store
+    def add_test_store(self):
         with ProductDatabase() as pdb:
             store = {
                 "name": "Test Store",
                 "userOwnerId": self.test_user_id
             }
             storeId = str(pdb.get_collection('stores').insert_record(store).inserted_id)
+        return storeId
+    
+    @generate_login_then_delete_user
+    def test_get_stores_by_user(self):        
+        
+        #Add Store
+        storeId = self.add_test_store()
         
         response = self.app.get("/api/stores/get_stores/1", headers = {"Cookie": f"auth_token={self.user_auth_token}"})
         
@@ -208,8 +215,23 @@ class FlaskTestCase(unittest.TestCase):
             pdb.get_collection('stores').delete_record_by_id(storeId)
         
         
-
+    @generate_login_then_delete_user
+    def test_validate_token_by_store(self):
+        #positive test
+        storeId = self.add_test_store()
+        response = self.app.get(f"/api/accounts/validate_token/store/{storeId}", 
+                                headers = {"Cookie": f"auth_token={self.user_auth_token}"})
+         
+        self.assertEqual(response.status_code,200)
         
+        
+        #negative test
+        self.app.set_cookie(key='auth_token',value='invalid_token')
+        response = self.app.get(f"/api/accounts/validate_token/store/{storeId}", headers = {"Cookie": f"auth_token=invalid_token"})
+        self.assertEqual(response.status_code,403)
+        #Delete Store
+        with ProductDatabase() as pdb:
+            pdb.get_collection('stores').delete_record_by_id(storeId)
         
 
 

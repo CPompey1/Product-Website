@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './Header.css'
-import LogRegHeaderLink from './LogRegHeaderLink'
+import LogRegHeaderLink, { LogoutHeaderLink } from './LogRegHeaderLink'
 import { Avatar } from '@mui/material'
 import AvatarIcon from './AvatarIcon'
 import validateUser from '../../util/accounts_manager'
@@ -40,9 +40,16 @@ const fetchData = async () => {
       <header className="main-header">
           <section className="header-content">
             
-            {userLoggedIn ? (<div/>):(<LogRegHeaderLink/>)}
+            {userLoggedIn ? (<></>):(<LogRegHeaderLink/>)}
             
-            {userLoggedIn ? (<a href='/'> <AvatarIcon/> </a>):(<div/>)}
+            {userLoggedIn ? (
+              <> 
+                <a className="logout-link">
+                   <LogoutHeaderLink/> 
+                </a>
+                <a href='/'> <AvatarIcon/> </a>
+              </>
+            ):(<div/>)}
             
           </section>
           

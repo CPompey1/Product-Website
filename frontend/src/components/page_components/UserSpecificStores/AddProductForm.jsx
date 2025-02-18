@@ -32,7 +32,7 @@ export default function AddProductForm({storeName,storeId}) {
           formData.append("store",inputs.Store)
           formData.append("cost","$" + inputs.Cost) 
           
-          const fetchResult = await fetch("/add_product", {
+          const fetchResult = await fetch("/api/products/add_product", {
             method: "POST",
             body: formData,
           });

@@ -1,3 +1,4 @@
+import pprint
 from util.globals import *
 from util import ProductDatabase
 from flask import Flask,jsonify,request
@@ -41,7 +42,10 @@ def raw_products_to_products(raw_records: list) -> list:
     Returns:
         list: _description_
     """
-    records = []
+    records =  []#map(map_raw_product,raw_records)
+    
+    
+    
     for raw_record in raw_records:
         try:
             records.append({
@@ -57,6 +61,21 @@ def raw_products_to_products(raw_records: list) -> list:
             print(f"Key not found in {raw_record} record\n Exception: {e}")
             pass
     return records
+
+def map_raw_product(raw_product: dict) -> dict:
+    try:
+        return {
+            "_id": str(raw_product['_id']),
+            "title" : raw_product["title"],
+            "text":   raw_product["description"],
+            "imageSrc":f"/dynamic_assets/images/productimages/{raw_product['image']}",
+            "category": raw_product["category"],
+            "cost": raw_product["cost"],
+            "store": raw_product["store"]
+        }
+    except KeyError as e:
+        print(f"Key not found in {raw_product} record\n Exception: {e}")
+        return
 
 def get_all_categories() ->list:
     categories = []
@@ -135,7 +154,7 @@ def get_product_by_id(product_id: str) -> dict:
     db = ProductDatabase.ProductDatabase()
     raw_record = db.get_collection('products').find_record_by_id(product_id)
     db.close()
-    return raw_products_to_products(raw_record)
+    return raw_products_to_products([raw_record])
 
 def search_item(collection: str, filter_dict: dict) -> dict:
     db = ProductDatabase.ProductDatabase()

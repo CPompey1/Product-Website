@@ -17,7 +17,7 @@ export default function MainPage() {
             />
             <Navigation />
             <ProductList
-                endPoint="/api/product_list"
+                endPoint="/api/products/product_list"
             />
             <Footer/>
             {/* <BuilderComponent model='test-builder-page'></BuilderComponent> */}

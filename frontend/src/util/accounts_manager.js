@@ -8,9 +8,53 @@ export default async function validateUser ()  {
     const checkUser = async () => {
         let form = new FormData()
         form.append('auth_token',token) 
-        response  = await fetch("/api/validate_token",{
+        response  = await fetch("/api/accounts/validate_token",{
             method: 'POST',
             body: form
+        })
+
+        if (await response.ok){
+             valid = true
+        }
+        
+    }
+
+    await checkUser()
+    return valid
+
+}
+
+async function validateUserByStoreId (storeId) {
+    var valid = false
+    const token = getCookie('auth_token')
+
+    
+    var response
+    const checkUser = async () => {
+        response  = await fetch("/api/accounts/validate_token/store/" + storeId,{
+            method: 'GET',
+        })
+
+        if (await response.ok){
+             valid = true
+        }
+        
+    }
+
+    await checkUser()
+    return valid
+
+}
+
+async function validateUserByProductId (productId) {
+    var valid = false
+    const token = getCookie('auth_token')
+
+    
+    var response
+    const checkUser = async () => {
+        response  = await fetch("/api/accounts/validate_token/product/" + productId,{
+            method: 'GET',
         })
 
         if (await response.ok){
@@ -39,3 +83,5 @@ function getCookie(cname) {
     }
     return "";
 }
+
+export {validateUser,validateUserByStoreId}

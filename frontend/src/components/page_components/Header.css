@@ -15,9 +15,14 @@
   position: relative;
   min-height: 50px; 
   justify-content: space-between;
-  width: 100%;
+  width: 99%;
   background-color: #000; 
   align-items: center;
   /* padding: 20px;  */
   
+}
+
+.logout-link {
+ margin-left: 1%;
+ cursor: pointer;
 }

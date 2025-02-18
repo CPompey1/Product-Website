@@ -8,8 +8,17 @@
     padding: 10px;
     margin-bottom: 10px;
     background-color: var(--hover-color);
+    cursor: pointer;
 }
 
 .store-list-item {
     justify-items: center;
 } 
+
+.store-list-item-image {
+    cursor: pointer;
+
+}
+.store-list-item-image:hover {
+    background-color: rgb(53, 52, 52);
+}

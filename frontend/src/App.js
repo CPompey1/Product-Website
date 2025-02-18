@@ -28,7 +28,8 @@ import StorePage from './components/Pages/StorePage';
 import UserStores from './components/Pages/UserStoresPage';
 import FormInput, { InputLabel } from './components/page_components/global_components/Forms/FormInput';
 import UserStoreProducts from './components/Pages/UserStoreProductsPage';
-import StoreEditPage from './components/Pages/LoggedInUserPages/StoreEditPage';
+import StoreProductList from './components/Pages/LoggedInUserPages/StoreProductList';
+import ProductOrderPage from './components/Pages/ProductOrderPage';
 function App() {
   
     {/* I have no idea what the fuck is going on here and it shuold be fixed */}
@@ -60,7 +61,9 @@ function App() {
 
         {"path" : "/user-store-products", "element": <UserStoreProducts/>},
         
-        {"path":"/store-edit-page","element":<StoreEditPage/>},
+        {"path":"/edit-product-list/:storeId","element":<StoreProductList/>},
+
+        {"path":"orders/order/:orderId","element":<ProductOrderPage/>},
     ]
   return (
     <>

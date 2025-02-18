@@ -4,9 +4,10 @@ import Navigation from '../page_components/Navigation'
 import LogoSection from '../page_components/LogoSection'
 import { BuilderComponent } from '@builder.io/react'
 import Footer from '../page_components/Footer'
-import AddStoreForm from '../page_components/AddItemsForm/AddStoreForm'
+import AddStoreForm from '../page_components/UserSpecificStores/AddStoreForm'
 import validateUser from '../../util/accounts_manager'
 import { useNavigate } from 'react-router-dom'
+import UserStoresList from '../page_components/UserSpecificStores/UserStoresList'
 
 export default function () {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ export default function () {
         />
         <Navigation/>
         <AddStoreForm/>
-        <BuilderComponent model="test-builder-page"/>
+        <UserStoresList/>
         <Footer/>        
     </>
   )

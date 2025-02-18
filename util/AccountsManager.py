@@ -6,7 +6,7 @@ import html
 import jwt
 
 
-from util.globals import JWT_SALT
+from util.globals import JWT_PW_SALT
 from util.appdata import PWD_SALT
 
 class AccountsManager:
@@ -92,8 +92,7 @@ class AccountsManager:
         user_match["_id"] = str(user_match["_id"])
         user_match["password_hash"] = str(user_match["password_hash"])
         
-
-        return Status.LOGIN_SUCCESS, jwt.encode(user_match, JWT_SALT, algorithm=self.HASH_ALGORITHM)
+        return Status.LOGIN_SUCCESS, jwt.encode(user_match, JWT_PW_SALT, algorithm=self.HASH_ALGORITHM)
         
     
     def _get_user_match(self,email: str) -> dict:
@@ -111,7 +110,7 @@ class AccountsManager:
             pdb.get_collection('accounts').delete_record_by_match({'email':email})
     
     def decode_user_from_token(self, token: str) -> dict:
-        return jwt.decode(token, JWT_SALT, algorithms=self.HASH_ALGORITHM)
+        return jwt.decode(token, JWT_PW_SALT, algorithms=self.HASH_ALGORITHM)
         
         
 

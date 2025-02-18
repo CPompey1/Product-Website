@@ -6,15 +6,16 @@ import os
 sys.path.append(".")
 from util.ProductDatabase import ProductDatabase
 
-# sys.path.insert(0,"/home/linus/workspace/Product-Website/util")
+#args: <collectionName> <id>
 def main():
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
+    if len(sys.argv) < 3 or len(sys.argv) > 3:
         print("Usage: \n\t")
-        print("python3 list_collection.py <collectionName>")
+        print("python3 get_item_by_id.py <collectionName> <id>")
         return
 
     with ProductDatabase() as pdb:
-        pprint.pprint(str(pdb.get_collection(f"{sys.argv[1]}").get_all_records()))
+        pprint.pprint(str(pdb.get_collection(f"{sys.argv[1]}").find_record_by_id(sys.argv[2])))    
+    
 
 
 if __name__ == '__main__':

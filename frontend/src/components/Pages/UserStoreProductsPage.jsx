@@ -4,7 +4,7 @@ import LogoSection from '../page_components/LogoSection'
 import Footer from '../page_components/Footer'
 import { LOGO_URL } from '../../globals'
 import ProductList from '../page_components/ProductList'
-import AddProductForm from '../page_components/AddItemsForm/AddProductForm'
+import AddProductForm from '../page_components/UserSpecificStores/AddProductForm'
 import Navigation from '../page_components/Navigation'
 
 export default function UserStoreProducts() {
@@ -19,7 +19,7 @@ export default function UserStoreProducts() {
         <Navigation/>
         <AddProductForm/>
         <ProductList
-            endPoint="/api/product_list"
+            endPoint="/api/products/product_list"
             store="Cris's Store"
         />
         <Footer/>

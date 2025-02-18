@@ -35,7 +35,7 @@ function CategoryGrid() {
   const [categories, setCategories] = useState([]);
 
   const fetchData = async () => {
-    const fetchResult = await fetch("/api/get_categories");
+    const fetchResult = await fetch("/api/stores/get_categories");
     var cleanResult = []
     if (fetchResult.ok) {
       
