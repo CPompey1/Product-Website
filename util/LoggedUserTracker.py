@@ -25,7 +25,7 @@ class LoggedUserTracker:
     DB_LOG_RECORD_STRING = "map"
 
     TIME_REPR_STRING = "%Y-%m-%d %H:%M:%S"
-    EXPIRATION_LENGTH = timedelta(days=15)
+    EXPIRATION_LENGTH = timedelta(days=4)
     BACKUP_REFRESH_PERIOD = timedelta(hours=1)
 
     def __init__(self):
@@ -66,6 +66,8 @@ class LoggedUserTracker:
             self.TIME_CREATED_STRING: time_created.strftime(LoggedUserTracker.TIME_REPR_STRING),
             self.EXPIRATION_TIME_STRING: expiration.strftime(LoggedUserTracker.TIME_REPR_STRING)
         }
+        print("added user")
+        print(self._logged_in_user_map)
 
     
     def _user_clean_in_tracker(self,token:str) -> bool:
@@ -74,17 +76,18 @@ class LoggedUserTracker:
 
             #Check if token expired (now > token.expiration)
             if datetime.now() > datetime.strptime(self._logged_in_user_map[token][self.EXPIRATION_TIME_STRING],LoggedUserTracker.TIME_REPR_STRING):
-                self._remove_user(token)
+                self.remove_user(token)
                 return False
             
             return True
 
         return False
 
-    def _remove_user(self,token: str) -> None:
-        self._logged_in_user_map.pop(token)
+    def remove_user(self,token: str) -> bool:
+        if self._logged_in_user_map.pop(token) == None:
+            return False
         self._try_backup_tracker()
-
+        return True
     def _try_backup_tracker(self) -> None:
 
         now = datetime.now()

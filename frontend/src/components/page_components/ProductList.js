@@ -25,7 +25,7 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link }) => (
   </div>
 );
   
-  function ProductList({endPoint,category,store}) {
+  function ProductList({endPoint,category,store,edit}) {
     const [data,setData] = useState([])
     useEffect(() => {
       const fetchData = async () => {
@@ -54,11 +54,11 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link }) => (
         {data.map(product => (
           <ProductSection
             key={product._id}
-            imageSrc={product.imageSrc}
+            imageSrc={`/media/${product.imageSrc}`}
             imageAlt = {product.imageAlt}
             text={product.text}
             title={product.title}
-            link={`/product/${product._id}`}
+            link={edit == undefined || edit == false ?  `/product/${product._id}` : `/edit-product/${product._id}`}
           />
         ))}
       </div>

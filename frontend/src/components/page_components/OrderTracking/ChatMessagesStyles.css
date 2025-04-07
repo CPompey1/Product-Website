@@ -1,0 +1,39 @@
+.chat-messages-container{
+    border-radius: 5%;
+    box-shadow: 0px 7px 32px rgba(0, 0, 0, 0.2)
+}
+
+.chat-messages-list{
+    overflow-y: scroll;
+    /* padding-bottom: 80%; */
+}
+
+.text-field{
+    border: none;
+    outline: none;
+    border-radius: 5%;
+}
+
+.chat-text-box{
+    border-radius: 6%;
+    margin-inline: 5%;
+}
+
+.chat-messages-list-contents{
+    margin-left: 3%;
+    height: 450px;
+}
+
+.chat-message-text{
+    /* align-self: center; */
+    box-shadow: -11px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    padding: 15px 0;
+    border-radius: 5%;
+    margin-right: 8%;
+    overflow-wrap: break-word;
+}
+
+.chat-message{
+    margin-top: 2%;
+
+}

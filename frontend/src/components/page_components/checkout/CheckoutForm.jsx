@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styles from "./CheckoutForm.module.css";
 import { ProductSection } from "../ProductList";
-import { Button } from "../Navigation";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Button_b from "../global_components/Button_b/Button_b";
+import { SubTitleHeaderCustom } from "../global_components/stores/SubTitle";
+import { CheckCircleOutlineOutlined } from "@mui/icons-material";
 const formFields = [
   { id: "name", label: "Name", type: "text" },
   { id: "address1", label: "Address", type: "text" },
@@ -17,7 +18,9 @@ export default function CheckoutForm({productId}) {
   const [formErrorMessage, setFormErrorMessage] = useState(null);
   const [productData, setProductData] = useState([]);
   const [inputs,setInputs] = useState({})
-  const navigate = useNavigate()
+  const [ordeerPlaced, setOrderPlaced] = useState(false)
+  const [orderId, setOrderId] = useState(null)
+  
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -39,13 +42,16 @@ export default function CheckoutForm({productId}) {
     if (response.ok){
       const jsonResult = await response.json()
       console.log(jsonResult)
+      setOrderId("null")
     }
+
+
 
   }
   
   useEffect(() => {
     const fetchData = async () => {
-      const fetchResult = await fetch(`/api/product/${productId}`, {
+      const fetchResult = await fetch(`/api/products/product/${productId}`, {
         method: 'GET',
       })
     
@@ -61,87 +67,110 @@ export default function CheckoutForm({productId}) {
   },[])
 
   return (
-    <main className={styles.container}>
-      <section className={styles.mainSection}>
-      {productData.map(product => (
+
+    <>
+    {orderId != null ? 
+      
+      <OrderPlaced orderId={orderId}/> 
+  
+      :
+    
+      <main className={styles.container}>
+        <section className={styles.mainSection}>
+       
           <ProductSection 
             className={styles.productWrapper} 
-            key={product._id}
-            imageSrc={product.imageSrc}
-            imageAlt = {product.imageAlt}
-            text={product.text}
-            title={product.title}
-            link={`/product/${product._id}`}
+            key={productData._id}
+            imageSrc={`/media/${productData.imageSrc}`}
+            imageAlt = {productData.imageAlt}
+            text={productData.text}
+            title={productData.title}
+            link={`/product/${productData._id}`}
         />
-        ))}
-        <div className={styles.checkoutContainer}>
-          <div className={styles.contentWrapper}>
-            <div className={styles.twoColumnLayout}>
-              <section className={styles.quantityColumn}>
-                <div className={styles.priceCalculator}>
-                  <div className={styles.calculatorWrapper}>
-                    <div className={styles.calculatorGrid}>
-                      <div className={styles.quantityColumn}>
-                        <input
-                          type="number"
-                          name="amount"
-                          aria-label="Quantity"
-                          className={styles.quantityInput}
-                          value={inputs["amount"]}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className={styles.multiplyColumn}>
-                        <p className={styles.multiplySymbol}>x</p>
-                      </div>
-                      <div className={styles.priceColumn}>
-                        <p className={styles.priceDisplay}>35$</p>
+      
+          <div className={styles.checkoutContainer}>
+            <div className={styles.contentWrapper}>
+              <div className={styles.twoColumnLayout}>
+                <section className={styles.quantityColumn}>
+                  <div className={styles.priceCalculator}>
+                    <div className={styles.calculatorWrapper}>
+                      <div className={styles.calculatorGrid}>
+                        <div className={styles.quantityColumn}>
+                          <input
+                            type="number"
+                            name="amount"
+                            aria-label="Quantity"
+                            className={styles.quantityInput}
+                            value={inputs["amount"]}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <div className={styles.multiplyColumn}>
+                          <p className={styles.multiplySymbol}>x</p>
+                        </div>
+                        <div className={styles.priceColumn}>
+                          <p className={styles.priceDisplay}>35$</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
+                </section>
 
-              <section className={styles.formColumn}>
-                <div className={styles.formContainer}>
-                  <form
-                    className={styles.checkoutForm}
-                    method="POST"
-                    onSubmit={(e) => e.preventDefault()}
-                  >
-                    {formFields.map((field) => (
-                      <div key={field.id} className={styles.formField}>
-                        <label htmlFor={field.id}>{field.label}</label>
-                        <input
-                          type={field.type}
-                          id={field.id}
-                          name={field.id}
-                          className={styles.formInput}
-                          aria-label={field.label}
-                          value={inputs[field.id]}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                    ))}
-
-                    <div
-                      className={styles.messageContainer}
-                      role="alert"
-                      aria-live="polite"
+                <section className={styles.formColumn}>
+                  <div className={styles.formContainer}>
+                    <form
+                      className={styles.checkoutForm}
+                      method="POST"
+                      onSubmit={(e) => e.preventDefault()}
                     >
-                      {formErrorMessage && <p>{formErrorMessage}</p>}
-                    </div>
-                  </form>
-                </div>
-              </section>
+                      {formFields.map((field) => (
+                        <div key={field.id} className={styles.formField}>
+                          <label htmlFor={field.id}>{field.label}</label>
+                          <input
+                            type={field.type}
+                            id={field.id}
+                            name={field.id}
+                            className={styles.formInput}
+                            aria-label={field.label}
+                            value={inputs[field.id]}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                      ))}
+
+                      <div
+                        className={styles.messageContainer}
+                        role="alert"
+                        aria-live="polite"
+                      >
+                        {formErrorMessage && <p>{formErrorMessage}</p>}
+                      </div>
+                    </form>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
-        </div>
-        <Button className={styles.submitButton} action={submitForm}>
-          Submit
-        </Button>
-      </section>
-    </main>
+          <Button_b className={styles.submitButton} action={submitForm}>
+            Submit
+          </Button_b>
+        </section>
+      </main>
+    }
+  </>
   );
+}
+
+function OrderPlaced ( {orderId}){
+  const navigate = useNavigate()
+  return (
+    <>
+      <div className={styles.orderPlacedContainer}> 
+        <CheckCircleOutlineOutlined style={{fontSize: '815%', color: '#64b164'}}/>
+        <SubTitleHeaderCustom title={'Order Placed'}  color={'black'} fontSize={'45px'}/>
+        <Button_b  action={() => navigate(`/orders/order/${orderId}`)}>View Order</Button_b>
+      </div>
+    </>
+  )
 }

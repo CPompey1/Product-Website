@@ -1,8 +1,8 @@
-import React from "react"
-const routes = [
-    {"path":"/","element":<MainPage />},
 
-    {"path":"/add_product","element":<AddProduct />},
+export const routes = [
+    {"path":"/","element":<MainPage/>},
+
+    {"path":"/sellers_home","element":<AddProduct />},
 
     {"path":"/sellers_product","element":<SellersProducts />},
 
@@ -16,6 +16,11 @@ const routes = [
 
     {"path":"/deliver","element":<DeliverPage />},
     
-    {"path":"/test_socket","element":<TestWsPage />}
-    
+    {"path":"/test_socket","element":<TestWsPage />},
+
+    {"path":"/category/:category", "element":<CategoryProductsPage/>},
+
+    {"path": "/product/:productId","element":<ProductPage/> },
+
+    {"path": "/stores/:storeId", "element": <StorePage/> },
 ]

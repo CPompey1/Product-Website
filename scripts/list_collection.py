@@ -1,3 +1,4 @@
+import pprint
 import sys
 import os
 
@@ -12,7 +13,8 @@ def main():
         print("python3 list_collection.py <collectionName>")
         return
 
-    print(str(ProductDatabase().get_collection(f"{sys.argv[1]}").get_all_records()))
+    with ProductDatabase() as pdb:
+        pprint.pprint(str(pdb.get_collection(f"{sys.argv[1]}").get_all_records()))
 
 
 if __name__ == '__main__':

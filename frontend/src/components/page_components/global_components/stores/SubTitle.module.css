@@ -29,3 +29,10 @@
   align-self: center;
   font: 52px "Impact", sans-serif;
 }
+
+.title1 {
+  position: relative;
+  height: auto;
+  align-self: center;
+  font: 30px "Impact", sans-serif;
+}

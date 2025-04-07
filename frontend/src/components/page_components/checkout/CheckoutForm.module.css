@@ -1,3 +1,7 @@
+
+.orderPlacedContainer {
+  justify-items: center;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -33,6 +37,7 @@
   margin-top: 20px;
   height: auto;
   padding-bottom: 30px;
+  margin-left: 10%;
 }
 
 .contentWrapper {
@@ -144,6 +149,7 @@
   padding-bottom: 15px;
   border: none;
   margin: auto 10%;
+  
 }
 
 .formField {

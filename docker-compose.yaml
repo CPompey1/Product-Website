@@ -43,7 +43,7 @@ services:
       - mynetwork
   
   client_com:
-    build: ./ClientCommunications
+    build: ./OrderManager
     ports:
       - "3002:3002"
     networks:

@@ -1,21 +1,20 @@
 from util.Status import Status
-from util.ProductDatabase import ProductDatabase as pdb
+from util.ProductDatabase import ProductDatabase
 
 import bcrypt
 import html
 import jwt
 
 
-from util.globals import JWT_SALT
+from util.globals import JWT_PW_SALT
 from util.appdata import PWD_SALT
 
 class AccountsManager:
     
     # EMAIL_KEY: str = "email"
-
+    HASH_ALGORITHM= "HS256"
 
     def __init__(self):
-        self.pdb = pdb()
         
         return
     
@@ -38,29 +37,11 @@ class AccountsManager:
             "password_hash": password_hash
         })
 
-        self.pdb.get_collection('accounts').insert_record(user)
+        with ProductDatabase() as pdb: 
+            pdb.get_collection('accounts').insert_record(user)
         
         return Status.REGISTER_SUCCESS
 
-    # def login_user(self,email: str,password: str):
-
-    #     email = html.escape(email)
-    #     password = html.escape(password)
-        
-    #     found_users =  self._get_user_matches(email)
-
-    #     if len(found_users) <= 0:
-    #         return Status.LOGIN_FAIL_EMAIL_WRONG
-        
-
-    #     userExists, _ = self._find_email_password_match(found_users,password)
-
-    #     if userExists:
-    #         return Status.LOGIN_SUCCESS
-
-    #     return Status.LOGIN_FAIL_PW_WRONG
-    
-    #returns userExists, foundUser 
     def _find_email_password_match(self,user_list,password_to_match):
         foundUser = None
         for account in user_list:
@@ -104,21 +85,34 @@ class AccountsManager:
             return Status.LOGIN_FAIL_PW_WRONG,None
         
         #clean user dictionary (id object not serialiable)
-        user_match["_id"] = str(user_match["_id"])
-        user_match["password_hash"] = user_match["password_hash"].decode()
         
-
-        return Status.LOGIN_SUCCESS, jwt.encode(user_match, JWT_SALT, algorithm="HS256")
+        
+        #TODO: perhaps update jwt to use id, name, email, and stores so 
+        #so UI can display user info without additional requests
+        user_match["_id"] = str(user_match["_id"])
+        user_match["password_hash"] = str(user_match["password_hash"])
+        
+        return Status.LOGIN_SUCCESS, jwt.encode(user_match, JWT_PW_SALT, algorithm=self.HASH_ALGORITHM)
         
     
     def _get_user_match(self,email: str) -> dict:
         email = html.escape(email)
-        return self.pdb.get_collection('accounts').find_one_record({'email':email})
+        
+        with ProductDatabase() as pdb:
+            out = pdb.get_collection('accounts').find_one_record({'email':email})
+        
+        return out
     
     
     def _delete_user_by_email(self,email: str):
         email = html.escape(email)
-        self.pdb.get_collection('accounts').delete_record_by_match({'email':email})
+        with ProductDatabase() as pdb:
+            pdb.get_collection('accounts').delete_record_by_match({'email':email})
+    
+    def decode_user_from_token(self, token: str) -> dict:
+        return jwt.decode(token, JWT_PW_SALT, algorithms=self.HASH_ALGORITHM)
+        
+        
 
 
 

@@ -1,9 +1,26 @@
 # Product-Website
 
 ## Installing dependencies
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements
+
+### Virtual environment and modules
+./build/build_venv.sh
+
+### Docker 
+
+Figure it out, it aint hard
+
+### Python
+Figure it out, it aint hard
+
+### NodeJs
+Figure it out, it aint hard
+
+Then 
+
+```
+cd frontend/
+npm install
+```
 
 ## Building
 

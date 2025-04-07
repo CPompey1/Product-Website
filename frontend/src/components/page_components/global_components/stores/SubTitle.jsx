@@ -4,7 +4,7 @@
 import React from "react";
 import styles from "./SubTitle.module.css";
 
-export default function SubTitle({title}) {
+export default function SubTitleSection({title}) {
   // const title = title1
   // const title = 'store'
   // title = title.toString()
@@ -17,3 +17,12 @@ export default function SubTitle({title}) {
   );
 }
 
+
+function SubTitleHeaderCustom({title, color, fontSize}) {
+
+  return (
+    <div style={{color: color, fontSize: fontSize, fontFamily: 'Impact, Charcoal, sans-serif'}}>{title}</div>
+  );
+}
+
+export { SubTitleHeaderCustom };
