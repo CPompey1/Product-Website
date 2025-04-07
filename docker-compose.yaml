@@ -1,12 +1,15 @@
 services:
+
   backend:
     build: .
     ports:
       - "5000:5000"
     environment:
       - FLASK_ENV=development
+      - MONGO_HOST=mongo
     networks:
       - mynetwork
+
   frontend: 
     build: ./frontend
     depends_on:
@@ -18,8 +21,35 @@ services:
 
   mongo:
     image: mongo:4.2.5  
+    volumes:
+      # Mount the init folder containing the data and script
+      - ./mongo/init:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_DATABASE: ProductDb
+    ports:
+      - "27017:27017"
     networks:
       - mynetwork
+  
+  nginx:
+    build: ./nginx
+    depends_on:
+      - client_com
+      - frontend
+      - backend
+    ports:
+      - "3001:3001"
+    networks:
+      - mynetwork
+  
+  client_com:
+    build: ./OrderManager
+    ports:
+      - "3002:3002"
+    networks:
+      - mynetwork
+
+
 networks:
   mynetwork:
     driver: bridge

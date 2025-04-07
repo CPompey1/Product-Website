@@ -1,0 +1,16 @@
+.image-section {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 0;
+    text-align: center;
+    margin: 1%
+  }
+
+  .full-width-image {
+    max-width: 300px;
+    object-fit: cover;
+    margin-top: 1%;
+    min-height: 20px;
+    overflow: hidden;
+  }

@@ -1,0 +1,19 @@
+# Use the official MongoDB image
+FROM mongo:4.2.5
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the files from the current directory to the container
+COPY . /app
+
+# Initialize the database
+
+# Set the working directory for the script
+WORKDIR /app/clear_and_write_db
+
+# Run the clear_and_write_db script before starting MongoDB
+RUN sh clear_and_write_db
+
+# Start MongoDB
+CMD ["mongod", "--bind_ip_all"]

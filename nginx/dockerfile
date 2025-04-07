@@ -1,0 +1,14 @@
+FROM nginx:1.27.1
+
+#install envsubst
+RUN apt-get update && apt-get install -y gettext-base
+
+# set environment variables
+ENV BACKEND_HOST=backend
+ENV CLIENT_COM_HOST=client_com
+
+# Copy custom configuration file to the app directory
+COPY nginx_configuration_docker.conf /etc/nginx/nginx.conf
+
+#start nginx
+CMD ["nginx", "-g", "daemon off;"]

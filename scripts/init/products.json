@@ -1,0 +1,27 @@
+[
+    {
+      "Title": "Calculator",
+      "Category": "Electronics",
+      "Store": "Cris's Store",
+      "Cost": "15",
+      "Description": "This sleek and efficient calculator is a must-have for students and professionals alike...",
+      "Image": "calculator.jpeg"
+    },
+    {
+      "Title": "Backpack",
+      "Category": "Apparels",
+      "Store": "Cris's Store",
+      "Cost": "30",
+      "Description": "This backpack is perfect for everyday use...",
+      "Image": "backpack.jpeg"
+    },
+    {
+      "Title": "Honey",
+      "Category": "Consumables",
+      "Store": "Cris's Store",
+      "Cost": "5",
+      "Description": "Golden, rich, and pure, this honey is nature’s liquid gold...",
+      "Image": "honey.png"
+    }
+  ]
+  
