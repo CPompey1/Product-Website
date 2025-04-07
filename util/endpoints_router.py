@@ -206,12 +206,13 @@ app.register_blueprint(accounts)
 api = Blueprint('api',__name__,url_prefix='/api')
 @api.route('/checkout/<productId>',methods=['POST'])
 def checkout(productId):
+    #TODO: implement checkout
     return jsonify({"status":"success","productId":productId})
     
-    product = api_functions.get_product_by_id(productId)
-    if product:
-        return jsonify({"status":"success"})
-    return jsonify({"status":"failed"})
+    # product = api_functions.get_product_by_id(productId)
+    # if product:
+    #     return jsonify({"status":"success"})
+    # return jsonify({"status":"failed"})
 
 products = Blueprint('products',__name__,url_prefix='/api/products')
 @products.route('/add_product',methods=['POST'])

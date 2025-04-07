@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import React from 'react'
 
 export default function FormInput({ name, placeholder, type, onChangeF, required, value }){
@@ -5,7 +6,7 @@ export default function FormInput({ name, placeholder, type, onChangeF, required
 
       <>
         {/* <BuilderComponent model="test-builder-page"></BuilderComponent> */}
-        <input
+        <TextField
           id={name}
           name={name}
           placeholder={placeholder}

@@ -40,9 +40,9 @@ function Navigation () {
                 <Button_b action={clickSell} openLinkInNewTab={false} >Sell</Button_b>
               </div>
 
-              <div  className="button-column">
+              {/* <div  className="button-column">
                 <Button_b action={clickDeliver} openLinkInNewTab={false}>Deliver</Button_b>
-              </div>
+              </div> */}
               
           </div>
         </section>
