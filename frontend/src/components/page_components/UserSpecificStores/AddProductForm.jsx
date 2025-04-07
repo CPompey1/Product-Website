@@ -5,6 +5,7 @@ import { Fab } from '@mui/material';
 import { AddCircleOutline } from '@mui/icons-material';
 import { SubTitleHeaderCustom } from '../global_components/stores/SubTitle';
 import './AddItemsForm.css'
+import { Content } from '@builder.io/react';
 export default function AddProductForm({storeName,storeId}) {
     const [inputs, setInputs] = useState({});
     const [addProductFormVisible,setAddProductFormVisible] = useState(false);
@@ -24,17 +25,13 @@ export default function AddProductForm({storeName,storeId}) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const fetchData = async () => {
-          const formData = new FormData()
-          formData.append("title",inputs.Title)
-          formData.append("description",inputs.Description)
-        //   formData.append('image',imginputs.Image)
-          formData.append("category",inputs.Category)
-          formData.append("store",inputs.Store)
-          formData.append("cost","$" + inputs.Cost) 
           
           const fetchResult = await fetch("/api/products/add_product", {
             method: "POST",
-            body: formData,
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify(inputs),
           });
 
           if (fetchResult.ok) {

@@ -68,23 +68,18 @@ function AddStoreForm() {
         <div className="add-item-form">
           <div className='Input-container'>
             <InputLabel name={"Store Name"}/>
-            <FormInput type={"text"} name={"store_name"} placeholder={"Store Name"} onChangeF={handleChange}/>
+            <FormInput type={"text"} name={"title"} placeholder={"Store Name"} onChangeF={handleChange}/>
           </div>
 
           <div className='Input-container'>
             <InputLabel name={"Store Description"}/>
-            <FormInput type={"text"} name={"store_description"} placeholder={"Store Description"} onChangeF={handleChange}/>
+            <FormInput type={"text"} name={"storeDescription"} placeholder={"Store Description"} onChangeF={handleChange}/>
           </div>
           
 
           <div className='Input-container'>
             <InputLabel name={"Store Address"}/>
-            <FormInput type={"text"} name={"store_address"} placeholder={"Store Address"} onChangeF={handleChange}/>
-          </div>
-
-          <div className='Input-container'>
-            <InputLabel name={"Store Phone"}/>
-            <FormInput type={"text"} name={"store_phone"} placeholder={"Store Phone"} onChangeF={handleChange}/> 
+            <FormInput type={"text"} name={"location"} placeholder={"Store Address"} onChangeF={handleChange}/>
           </div>
 
           {/* TODO: Add image input, need to figure out content hosting other than directly on our server*/}

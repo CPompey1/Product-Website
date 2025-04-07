@@ -66,6 +66,8 @@ class LoggedUserTracker:
             self.TIME_CREATED_STRING: time_created.strftime(LoggedUserTracker.TIME_REPR_STRING),
             self.EXPIRATION_TIME_STRING: expiration.strftime(LoggedUserTracker.TIME_REPR_STRING)
         }
+        print("added user")
+        print(self._logged_in_user_map)
 
     
     def _user_clean_in_tracker(self,token:str) -> bool:

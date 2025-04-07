@@ -64,7 +64,7 @@ function StoresGrid() {
                 <CategoryItem key={category._id} 
                               link = {`/stores/${category._id}`}
                               name={category.title}  
-                              imgLink={category.logo}  
+                              imgLink={`/media/${category.logo}`} 
                               isStore={false}/>
               ))}
             </div>

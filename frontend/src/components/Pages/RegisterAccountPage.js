@@ -5,12 +5,13 @@ import LogoSection from '../page_components/LogoSection'
 import Navigation from '../page_components/Navigation'
 import Footer from '../page_components/Footer'
 import RegisterAccountForm from '../page_components/RegisterLogin/RegisterAccountForm'
+import { LOGO_URL } from '../../globals'
 export default function RegisterAccountPage() {
   return (
     <>
         <Header/>
         <LogoSection
-          src="https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F081600701cd246c09e2ac06a37be697f"
+          src={LOGO_URL}
           alt="Logo"
         />
         <Navigation/>

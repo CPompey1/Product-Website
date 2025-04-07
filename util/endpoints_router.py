@@ -11,7 +11,7 @@ from util.globals import CATEGORIES, GlobalStrings
 
 app = Flask(__name__) #dont touch this line
 
-@app.route("/<path:path>")
+@app.route("/media/<path:path>")
 def getContent(path: str):
     #this function might be tad overcomplicated but it's to prevent directory traversal attacks
     
@@ -32,7 +32,6 @@ def add_store():
     resp = make_response()
     store = request.get_json()
     auth_token = request.cookies.get(GlobalStrings.AUTHTOKEN)
-    
     if not loggedInUserTracker.user_valid(auth_token):
         resp = jsonify({"status":"failed","message":"invalid token"})
         resp.status = 403
@@ -42,8 +41,8 @@ def add_store():
     
     store['userOwnerId'] = user['_id']
     
-    api_functions.insert_new_store(store)
-    
+    with ProductDatabase() as pdb:
+        pdb.get_collection('stores').insert_record(store)        
     resp = jsonify({"status":"success"})
     resp.status = 200
     return resp
@@ -203,7 +202,7 @@ def logout():
         return response
 
 app.register_blueprint(accounts)
-
+ 
 api = Blueprint('api',__name__,url_prefix='/api')
 @api.route('/checkout/<productId>',methods=['POST'])
 def checkout(productId):
@@ -217,7 +216,11 @@ def checkout(productId):
 products = Blueprint('products',__name__,url_prefix='/api/products')
 @products.route('/add_product',methods=['POST'])
 def add_product():
-    # print("in add product")
+    print("in add product")
+    
+    #Should authenticate user is logged in
+    
+    #Should verify 
     # print((request.get_json()))
 
     requestInput = request.get_json()
@@ -237,13 +240,14 @@ def add_product():
                 file_to_write.close()
 
             #update form input fields
-            requestInput["Image"] = uploads[filename].filename
+            requestInput["image"] = uploads[filename].filename
     
 
     resp = make_response(jsonify(requestInput))
 
     #add to database
     api_functions.insert_new_product(requestInput)
+    
     
     #set some headers
     api_functions.add_default_headers(resp)
@@ -288,7 +292,7 @@ def get_product_list() -> Response:
 
 @products.route('/product/<product_id>',methods=['GET'])
 def get_product(product_id):
-    product = api_functions.get_product_by_id(product_id)
+    product = api_functions.get_product_by_id(product_id)[0]
     resp = jsonify(product)
     if product:
         resp.status = 200

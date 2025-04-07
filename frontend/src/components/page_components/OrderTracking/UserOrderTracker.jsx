@@ -57,9 +57,27 @@ export default function UserOrderTracker({orderId}) {
 }
 
 function OrderStatus({status}) {
+  let message = ''
+  switch(status) {
+    case ORDER_TRACKING_STATUS.AWAITING_PICKUP:
+      message = 'Order Awaiting pickup'
+      break;
+    case ORDER_TRACKING_STATUS.PICKED_UP:
+      message = 'Order Picked up'
+      break;
+    case ORDER_TRACKING_STATUS.IN_TRANSIT:
+      message = 'Order In transit'
+      break;
+    case ORDER_TRACKING_STATUS.DELIVERED:
+      message = 'Order Delivered'
+      break;
+    case ORDER_TRACKING_STATUS.COURRIER_NOT_ASSIGNED:
+      message = 'Courrier not assigned'
+      break;
+  }
   return (
     <div>
-      <h1>{status}</h1>
+      <h1>{message}</h1>
     </div>
   )
 }

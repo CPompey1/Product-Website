@@ -19,7 +19,7 @@ export default function CheckoutForm({productId}) {
   const [productData, setProductData] = useState([]);
   const [inputs,setInputs] = useState({})
   const [ordeerPlaced, setOrderPlaced] = useState(false)
-  const [orderId, setOrderId] = useState("null")
+  const [orderId, setOrderId] = useState(null)
   
 
   const handleChange = (event) => {
@@ -42,7 +42,10 @@ export default function CheckoutForm({productId}) {
     if (response.ok){
       const jsonResult = await response.json()
       console.log(jsonResult)
+      setOrderId("null")
     }
+
+
 
   }
   
@@ -74,17 +77,17 @@ export default function CheckoutForm({productId}) {
     
       <main className={styles.container}>
         <section className={styles.mainSection}>
-        {productData.map(product => (
-            <ProductSection 
-              className={styles.productWrapper} 
-              key={product._id}
-              imageSrc={product.imageSrc}
-              imageAlt = {product.imageAlt}
-              text={product.text}
-              title={product.title}
-              link={`/product/${product._id}`}
-          />
-          ))}
+       
+          <ProductSection 
+            className={styles.productWrapper} 
+            key={productData._id}
+            imageSrc={`/media/${productData.imageSrc}`}
+            imageAlt = {productData.imageAlt}
+            text={productData.text}
+            title={productData.title}
+            link={`/product/${productData._id}`}
+        />
+      
           <div className={styles.checkoutContainer}>
             <div className={styles.contentWrapper}>
               <div className={styles.twoColumnLayout}>

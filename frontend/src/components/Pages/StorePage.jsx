@@ -32,7 +32,7 @@ const [storeData, setStoreData] = useState({})
         <Header/>
         {/* Change in the future to be store specific logo */}
         <LogoSection
-            src="https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F081600701cd246c09e2ac06a37be697f"
+            src={storeData.logo}
             alt="Logo"
         />
 

@@ -30,6 +30,7 @@ import FormInput, { InputLabel } from './components/page_components/global_compo
 import UserStoreProducts from './components/Pages/UserStoreProductsPage';
 import StoreProductList from './components/Pages/LoggedInUserPages/StoreProductList';
 import ProductOrderPage from './components/Pages/ProductOrderPage';
+import EditProductPage from './components/Pages/LoggedInUserPages/EditProductPage';
 function App() {
   
     {/* I have no idea what the fuck is going on here and it shuold be fixed */}
@@ -63,7 +64,11 @@ function App() {
         
         {"path":"/edit-product-list/:storeId","element":<StoreProductList/>},
 
+        {"path":"/edit-product/:productId","element":<EditProductPage/>},
+
         {"path":"orders/order/:orderId","element":<ProductOrderPage/>},
+
+  
     ]
   return (
     <>

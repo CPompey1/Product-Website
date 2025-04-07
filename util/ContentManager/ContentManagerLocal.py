@@ -8,9 +8,13 @@ class ContentManagerLocal(ContentManager):
     def __init__(self):
         return 
     
+    def upload_user_asset(self, path: str, file: bytes) -> Response:
+        return False
+    
     def get_file(self, path: str) -> Response:
         root = PROJDIR
-
+        resp = make_response().status = 404
+        
         if path.__contains__(".."):
             return "Invalid path", 403
         

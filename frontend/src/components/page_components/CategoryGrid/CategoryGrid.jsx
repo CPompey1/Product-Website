@@ -67,7 +67,7 @@ function CategoryGrid() {
                               name={category.title} 
                               link ={category.redirect} 
                               // https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F6032d2b5327e4c0687019aafbe79d0c2
-                              imgLink={category.imgLink} 
+                              imgLink={`/media/${category.imgLink}`} 
                               isStore={false}/>
               ))}
             </div>

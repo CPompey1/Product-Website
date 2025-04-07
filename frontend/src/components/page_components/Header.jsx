@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import './Header.css'
 import LogRegHeaderLink, { LogoutHeaderLink } from './LogRegHeaderLink'
 import { Avatar } from '@mui/material'
-import AvatarIcon from './AvatarIcon'
 import validateUser from '../../util/accounts_manager'
 import { useState } from 'react'
 export default function Header() {
@@ -47,7 +46,7 @@ const fetchData = async () => {
                 <a className="logout-link">
                    <LogoutHeaderLink/> 
                 </a>
-                <a href='/'> <AvatarIcon/> </a>
+                <a href='/'> <Avatar/> </a>
               </>
             ):(<div/>)}
             
