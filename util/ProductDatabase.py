@@ -6,9 +6,7 @@ from util import globals
 import json
 from bson.objectid import ObjectId
 from pymongo.results import InsertOneResult, InsertManyResult, DeleteResult
-from pymongo.synchronous.cursor import (
-    Cursor
-)
+from pymongo.cursor import Cursor
 import bcrypt
 
 class InsertOneWr:
