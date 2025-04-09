@@ -1,19 +1,9 @@
 services:
 
-  backend:
-    build: .
-    ports:
-      - "5000:5000"
-    environment:
-      - FLASK_ENV=development
-      - MONGO_HOST=mongo
-    networks:
-      - mynetwork
-
   frontend: 
     build: ./frontend
     depends_on:
-      - backend
+      - nginx
     ports:
       - "3000:3000"
     networks:
@@ -35,7 +25,6 @@ services:
     build: ./nginx
     depends_on:
       - client_com
-      - frontend
       - backend
     ports:
       - "3001:3001"
@@ -49,6 +38,18 @@ services:
     networks:
       - mynetwork
 
+  backend:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - MONGO_HOST=mongo
+    networks:
+      - mynetwork
+    depends_on:
+      - mongo
+      
 
 networks:
   mynetwork:
