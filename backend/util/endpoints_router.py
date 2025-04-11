@@ -19,6 +19,9 @@ def getContent(path: str):
     api_functions.add_default_headers(resp)
     return resp
 
+@app.route("/helloWorld")
+def helloWorld():
+    return "Hello World!"
 stores = Blueprint('stores',__name__,url_prefix='/api/stores')
 @stores.route('/get_categories',methods=['GET'])
 def get_categories():

@@ -3,8 +3,13 @@ import json
 import sys
 
 import bcrypt
-
+import os
+#print current working directory
+print(os.getcwd())
 sys.path.append(".")
+import tests
+print(dir(tests.__package__))
+from util.GlobalTestUtility import GlobalTestUtility
 from util.Status import Status
 from util.appdata import PWD_SALT
 from util.globals import CATEGORIES
@@ -16,7 +21,7 @@ from util.ProductDatabase import ProductDatabase
 import random
 from time import *
 from util.AccountsManager import AccountsManager
-from tests.GlobalTestUtility import GlobalTestUtility
+# from GlobalTestUtility import GlobalTestUtility
 import flask
 # get the resources folder in the tests folder
 resources = Path(__file__).parent / "resources"

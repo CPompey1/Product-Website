@@ -6,8 +6,13 @@ WORKDIR /app
 
 
 COPY . .
+RUN rm -rf node_modules
 COPY package_docker.json ./package.json
-RUN npm install
+RUN npm install --force
+RUN snap install serve
 
 EXPOSE 3000
-CMD ["npm", "start"]
+RUN npm run build
+# CMD ["npm", "run", "build"]
+CMD ["serve", "-s", "build", "-l", "3000"]
+# CMD ["npm", "start"]

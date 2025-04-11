@@ -1,11 +1,6 @@
 import sys
-import os
-
-import bcrypt
-
 sys.path.append(".")
 from util.ProductDatabase import ProductDatabase
-import subprocess
 from scripts.demo_data.variables import *
 from util.AccountsManager import AccountsManager
 
