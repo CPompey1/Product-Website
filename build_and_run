@@ -1,8 +1,14 @@
 #!/bin/bash
 
-./script/build_venv.sh
+# ./script/build_venv.sh
 source .venv/bin/activate
 sudo systemctl start mongod.service
+return_code=$?
+
+if [ $return_code -ne 0 ]; then
+    echo "Failed to start mongoDB"
+    exit 1
+fi
 # Start process 1 in the background
 cd backend/
 python3 app.py &

@@ -1,5 +1,10 @@
 FROM nginx:1.27.1
 
+
+WORKDIR /app
+#Stage 1: build frontend files
+COPY frontend_build .
+
 #install envsubst
 RUN apt-get update && apt-get install -y gettext-base
 
