@@ -7,6 +7,6 @@ echo export MONGO_HOST=localhost:27017 >> .venv/bin/activate
 echo export ENV=local >> .venv/bin/activate
 
 source .venv/bin/activate
-pip install -r requirements
+pip install -r backend/requirements
 
 

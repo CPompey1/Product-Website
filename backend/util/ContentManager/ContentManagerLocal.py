@@ -2,7 +2,7 @@ import os
 from util.ContentManager.ContentManager import ContentManager
 from flask import Flask, Response, make_response, send_from_directory
 
-PROJDIR = os.getcwd()
+CONTENT_DIRECTORY = f"{os.getcwd()}" 
 
 class ContentManagerLocal(ContentManager):
     def __init__(self):
@@ -12,22 +12,22 @@ class ContentManagerLocal(ContentManager):
         return False
     
     def get_file(self, path: str) -> Response:
-        root = PROJDIR
-        resp = make_response().status = 404
+        root = CONTENT_DIRECTORY
+        resp = make_response()
+        resp.status = 404
+        print("start")
+        # Clean request
         
         if path.__contains__(".."):
-            return "Invalid path", 403
-        
-        # Clean request
-        if path.__contains__(f"dynamic_assets/images"):
-            resp = make_response(send_from_directory(root,path))
-            if os.path.exists(os.path.join(root,path)):
-                resp.status = 200
+            resp.status = 403
             return resp
         
-        if not path.__contains__("frontend/public"):
-            root = 'frontend/public'
-        
+        pathList = path.split("/")
+        print(pathList)
+        if not (pathList[0]  == "dynamic_assets" or pathList[0] == "static_content"):
+            resp.status = 403
+            return resp
+            
         resp = make_response(send_from_directory(root,path))
         if os.path.exists(os.path.join(root,path)):
             resp.status = 200

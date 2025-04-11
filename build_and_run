@@ -1,19 +1,15 @@
 #!/bin/bash
-# cd frontend
-# npx webpack --mode production
-# mv dist/bundle.js ../static/js
-# cd ../
-# python3 app.py
-#!/bin/bash
 
+./script/build_venv.sh
 source .venv/bin/activate
 sudo systemctl start mongod.service
 # Start process 1 in the background
+cd backend/
 python3 app.py &
 process1_pid=$!
 
 # Start process 2 in the background
-cd frontend/
+cd ../frontend/
 npm start &
 process2_pid=$!
 
@@ -37,12 +33,3 @@ trap 'stop_processes' SIGINT
 
 # Wait for the processes to finish
 wait
-
-
-# In this script: (chatgpt)
-# 1. Replace `process1_command` and `process2_command` with the actual commands you want to run for each process.
-# 2. The processes are started in the background using `&`.
-# 3. The PIDs of the processes are stored in variables for later reference.
-# 4. A `trap` is set to catch the `SIGINT` signal (Ctrl+C) and call the `stop_processes` function to stop the processes.
-# 5. The `stop_processes` function sends the `SIGTERM` signal to each process using the `kill` command.
-# 6. The `wait` command is used to wait for the processes to finish before exiting the script.

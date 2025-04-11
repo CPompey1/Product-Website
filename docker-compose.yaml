@@ -18,18 +18,23 @@ services:
       MONGO_INITDB_DATABASE: ProductDb
     ports:
       - "27017:27017"
+
     networks:
       - mynetwork
   
   nginx:
     build: ./nginx
     depends_on:
-      - client_com
       - backend
+    environment:
+      - WEB_CERT=/app/.s/cert.pem
+      - WEB_KEY=/app/.s/key.pem
     ports:
       - "3001:3001"
     networks:
       - mynetwork
+    volumes:
+      - ~/.ssl:/app/.s
   
   client_com:
     build: ./OrderManager
@@ -39,18 +44,17 @@ services:
       - mynetwork
 
   backend:
-    build: .
+    build: ./backend
     ports:
       - "5000:5000"
     environment:
       - FLASK_ENV=development
+      - ENV=docker
       - MONGO_HOST=mongo
     networks:
       - mynetwork
     depends_on:
       - mongo
-      
-
 networks:
   mynetwork:
     driver: bridge

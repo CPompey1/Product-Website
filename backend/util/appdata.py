@@ -20,7 +20,7 @@ match(env) :
     case 'local' :
         contentManager = ContentManagerLocal()
         pass
-    case 'dev' :
+    case 'docker' :
         contentManager = ContentManagerLocal()
         pass
     case 'prod' :
