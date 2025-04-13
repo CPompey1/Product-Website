@@ -14,7 +14,6 @@ app = Flask(__name__) #dont touch this line
 @app.route("/media/<path:path>")
 def getContent(path: str):
     #this function might be tad overcomplicated but it's to prevent directory traversal attacks
-    
     resp = ContentManagerLocal().get_file(path)
     api_functions.add_default_headers(resp)
     return resp

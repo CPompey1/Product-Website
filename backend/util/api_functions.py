@@ -52,7 +52,7 @@ def raw_products_to_products(raw_records: list) -> list:
                 "_id": str(raw_record['_id']),
                 "title" : raw_record["title"],
                 "text":   raw_record["description"],
-                "imageSrc":f"/dynamic_assets/images/productimages/{raw_record['image']}",
+                "imageSrc":f"dynamic_assets/images/productimages/{raw_record['image']}",
                 "category": raw_record["category"],
                 "cost": raw_record["cost"],
                 "store": raw_record["store"]

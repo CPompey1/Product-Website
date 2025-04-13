@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -54,7 +53,7 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link }) => (
         {data.map(product => (
           <ProductSection
             key={product._id}
-            imageSrc={`/media/${product.imageSrc}`}
+            imageSrc={product.imageSrc.startsWith('/media') ? `https://${window.location.host}${product.imageSrc}` : `https://${window.location.host}/media${product.imageSrc.replace(/^\/+/, '')}`}
             imageAlt = {product.imageAlt}
             text={product.text}
             title={product.title}

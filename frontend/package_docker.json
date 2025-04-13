@@ -2,7 +2,8 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://nginx:3001",
+  "proxy": "https://nginx:3000",
+  "homepage": "/",
   "dependencies": {
     "@builder.io/react": "^4.0.1",
     "@emotion/react": "^11.13.0",

@@ -21,7 +21,7 @@ services:
       - WEB_CERT=/app/.s/cert.pem
       - WEB_KEY=/app/.s/key.pem
     ports:
-      - "3001:3001"
+      - "3000:3000"
     networks:
       - mynetwork
     volumes:

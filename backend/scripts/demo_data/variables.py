@@ -12,27 +12,27 @@ demoUser = {
 demoCategories = [
     {
         "title": "Consumables",
-        "imgLink": "/dynamic_assets/images/categoryimages/consumables.jpeg",
+        "imgLink": "dynamic_assets/images/categoryimages/consumables.jpeg",
         "redirect": "/category/Consumables" 
     },
     {
         "title": "Electronics",
-        "imgLink": "/dynamic_assets/images/categoryimages/electronics.png",
+        "imgLink": "dynamic_assets/images/categoryimages/electronics.png",
         "redirect": "/category/Electronics" 
     },
     {
         "title": "Apparels",
-        "imgLink": "/dynamic_assets/images/categoryimages/apparel.jpeg",
+        "imgLink": "dynamic_assets/images/categoryimages/apparel.jpeg",
         "redirect": "/category/Apparels" 
     },
     {
         "title": "Books",
-        "imgLink": "/dynamic_assets/images/categoryimages/books.png",
+        "imgLink": "dynamic_assets/images/categoryimages/books.png",
         "redirect": "/category/Books" 
     },
     {
         "title": "Stationary",
-        "imgLink": "/dynamic_assets/images/categoryimages/stationary.jpeg",
+        "imgLink": "dynamic_assets/images/categoryimages/stationary.jpeg",
         "redirect": "/category/Stationary" 
     }
 ]
@@ -67,7 +67,7 @@ demoProducts = [
 demoStores = [
     {
         "title": "Cris's Store",
-        "logo": "/dynamic_assets/images/storelogos/Cris's_store.jpeg",
+        "logo": "dynamic_assets/images/storelogos/Cris's_store.jpeg",
         "location": "123 Main Street, Anytown, USA",
         "userOwnerId" : "filledByScript"
         
