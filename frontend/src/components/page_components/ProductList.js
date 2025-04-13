@@ -53,7 +53,7 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link }) => (
         {data.map(product => (
           <ProductSection
             key={product._id}
-            imageSrc={product.imageSrc.startsWith('/media') ? `https://${window.location.host}${product.imageSrc}` : `https://${window.location.host}/media${product.imageSrc.replace(/^\/+/, '')}`}
+            imageSrc={product.imageSrc.startsWith('/media') ? `https://${window.location.host}/${product.imageSrc}` : `https://${window.location.host}/media/${product.imageSrc.replace(/^\/+/, '')}`}
             imageAlt = {product.imageAlt}
             text={product.text}
             title={product.title}

@@ -2,6 +2,7 @@ PROJECT_DIR := $(shell pwd)
 FRONTEND_BUILD_TGT := $(PROJECT_DIR)/nginx/frontend_build
 FRONTEND_BUILD_SRC := $(PROJECT_DIR)/frontend/build
 .PHONY: $(FRONTEND_BUILD_TGT)
+.PHONY: $(FRONTEND_BUILD_SRC)
 
 docker_up: backend frontend mongo nginx OrderManager docker-compose.yaml $(FRONTEND_BUILD_TGT)
 	docker compose up --build --force-recreate; \
