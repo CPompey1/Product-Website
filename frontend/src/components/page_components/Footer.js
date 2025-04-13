@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Footer.css'
 import FooterSection from './FooterSection';
 import SocialIcon from './FooterSocialIcon';
 import { BuilderComponent } from '@builder.io/react';
-
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 export default function Footer () {
 const socialIcons = [
     { src: "https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2Ff55f1d07ed3049709cd368e7d5decc35", alt: "Social media icon 1" },
@@ -17,8 +17,10 @@ const socialIcons = [
     ];
 
   return (
+    
     <>
         {/* <BuilderComponent model='test-builder-page'/> */}
+        {isMobile ? <></> :
         <div className={'footer'}>
             <div className={'logoContainer'}>
             <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2Fc18f62248cbb4d0c8ca7c9c848550237" alt="Company logo" className={'logo'} />
@@ -37,7 +39,7 @@ const socialIcons = [
                 </ul>
             </nav>
             ))}
-        </div>
+        </div>}
     </>
   );
 };

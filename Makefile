@@ -1,6 +1,7 @@
 PROJECT_DIR := $(shell pwd)
 FRONTEND_BUILD_TGT := $(PROJECT_DIR)/nginx/frontend_build
 FRONTEND_BUILD_SRC := $(PROJECT_DIR)/frontend/build
+.PHONY: $(FRONTEND_BUILD_TGT)
 
 docker_up: backend frontend mongo nginx OrderManager docker-compose.yaml $(FRONTEND_BUILD_TGT)
 	docker compose up --build --force-recreate; \
@@ -8,9 +9,10 @@ docker_up: backend frontend mongo nginx OrderManager docker-compose.yaml $(FRONT
 
 
 $(FRONTEND_BUILD_TGT): $(FRONTEND_BUILD_SRC)
+	rm -rf $(FRONTEND_BUILD_TGT)
 	cp -r $(FRONTEND_BUILD_SRC) $(FRONTEND_BUILD_TGT)
 
-$(FRONTEND_BUILD_SRC): frontend
+$(FRONTEND_BUILD_SRC): frontend/src/**/* frontend/public/** frontend/package.json
 	cd frontend; rm -rf package-lock.json; npm install --force
 	cd frontend; npm run build
 
