@@ -1,18 +1,19 @@
 # frontend/Dockerfile
-FROM node:18
+FROM node:18 as build
 
 WORKDIR /app
-
-
-
+#Stage 1: build frontend files
 COPY . .
-RUN rm -rf node_modules
 COPY package_docker.json ./package.json
 RUN npm install --force
-RUN snap install serve
-
-EXPOSE 3000
 RUN npm run build
-# CMD ["npm", "run", "build"]
-CMD ["serve", "-s", "build", "-l", "3000"]
-# CMD ["npm", "start"]
+
+#Stage 2: serve w nginx
+FROM nginx:1.27.1
+WORKDIR /app
+RUN apt-get update && apt-get install -y gettext-base
+COPY --from=build /app/build /app
+COPY ./nginx_configuration_docker.conf /etc/nginx/nginx.conf
+EXPOSE 3000
+#start nginx
+CMD ["nginx", "-g", "daemon off;"]

@@ -10,4 +10,4 @@ EXPOSE 5000
 # RUN python3 scripts/clear_and_write_demo_db.py
 # Start a bash session when the container launches
 # CMD ["python3","app.py"]
-CMD ["gunicorn","-w","3","--bind", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn","-w","3","--bind", "0.0.0.0:5000","-c","gunicorn.conf.py", "app:app","--access-logfile", "-", "--error-logfile", "-"]

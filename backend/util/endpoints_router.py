@@ -14,12 +14,11 @@ app = Flask(__name__) #dont touch this line
 @app.route("/media/<path:path>")
 def getContent(path: str):
     #this function might be tad overcomplicated but it's to prevent directory traversal attacks
-    
     resp = ContentManagerLocal().get_file(path)
     api_functions.add_default_headers(resp)
     return resp
 
-@app.route("/helloWorld")
+@app.route("/api/helloWorld")
 def helloWorld():
     return "Hello World!"
 stores = Blueprint('stores',__name__,url_prefix='/api/stores')

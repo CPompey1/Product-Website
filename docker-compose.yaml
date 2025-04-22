@@ -1,19 +1,10 @@
 services:
 
-  frontend: 
-    build: ./frontend
-    depends_on:
-      - nginx
-    ports:
-      - "3000:3000"
-    networks:
-      - mynetwork
-
   mongo:
     image: mongo:4.2.5  
-    volumes:
-      # Mount the init folder containing the data and script
-      - ./mongo/init:/docker-entrypoint-initdb.d
+    # volumes:
+    #   # Mount the init folder containing the data and script
+    #   - ./mongo/init:/docker-entrypoint-initdb.d
     environment:
       MONGO_INITDB_DATABASE: ProductDb
     ports:
@@ -30,6 +21,7 @@ services:
       - WEB_CERT=/app/.s/cert.pem
       - WEB_KEY=/app/.s/key.pem
     ports:
+      - "3000:3000"
       - "3001:3001"
     networks:
       - mynetwork

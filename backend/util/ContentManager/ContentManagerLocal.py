@@ -27,7 +27,8 @@ class ContentManagerLocal(ContentManager):
         if not (pathList[0]  == "dynamic_assets" or pathList[0] == "static_content"):
             resp.status = 403
             return resp
-            
+        
+        path = os.path.normpath(path)
         resp = make_response(send_from_directory(root,path))
         if os.path.exists(os.path.join(root,path)):
             resp.status = 200
