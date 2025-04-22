@@ -20,7 +20,7 @@ const socialIcons = [
     
     <>
         {/* <BuilderComponent model='test-builder-page'/> */}
-        {isMobile ? <></> :
+        {/* {isMobile ? <></> : */}
         <div className={'footer'}>
             <div className={'logoContainer'}>
             <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2Fc18f62248cbb4d0c8ca7c9c848550237" alt="Company logo" className={'logo'} />
@@ -39,7 +39,7 @@ const socialIcons = [
                 </ul>
             </nav>
             ))}
-        </div>}
+        </div>
     </>
   );
 };

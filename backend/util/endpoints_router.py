@@ -18,7 +18,7 @@ def getContent(path: str):
     api_functions.add_default_headers(resp)
     return resp
 
-@app.route("/helloWorld")
+@app.route("/api/helloWorld")
 def helloWorld():
     return "Hello World!"
 stores = Blueprint('stores',__name__,url_prefix='/api/stores')

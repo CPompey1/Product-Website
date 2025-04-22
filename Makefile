@@ -8,6 +8,8 @@ docker_up: backend frontend mongo nginx OrderManager docker-compose.yaml $(FRONT
 	docker compose up --build --force-recreate; \
     docker exec $(docker ps | grep "backend" | cut -d' ' -f1) python3 scripts/clear_and_write_demo_db.py
 
+local_up: $(PROJECT_DIR)/.venv 
+	./build_and_run
 
 $(FRONTEND_BUILD_TGT): $(FRONTEND_BUILD_SRC)
 	rm -rf $(FRONTEND_BUILD_TGT)
@@ -16,9 +18,6 @@ $(FRONTEND_BUILD_TGT): $(FRONTEND_BUILD_SRC)
 $(FRONTEND_BUILD_SRC): frontend/src/**/* frontend/public/** frontend/package.json
 	cd frontend; rm -rf package-lock.json; npm install --force
 	cd frontend; npm run build
-
-local_up: $(PROJECT_DIR)/.venv 
-	./build_and_run
 
 $(PROJECT_DIR)/.venv:  $(PROJECT_DIR)/backend/requirements
 	./scripts/build_venv.sh

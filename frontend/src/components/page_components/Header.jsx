@@ -37,7 +37,7 @@ const fetchData = async () => {
   
   return (
     <>
-      {isMobile ? (<></>) :
+      {/* {isMobile ? (<></>) : */}
       (<header className="main-header">
           <section className="header-content">
             
@@ -54,7 +54,7 @@ const fetchData = async () => {
             
           </section>
           
-      </header>)}
+      </header>)
       
     </>
   )

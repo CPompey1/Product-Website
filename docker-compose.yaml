@@ -22,6 +22,7 @@ services:
       - WEB_KEY=/app/.s/key.pem
     ports:
       - "3000:3000"
+      - "3001:3001"
     networks:
       - mynetwork
     volumes:
