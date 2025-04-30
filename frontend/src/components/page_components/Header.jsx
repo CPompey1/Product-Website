@@ -4,7 +4,6 @@ import LogRegHeaderLink, { LogoutHeaderLink } from './LogRegHeaderLink'
 import { Avatar } from '@mui/material'
 import validateUser from '../../util/accounts_manager'
 import { useState } from 'react'
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 export default function Header() {
 
@@ -14,7 +13,6 @@ export default function Header() {
 useEffect(() => {
   const checkUserLoggedIn = async () => {
     const loggedIn = await validateUser()
-    console.log("isMobile: ", isMobile)
     setUserLoggedIn(loggedIn)
     fetchData()
   }
@@ -38,7 +36,7 @@ const fetchData = async () => {
   return (
     <>
       {/* {isMobile ? (<></>) : */}
-      (<header className="main-header">
+      <header className="main-header">
           <section className="header-content">
             
             {userLoggedIn ? (<></>):(<LogRegHeaderLink/>)}
@@ -54,7 +52,7 @@ const fetchData = async () => {
             
           </section>
           
-      </header>)
+      </header>
       
     </>
   )

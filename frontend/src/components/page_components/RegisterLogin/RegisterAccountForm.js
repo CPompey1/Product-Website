@@ -3,6 +3,7 @@ import './RegisterLogin.css';
 import { BuilderComponent } from "@builder.io/react";
 import { Navigate, useNavigate } from "react-router-dom";
 import FormInput, { InputLabel } from "../global_components/Forms/FormInput";
+import { set } from "react-hook-form";
 const InvalidPassword = () => {
   return (
     <>
@@ -16,9 +17,10 @@ const InvalidPassword = () => {
   )
 }
 
-export default function RegisterAccountForm() {
+export default function RegisterAccountForm(isWebview) {
   const [inputs,setInputs] = useState({})
   const [invalidPassword,setInValid] = useState(false)
+  const [resultData, setResultData] = useState(null)
   const navigate = useNavigate()
 
   const handleChange = (event) => {
@@ -48,11 +50,17 @@ export default function RegisterAccountForm() {
           password: inputs.password
         })
       })
+      setResultData(fetchResult)
       console.log(fetchResult)
   }
     fetchData()
    
-    navigate('/')
+    if (resultData.ok  && isWebview){
+      RegisterLoginJsInterface.registerClicked()
+    } else if (resultData.ok){
+      navigate('/')
+    }
+    
       
   };
 

@@ -31,6 +31,9 @@ import UserStoreProducts from './components/Pages/UserStoreProductsPage';
 import StoreProductList from './components/Pages/LoggedInUserPages/StoreProductList';
 import ProductOrderPage from './components/Pages/ProductOrderPage';
 import EditProductPage from './components/Pages/LoggedInUserPages/EditProductPage';
+import LoginAccountForm from './components/page_components/RegisterLogin/LoginAccountForm';
+import LoginMobilePage from './components/pages_mobile/LoginMobilePage';
+import RegisterMobilePage from './components/pages_mobile/RegisterMobilePage';
 function App() {
   
     {/* I have no idea what the fuck is going on here and it shuold be fixed */}
@@ -66,7 +69,11 @@ function App() {
 
         {"path":"/edit-product/:productId","element":<EditProductPage/>},
 
-        {"path":"orders/order/:orderId","element":<ProductOrderPage/>},
+        {"path":"/orders/order/:orderId","element":<ProductOrderPage/>},
+
+        {"path":"/m/login","element":<LoginMobilePage/>},
+
+        {"path": "/m/register","element":<RegisterMobilePage/>}
 
   
     ]

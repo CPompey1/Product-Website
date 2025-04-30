@@ -3,7 +3,7 @@ import './RegisterLogin.css';
 import { useNavigate } from "react-router-dom";
 import FormInput from "../global_components/Forms/FormInput";
 
-export default function LoginAccountForm() {
+export default function LoginAccountForm(isWebview) {
   const [inputs,setInputs] = useState({})
 
   // 0 = unsubmitted, 1 = submitted, -1 = invalid login
@@ -39,9 +39,13 @@ export default function LoginAccountForm() {
           break;
         case 200:
           setLoginState(1)
-          return navigate('/')
         default:
           setLoginState(0)
+      }
+      if (fetchResult.ok  && isWebview){
+        RegisterLoginJsInterface.loginClicked()
+      } else if (fetchResult.ok){
+        navigate('/')
       }
       await console.log("Response:" + data)
       return

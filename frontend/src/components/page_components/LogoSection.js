@@ -1,9 +1,9 @@
 import React from 'react'
 import './LogoSection.css'
-export default function LogoSection({src,alt}) {
+export default function LogoSection({src,alt,isWebview}) {
   return (
     <div className="image-section">
-      <a href='/'>
+      <a href={ "/"}>
         <img loading="lazy" src={src} alt={alt} className="full-width-image" />
       </a>
     </div>
