@@ -34,13 +34,17 @@ import EditProductPage from './components/Pages/LoggedInUserPages/EditProductPag
 import LoginAccountForm from './components/page_components/RegisterLogin/LoginAccountForm';
 import LoginMobilePage from './components/pages_mobile/LoginMobilePage';
 import RegisterMobilePage from './components/pages_mobile/RegisterMobilePage';
+import MainMobilePage from './components/pages_mobile/MainMobilePage';
 function App() {
   
     {/* I have no idea what the fuck is going on here and it shuold be fixed */}
     {/* this should be path to the form, not the endpoint. Yet it works. */}
     const routes = [
+
         {"path":"/","element":<MainPage/>},
-    
+
+        {"path" : "/m", "element" : <MainMobilePage/>},
+
         {"path":"/sellers_home","element":<UserStores/>},
     
         {"path":"/sellers_product","element":<SellersProducts />},
@@ -75,7 +79,8 @@ function App() {
 
         {"path": "/m/register","element":<RegisterMobilePage/>}
 
-  
+
+
     ]
   return (
     <>

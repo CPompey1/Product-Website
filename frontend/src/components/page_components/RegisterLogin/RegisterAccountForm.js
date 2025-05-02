@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './RegisterLogin.css';
 import { BuilderComponent } from "@builder.io/react";
 import { Navigate, useNavigate } from "react-router-dom";
-import FormInput, { InputLabel } from "../global_components/Forms/FormInput";
+import FormInput, { InputLabel, ReturnToMainActivityButton } from "../global_components/Forms/FormInput";
 import { set } from "react-hook-form";
 const InvalidPassword = () => {
   return (
@@ -17,7 +17,7 @@ const InvalidPassword = () => {
   )
 }
 
-export default function RegisterAccountForm(isWebview) {
+export default function RegisterAccountForm({isWebview}) {
   const [inputs,setInputs] = useState({})
   const [invalidPassword,setInValid] = useState(false)
   const [resultData, setResultData] = useState(null)
@@ -26,7 +26,6 @@ export default function RegisterAccountForm(isWebview) {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    console.log("in handle change")
     setInputs(values => ({...values, [name]: value}))
   }
 
@@ -56,7 +55,7 @@ export default function RegisterAccountForm(isWebview) {
     fetchData()
    
     if (resultData.ok  && isWebview){
-      RegisterLoginJsInterface.registerClicked()
+      RegisterLoginJsInterface.returnToMainActivity()
     } else if (resultData.ok){
       navigate('/')
     }
@@ -69,9 +68,9 @@ export default function RegisterAccountForm(isWebview) {
       <InvalidPassword/>
     )
   }
-  return (
+  return (  
     <div>
-      <div onSubmit={handleSubmit} className="formContainer">
+      <div className="formContainer">
         <InputLabel name="Email"/>
         <FormInput name="email" placeholder="janedoe@example.com" type="Email" value={inputs.Email} onChangeF={handleChange} required />
         
@@ -81,13 +80,15 @@ export default function RegisterAccountForm(isWebview) {
         <InputLabel name="Password"/>
         <FormInput name="password" placeholder="" type="Password" value={inputs.Password} onChangeF={handleChange} required />
         
-        <InputLabel name="Password_re"/>
+        <InputLabel name="Confirm Password"/>
         <FormInput name="password_re" placeholder="" type="Password" value={inputs.Password_re} onChangeF={handleChange} required />
         
         <button className={'submitButton'} onClick={handleSubmit}>
           <a className="submitButtonText">Register</a>
         </button>
 
+        {isWebview ? <ReturnToMainActivityButton/>: <></>}
+        
       </div>
     </div>
   );

@@ -27,8 +27,8 @@ export default function DeliverPage() {
   
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+        center: [-74.5, 40], //starting position [lng, lat]
+        zoom: 9 //starting zoom
       });
     });
   return (

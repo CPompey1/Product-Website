@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import './RegisterLogin.css';
 import { useNavigate } from "react-router-dom";
-import FormInput from "../global_components/Forms/FormInput";
+import FormInput , { InputLabel, ReturnToMainActivity, ReturnToMainActivityButton } from "../global_components/Forms/FormInput";
 
-export default function LoginAccountForm(isWebview) {
+export default function LoginAccountForm({isWebview}) {
   const [inputs,setInputs] = useState({})
 
   // 0 = unsubmitted, 1 = submitted, -1 = invalid login
@@ -13,7 +13,6 @@ export default function LoginAccountForm(isWebview) {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    console.log("in handle change")
     setInputs(values => ({...values, [name]: value}))
   }
 
@@ -43,7 +42,7 @@ export default function LoginAccountForm(isWebview) {
           setLoginState(0)
       }
       if (fetchResult.ok  && isWebview){
-        RegisterLoginJsInterface.loginClicked()
+        RegisterLoginJsInterface.returnToMainActivity()
       } else if (fetchResult.ok){
         navigate('/')
       }
@@ -55,17 +54,18 @@ export default function LoginAccountForm(isWebview) {
   return (
     <div>
       {loginState == -1 ? (<div>Invalid login</div>) : (<></>)}
-      <div className={'formContainer'}>
-        <h2 className={'formLabel'}>Email</h2>
+      <div className='formContainer'>
+        <InputLabel name="Email"/>
         <FormInput name="email" placeholder="janedoe@example.com" type="Email"  value={inputs.email} onChangeF={handleChange} required />
-
-        <h2 className={'formLabel'}>Password</h2>
+        
+        <InputLabel name="Password"/>
         <FormInput name="password" placeholder="" type="Password" value={inputs.password} onChangeF={handleChange} required />
         
         <button className={'submitButton'} onClick={handleSubmit}>
           <a className="submitButtonText">Login</a>
         </button>
-    
+
+        {isWebview ? <ReturnToMainActivityButton/>: <></>}
       </div>
     </div>
   );

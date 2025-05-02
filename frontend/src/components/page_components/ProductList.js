@@ -3,17 +3,17 @@ import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './ProductList.css'
 import { Builder } from '@builder.io/react';
-const ProductSection = ({ id, imageSrc, imageAlt, text, link }) => (
+const ProductSection = ({ id, imageSrc, imageAlt, text, link, isWebview }) => (
   <div>
     <section className="content-section">
       <div className="content-wrapper">
         <div className="content-columns">
           <div className="image-column">
             <a href={link} >
-              <img loading="lazy" src={imageSrc} alt={imageAlt} className="content-image" />
+              <img loading="lazy" src={imageSrc} alt={imageAlt} className={isWebview ? "content-image-m" : "content-image"} />
             </a>
           </div>
-          <div className="text-column">
+          <div className={!isWebview ? "text-column" : "text-column-m"}>
             <div className="text-wrapper">
               <p>{text}</p>
             </div>
@@ -24,7 +24,7 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link }) => (
   </div>
 );
   
-  function ProductList({endPoint,category,store,edit}) {
+  function ProductList({endPoint,category,store,edit,isWebview}) {
     const [data,setData] = useState([])
     useEffect(() => {
       const fetchData = async () => {
@@ -53,11 +53,12 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link }) => (
         {data.map(product => (
           <ProductSection
             key={product._id}
-            imageSrc={product.imageSrc.startsWith('/media') ? `https://${window.location.host}/${product.imageSrc}` : `https://${window.location.host}/media/${product.imageSrc.replace(/^\/+/, '')}`}
+            imageSrc={product.imageSrc.startsWith('/media') ? `/${product.imageSrc}` : `/media/${product.imageSrc.replace(/^\/+/, '')}`}
             imageAlt = {product.imageAlt}
             text={product.text}
             title={product.title}
             link={edit == undefined || edit == false ?  `/product/${product._id}` : `/edit-product/${product._id}`}
+            isWebview={isWebview}
           />
         ))}
       </div>

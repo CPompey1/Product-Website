@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 import React from 'react'
-
+import '../../RegisterLogin/RegisterLogin.css'
 export default function FormInput({ name, placeholder, type, onChangeF, required, value }){
     return (
 
@@ -20,10 +20,20 @@ export default function FormInput({ name, placeholder, type, onChangeF, required
     );
 };
 
+function ReturnToMainActivityButton(){
+  const returnToMainActivity = () => {
+    RegisterLoginJsInterface.returnToMainActivity()
+  }
+  return (
+    <button className={'submitButton'} onClick={returnToMainActivity}>
+      <a className="submitButtonText">Home</a>
+    </button>
+  )
+}
 const InputLabel = ({name}) => {
   return (
     <h2 className={'formLabel'}>{name}</h2>
   )
 }
 
-export { InputLabel }
+export { InputLabel, ReturnToMainActivityButton }

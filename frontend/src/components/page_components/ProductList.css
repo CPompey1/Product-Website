@@ -50,19 +50,33 @@
     overflow: hidden;
     border-radius: 5px;
   }
-
+  .content-image-m{
+    aspect-ratio: 0.7;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    margin-top: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
   .text-column {
     display: flex;
     flex-direction: column;
     line-height: normal;
-    width: 50%;
+    width: 98%;
     margin-left: 20px;
   }
-  @media (max-width: 991px) {
-    .text-column {
-      width: 100%;
-    }
+  .text-column-m{
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 98%;
+    margin-left: 20px;
   }
+  
 
   .text-wrapper {
     position: relative;

@@ -3,7 +3,7 @@
     flex-direction: column;
     position: relative;
     border: 12px solid;
-    width: 43%;
+    width: 80%;
     max-width: 500px;
     border-radius: 16px;
     margin: auto;
@@ -36,6 +36,7 @@
     cursor: pointer;
     margin-block: 5%;
     padding: 15px 25px;
+    width: 50%
   }
 
   .submitButtonText{
