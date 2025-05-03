@@ -26,3 +26,13 @@
  margin-left: 1%;
  cursor: pointer;
 }
+
+.side-bar{
+  background-color: gray;
+}
+.side-bar-items{
+  place-items: center;
+  background-color: gray;
+  height: 100%;
+}
+

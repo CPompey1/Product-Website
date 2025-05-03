@@ -13,11 +13,14 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link, isWebview }) => (
               <img loading="lazy" src={imageSrc} alt={imageAlt} className={isWebview ? "content-image-m" : "content-image"} />
             </a>
           </div>
+
           <div className={!isWebview ? "text-column" : "text-column-m"}>
             <div className="text-wrapper">
               <p>{text}</p>
             </div>
           </div>
+
+          
         </div>
       </div>
     </section>
@@ -57,7 +60,9 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link, isWebview }) => (
             imageAlt = {product.imageAlt}
             text={product.text}
             title={product.title}
-            link={edit == undefined || edit == false ?  `/product/${product._id}` : `/edit-product/${product._id}`}
+            link={(edit == undefined || edit == false) ?  
+              (isWebview ? `/m/product/${product._id}` : `/product/${product._id}`) : 
+              (isWebview ?  `/m/edit-product/${product._id}` : `/edit-product/${product._id}`)}
             isWebview={isWebview}
           />
         ))}

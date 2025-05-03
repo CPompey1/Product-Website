@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button_b from "../global_components/Button_b/Button_b";
 import { SubTitleHeaderCustom } from "../global_components/stores/SubTitle";
 import { CheckCircleOutlineOutlined } from "@mui/icons-material";
+import { Button, Grid2, Menu, MenuItem } from "@mui/material";
 const formFields = [
   { id: "name", label: "Name", type: "text" },
   { id: "address1", label: "Address", type: "text" },
@@ -20,6 +21,16 @@ export default function CheckoutForm({productId}) {
   const [inputs,setInputs] = useState({})
   const [ordeerPlaced, setOrderPlaced] = useState(false)
   const [orderId, setOrderId] = useState(null)
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const amountMenuOpen = Boolean(anchorEl);
+  const MAX_ORDER_AMOUNT = 10;
+
+  const handleAmountButtonClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleAmmountButtonClose = (event) => {
+    setAnchorEl(null);
+  };
   
 
   const handleChange = (event) => {
@@ -30,6 +41,10 @@ export default function CheckoutForm({productId}) {
   }
 
   const submitForm = async (event) =>  {
+    if (inputs.name == null || inputs.address1 == null || inputs.address2 == null  || inputs.city == null || inputs.country == null || inputs.amount == null){
+      setFormErrorMessage("Please fill out all fields")
+      return
+    }
 
     const response = await fetch(`/api/checkout/${productId}`, {
       method: 'POST',
@@ -77,44 +92,23 @@ export default function CheckoutForm({productId}) {
     
       <main className={styles.container}>
         <section className={styles.mainSection}>
-       
-          <ProductSection 
-            className={styles.productWrapper} 
-            key={productData._id}
-            imageSrc={`/media/${productData.imageSrc}`}
-            imageAlt = {productData.imageAlt}
-            text={productData.text}
-            title={productData.title}
-            link={`/product/${productData._id}`}
-        />
+          
+        
       
           <div className={styles.checkoutContainer}>
             <div className={styles.contentWrapper}>
               <div className={styles.twoColumnLayout}>
-                <section className={styles.quantityColumn}>
-                  <div className={styles.priceCalculator}>
-                    <div className={styles.calculatorWrapper}>
-                      <div className={styles.calculatorGrid}>
-                        <div className={styles.quantityColumn}>
-                          <input
-                            type="number"
-                            name="amount"
-                            aria-label="Quantity"
-                            className={styles.quantityInput}
-                            value={inputs["amount"]}
-                            onChange={handleChange}
-                          />
-                        </div>
-                        <div className={styles.multiplyColumn}>
-                          <p className={styles.multiplySymbol}>x</p>
-                        </div>
-                        <div className={styles.priceColumn}>
-                          <p className={styles.priceDisplay}>35$</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
+                <div style={{width: '50%'}}>
+                <ProductSection 
+                    className={styles.productWrapper} 
+                    key={productData._id}
+                    imageSrc={`/media/${productData.imageSrc}`}
+                    imageAlt = {productData.imageAlt}
+                    text={productData.text}
+                    title={productData.title}
+                    link={`/product/${productData._id}`}
+                />
+                </div>
 
                 <section className={styles.formColumn}>
                   <div className={styles.formContainer}>
@@ -138,13 +132,62 @@ export default function CheckoutForm({productId}) {
                           />
                         </div>
                       ))}
+                    
+                      <Grid2 container spacing={2} className={styles.costGrid}>
+                        <Grid2 xs={6} className={styles.gridItem}>
+                          <p>
+                            ${productData.cost} x
+                          </p>
+                        </Grid2>
+                        <Grid2 xs={6} className={styles.gridItem}>
+                          <Button
+                            id="basic-button"
+                            aria-controls={amountMenuOpen ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={amountMenuOpen ? 'true' : undefined}
+                            onClick={handleAmountButtonClick}
+                            sx={{
+                              backgroundColor: 'black', // Set the background color
+                              color: 'white', // Set the text color
+                              borderColor: 'black',
+                              '&:hover': {
+                                backgroundColor: 'grey', // Set the hover background color
+                              },
+                            }}
 
+                          >
+                            Count
+                          </Button>
+                          <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={amountMenuOpen}
+                            onClose={handleAmmountButtonClose}
+                            MenuListProps={{
+                              'aria-labelledby': 'basic-button',
+                            }}
+                          >
+                            {Array.from({ length: MAX_ORDER_AMOUNT }, (_, i) => i + 1).map((number) => (
+                              <MenuItem key={number} onClick={() => {setInputs(values => ({...values, amount: number})); setAnchorEl(null); }}>
+                                {number}
+                              </MenuItem>
+                            ))}
+                         
+                          </Menu>
+           
+                        </Grid2>
+                      </Grid2>
+
+                      <div style={{alignSelf: 'center'}}>
+                       <label >Total Cost</label>
+                        <p>${(productData.cost * inputs.amount) || 0}</p>
+                      </div> 
                       <div
                         className={styles.messageContainer}
                         role="alert"
                         aria-live="polite"
                       >
-                        {formErrorMessage && <p>{formErrorMessage}</p>}
+                        {formErrorMessage && <div style={{backgroundColor: 'red', borderRadius: '3%'}}>{formErrorMessage}</div>}
                       </div>
                     </form>
                   </div>
@@ -169,7 +212,7 @@ function OrderPlaced ( {orderId}){
       <div className={styles.orderPlacedContainer}> 
         <CheckCircleOutlineOutlined style={{fontSize: '815%', color: '#64b164'}}/>
         <SubTitleHeaderCustom title={'Order Placed'}  color={'black'} fontSize={'45px'}/>
-        <Button_b  action={() => navigate(`/orders/order/${orderId}`)}>View Order</Button_b>
+        <Button_b action={() => navigate(`/orders/order/${orderId}`)}>View Order</Button_b>
       </div>
     </>
   )

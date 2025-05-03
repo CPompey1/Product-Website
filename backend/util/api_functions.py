@@ -3,6 +3,41 @@ from util.globals import *
 from util import ProductDatabase
 from flask import Flask,jsonify,request
 from flask import *
+import re
+from functools import wraps
+def validate_against_xss(func):
+    def validateString(string):
+        regex = re.compile(r'[<>;{}\\\"\\\'\\\\]| \b$where\b ', re.IGNORECASE)
+        if regex.search(string):
+            raise ValueError("XSS attack detected")
+        
+    
+    def validate_payload(payload):
+        print("validating payload")
+        #could be a dict or a list
+        if isinstance(payload, list):
+            for item in payload:
+                validate_payload(item)
+        elif isinstance(payload, dict):
+            # Check for XSS patterns in the payload
+            #xss_patterns = ["<script>", "</script>", "javascript:", "onerror=", "onload=", "<img", "<iframe"]
+            for value in payload.values(): 
+                validateString(value)
+                print(f"Validated string: {value}")
+                                
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        if not request.is_json:
+            return jsonify({"status": "failed", "message": "Request must be JSON"}), 400
+        
+        try:
+            validate_payload(request.get_json())
+        except ValueError as e:
+            return jsonify({"error": "Invalid payload"}), 400
+        return func()
+    
+    return decorator
+
 def content_2_mime_type(content_type):
     return CONTENT_2_MIME_TYPE[content_type]
 

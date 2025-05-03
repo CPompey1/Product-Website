@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Home",
+        "path": "/"
+    },
+    {
+        "name": "Settings",
+        "path": "/settings"
+    },
+    {
+        "name": "Profile",
+        "path": "/profile"
+    },
+    {
+        "name": "Help",
+        "path": "/help"
+    },
+    {
+        "name" : "Sell",
+        "path" : "/sellers_home"
+    },
+    {
+        "name" : "Categories",
+        "path" : "/category_page"
+    },
+    {
+        "name" : "Stores",
+        "path" : "/stores"
+    }
+]

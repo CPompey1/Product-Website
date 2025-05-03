@@ -37,7 +37,6 @@
   margin-top: 20px;
   height: auto;
   padding-bottom: 30px;
-  margin-left: 10%;
 }
 
 .contentWrapper {
@@ -120,7 +119,6 @@
   height: auto;
   margin-top: 20px;
   padding-bottom: 30px;
-  font: 60px Impact, sans-serif;
 }
 
 .formColumn {
@@ -136,10 +134,8 @@
   flex-direction: column;
   position: relative;
   height: auto;
-  padding-bottom: 30px;
   border: 5px solid;
   border-radius: 6px;
-  margin: 0px 0% 0 20%;
 }
 
 .checkoutForm {
@@ -189,6 +185,7 @@
   .twoColumnLayout {
     flex-direction: column;
     align-items: stretch;
+    align-items: center;
     gap: 0;
   }
 
@@ -197,4 +194,13 @@
     width: 100%;
     margin-left: 0;
   }
+}
+
+.costGrid {
+  padding-top: 2%;
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* align-items: center; */
 }

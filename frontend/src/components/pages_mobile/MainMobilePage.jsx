@@ -2,6 +2,7 @@ import React from 'react'
 import ProductList from '../page_components/ProductList'
 import Navigation from '../page_components/Navigation'
 import Header from '../page_components/Header'
+import Footer from '../page_components/Footer'
 
 function MainMobilePage() {
   return (
@@ -12,7 +13,7 @@ function MainMobilePage() {
             endPoint="/api/products/product_list"
             isWebview={true}
         />
-
+        <Footer />
     </div>
   )
 }

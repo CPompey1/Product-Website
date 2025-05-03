@@ -1,18 +1,30 @@
 import React, { useEffect } from 'react'
 import './Header.css'
 import LogRegHeaderLink, { LogoutHeaderLink } from './LogRegHeaderLink'
-import { Avatar } from '@mui/material'
+import { Avatar, ButtonGroup, Grid2 } from '@mui/material'
 import validateUser from '../../util/accounts_manager'
 import { useState } from 'react'
-import { Dehaze, DehazeSharp } from '@mui/icons-material'
+import { BorderColor, Dehaze, DehazeSharp } from '@mui/icons-material'
 import SlidingPanel from 'react-sliding-side-panel'
-
-export default function Header({isWebview, sidePanelCallback}) {
+import { Button, Drawer } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import sideBarButtons from '../../resources/side_bar_buttons.json'  with { type: 'json' }
+export default function Header({isWebview}) {
 
   const [profileImg,setProfileImg] = useState('')
   const [userLoggedIn,setUserLoggedIn] = useState(false)
-  console.log("sidePanelCallback", sidePanelCallback)
+  const [sideBarState, setSideBarState] = useState(false);
+  const [navigationButtons, setNavigationButtons] = useState([])
+  const navigate = useNavigate();
 
+
+  const handleToolbarClick = (event) => {
+      setSideBarState(!sideBarState)
+      // setOpenPanel(!openPanel)
+      console.log("Toolbar clicked")
+  }
+
+  
   useEffect(() => {
     const checkUserLoggedIn = async () => {
       const loggedIn = await validateUser()
@@ -37,10 +49,6 @@ export default function Header({isWebview, sidePanelCallback}) {
     }  
   }
   
-  const testLog = (event) => {
-    console.log("test log")
-  }
-
   return (
     <>
       {/* {isMobile ? (<></>) : */}
@@ -54,11 +62,70 @@ export default function Header({isWebview, sidePanelCallback}) {
                 <a className="logout-link">
                    <LogoutHeaderLink/> 
                 </a>
-                <Avatar sx={{cursor: 'pointer'}} onClick={sidePanelCallback} />
+                <Avatar sx={{cursor: 'pointer'}} onClick={handleToolbarClick} />
               </>
-            :<DehazeSharp sx={{ color: 'white', cursor: 'pointer' }} onClick={sidePanelCallback} />}
+            :<DehazeSharp sx={{ color: 'white', cursor: 'pointer' }} onClick={handleToolbarClick} />}
             
           </section>
+
+           <React.Fragment >
+            
+              <Drawer
+              anchor={'right'}
+              open={sideBarState}
+              onClose={handleToolbarClick}
+              
+              >
+                <div className="side-bar-items">
+                  <Avatar sx={{   width: 56, height: 56, cursor: 'pointer', margin: "5% 0% 5% 0%"}} onClick={() => {navigate('/')}} />
+                  
+                  <ButtonGroup
+                    orientation="vertical"
+                    aria-label="Vertical button group"
+                    variant="contained"
+                    sx={{
+                      borderColor: '#00000', // Set the border color
+                      ".MuiButtonGroup-grouped:not(:last-of-type)": {
+                         borderColor: "black",
+                      }
+                    }}
+                  >
+                    {sideBarButtons.map((button, index) => (
+                      <Button 
+                        key={index}
+                        color='black' 
+                        onClick={() => {navigate((isWebview ? "/m" : "") + button.path)}}
+                        sx={{
+                          backgroundColor: 'black', // Set the background color
+                          color: 'white', // Set the text color
+                          borderColor: 'black',
+                          '&:hover': {
+                            backgroundColor: 'grey', // Set the hover background color
+                          },
+                        }}>
+                          {button.name}
+                      </Button>
+                    ))}
+                    <Button 
+                    color='black' 
+                    onClick={() => {setSideBarState(!sideBarState)}}
+                    sx={{
+                      backgroundColor: 'black', // Set the background color
+                      color: 'white', // Set the text color
+                      borderColor: 'black',
+                      '&:hover': {
+                        backgroundColor: 'grey', // Set the hover background color
+                      },
+                    }}>
+                      Close
+                  </Button>
+                  </ButtonGroup>
+
+                </div>
+          
+              </Drawer>
+              
+          </React.Fragment>
       </header>
       
     </>

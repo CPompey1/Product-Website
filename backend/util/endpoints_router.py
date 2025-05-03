@@ -11,6 +11,7 @@ from util.globals import CATEGORIES, GlobalStrings
 
 app = Flask(__name__) #dont touch this line
 
+
 @app.route("/media/<path:path>")
 def getContent(path: str):
     #this function might be tad overcomplicated but it's to prevent directory traversal attacks
@@ -30,6 +31,7 @@ def get_categories():
     return resp
 
 @stores.route('/add_store',methods=['POST'])
+@api_functions.validate_against_xss
 def add_store():
     resp = make_response()
     store = request.get_json()
@@ -93,6 +95,7 @@ app.register_blueprint(stores)
 
 accounts = Blueprint('accounts',__name__,url_prefix='/api/accounts')
 @accounts.route('/register_account', methods=['POST'])
+@api_functions.validate_against_xss
 def register_account():
     res = "-1"
     # formInput = request.form.to_dict()
@@ -116,6 +119,7 @@ def register_account():
         return res
     
 @accounts.route('/login_account', methods=['POST'])
+@api_functions.validate_against_xss
 def login_account():
     # formInput = request.form.to_dict()
     request_dict = request.get_json()
@@ -146,6 +150,7 @@ def login_account():
     return response 
     
 @accounts.route('/validate_token', methods=['POST'])
+@api_functions.validate_against_xss
 def validate_token():
     reqData = request.form.to_dict()
     token = reqData['auth_token']

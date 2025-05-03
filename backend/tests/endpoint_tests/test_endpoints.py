@@ -146,11 +146,7 @@ class FlaskTestCase(unittest.TestCase):
             
             self.test_user_password =  GlobalTestUtility.generate_random_string(10)
             
-            self.test_user = dict({
-                "user": f"{GlobalTestUtility.generate_random_string(10)}",
-                "email": f"{GlobalTestUtility.generate_random_string(10)}@gmail.com",
-                "password_hash": bcrypt.hashpw(self.test_user_password.encode(),PWD_SALT)
-            })
+            self.test_user = dict(ac)
             
             with ProductDatabase() as pdb:
                 res = pdb.get_collection('accounts').insert_record(self.test_user)

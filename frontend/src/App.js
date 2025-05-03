@@ -35,6 +35,7 @@ import LoginAccountForm from './components/page_components/RegisterLogin/LoginAc
 import LoginMobilePage from './components/pages_mobile/LoginMobilePage';
 import RegisterMobilePage from './components/pages_mobile/RegisterMobilePage';
 import MainMobilePage from './components/pages_mobile/MainMobilePage';
+import ProductMobilePage from './components/pages_mobile/ProductMobilePage';
 function App() {
   
     {/* I have no idea what the fuck is going on here and it shuold be fixed */}
@@ -64,6 +65,8 @@ function App() {
         {"path":"/category/:category", "element":<CategoryProductsPage/>},
     
         {"path": "/product/:productId","element":<ProductPage/> },
+
+        {"path" : "/m/product/:productId", "element": <ProductMobilePage/> },
     
         {"path": "/stores/:storeId", "element": <StorePage/> },
 
