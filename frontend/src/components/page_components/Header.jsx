@@ -8,7 +8,7 @@ import { BorderColor, Dehaze, DehazeSharp } from '@mui/icons-material'
 import SlidingPanel from 'react-sliding-side-panel'
 import { Button, Drawer } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import sideBarButtons from '../../resources/side_bar_buttons.json'  with { type: 'json' }
+import sideBarButtons from '../../resources/side_bar_buttons.json' 
 export default function Header({isWebview}) {
 
   const [profileImg,setProfileImg] = useState('')
