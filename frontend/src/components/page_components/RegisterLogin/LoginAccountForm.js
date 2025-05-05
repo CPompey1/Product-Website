@@ -42,7 +42,7 @@ export default function LoginAccountForm({isWebview}) {
           setLoginState(0)
       }
       if (fetchResult.ok  && isWebview){
-        RegisterLoginJsInterface.returnToMainActivity()
+        RegisterLoginJsInterface.loginClicked()
       } else if (fetchResult.ok){
         navigate('/')
       }

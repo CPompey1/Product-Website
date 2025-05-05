@@ -7,7 +7,7 @@ import backendUrl from '../../globals';
 import Button_b from './global_components/Button_b/Button_b';
 import { Button, Grid2 as Grid, ThemeProvider} from '@mui/material';
 import { theme } from '../../globals';
-function Navigation () {
+function Navigation ({isWebview}) {
   
     const navigate = useNavigate();
     const clickSell = () => {
@@ -25,18 +25,25 @@ function Navigation () {
     const clickDeliver = () => {
       navigate('/deliver')
     }
+
+    const clickHome = () => {
+      RegisterLoginJsInterface.returnToMainActivity()
+    }
     return (
       <div className="navigation">
         <Grid container spacing={2} className="button-section">
-          <Grid item xs={4}>
+          <Grid item xs={isWebview ? 3 : 4}>
             <Button_b action={clickCategories} openLinkInNewTab={false}> Categories </Button_b>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={isWebview ? 3 : 4}>
             <Button_b action={clickStores} openLinkInNewTab={false}> Stores </Button_b>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={isWebview ? 3 : 4}>
             <Button_b action={clickSell} openLinkInNewTab={false}> Sell </Button_b>
           </Grid>
+          {isWebview && <Grid item xs={3}>
+            <Button_b action={clickHome} openLinkInNewTab={false}> Home </Button_b>
+          </Grid>}
         </Grid>
       </div>
     );

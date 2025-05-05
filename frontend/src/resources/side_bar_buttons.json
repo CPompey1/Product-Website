@@ -26,5 +26,10 @@
     {
         "name" : "Stores",
         "path" : "/stores"
+    },
+
+    {
+        "name" : "Deliver",
+        "path" : "/deliver"
     }
 ]

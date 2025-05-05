@@ -8,7 +8,7 @@ import { BorderColor, Dehaze, DehazeSharp } from '@mui/icons-material'
 import SlidingPanel from 'react-sliding-side-panel'
 import { Button, Drawer } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import sideBarButtons from '../../resources/side_bar_buttons.json' 
+import sideBarButtons from '../../resources/side_bar_buttons.json'
 export default function Header({isWebview}) {
 
   const [profileImg,setProfileImg] = useState('')
@@ -90,7 +90,9 @@ export default function Header({isWebview}) {
                       }
                     }}
                   >
-                    {sideBarButtons.map((button, index) => (
+                    {sideBarButtons
+                    .filter((button) => { return isWebview ? true : !(["Deliver"].includes(button.name))} )
+                    .map((button, index) => (
                       <Button 
                         key={index}
                         color='black' 

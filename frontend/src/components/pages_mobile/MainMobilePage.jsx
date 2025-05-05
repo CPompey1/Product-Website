@@ -8,7 +8,7 @@ function MainMobilePage() {
   return (
     <div>
         <Header isWebview={true}/>
-        <Navigation />
+        <Navigation isWebview={true}/>
         <ProductList
             endPoint="/api/products/product_list"
             isWebview={true}
