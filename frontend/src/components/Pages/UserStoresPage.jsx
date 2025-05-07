@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import UserStoresList from '../page_components/UserSpecificStores/UserStoresList'
 import { LOGO_URL } from '../../globals'
 
-export default function () {
+export default function ({isWebview}) {
   const navigate = useNavigate()
   const checkUserLoggedIn = async () => {
       const loggedIn = await validateUser()
@@ -22,12 +22,13 @@ export default function () {
   return (
     <>
         
-        <Header/>
+        <Header isWebview={isWebview}/>
         <LogoSection
             src={LOGO_URL}
             alt="Logo"
+            isWebview={isWebview}
         />
-        <Navigation/>
+        <Navigation isWebview={isWebview}/>
         <AddStoreForm/>
         <UserStoresList/>
         <Footer/>        

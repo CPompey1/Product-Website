@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import Footer from '../page_components/Footer'
 import ProductList from '../page_components/ProductList'
 
-export default function StorePage() {
+export default function StorePage({isWebview}) {
 const {storeId} = useParams();
 const [storeData, setStoreData] = useState({})
     useEffect(() => {
@@ -29,14 +29,15 @@ const [storeData, setStoreData] = useState({})
 
     return (
     <div>
-        <Header/>
+        <Header isWebview={isWebview}/>
         {/* Change in the future to be store specific logo */}
         <LogoSection
             src={storeData.logo}
             alt="Logo"
+            isWebview={isWebview}
         />
 
-        <Navigation/>
+        <Navigation isWebview={isWebview}/>
         {/* Change in future to say products, store name will be given by logo */}
         <SubTitleSection title={storeData.title}/>
         <ProductList endPoint="/api/products/product_list" store={storeData.title}/>

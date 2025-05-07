@@ -27,11 +27,14 @@ def validate_against_xss(func):
                                 
     @wraps(func)
     def decorator(*args, **kwargs):
-        if not request.is_json:
-            return jsonify({"status": "failed", "message": "Request must be JSON"}), 400
-        
+        #If its a form
+        if request.method == 'POST' and request.form:
+            payload = request.form.to_dict()
+        #If its a json
+        elif request.method == 'POST' and request.json:
+            payload = request.json
         try:
-            validate_payload(request.get_json())
+            validate_payload(payload)
         except ValueError as e:
             return jsonify({"error": "Invalid payload"}), 400
         return func()

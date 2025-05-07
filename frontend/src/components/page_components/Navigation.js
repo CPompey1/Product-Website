@@ -11,15 +11,15 @@ function Navigation ({isWebview}) {
   
     const navigate = useNavigate();
     const clickSell = () => {
-        navigate('/sellers_home');
+        navigate(isWebview ? '/m/sellers_home' : '/sellers_home');
       };
     
     const clickCategories = () => {
-      navigate('/category_page')
+      navigate(isWebview ? '/m/category_page' : '/category_page')
     };
 
     const clickStores = () => {
-      navigate('/stores')
+      navigate(isWebview ? '/m/stores' :  '/stores')
     }
 
     const clickDeliver = () => {

@@ -23,7 +23,3 @@ $(PROJECT_DIR)/.venv:  $(PROJECT_DIR)/backend/requirements
 	./scripts/build_venv.sh
 	
 
-
-
-
-	

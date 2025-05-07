@@ -29,7 +29,7 @@ export default function UserStoresList() {
   return (
     <>
         <div className='store-list-container'>
-            {userStores.map(store => 
+            {userStores && userStores.map(store => 
                 <UserStoreRow key={store._id} id={store._id} logoSrc={`/media/${store.logo}`} title={store.title} description={store.description} location={store.location} />
             )}
         </div>

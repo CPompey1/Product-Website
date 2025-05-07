@@ -3,9 +3,9 @@ import bcrypt
 from util.appdata import PWD_SALT
 
 demoUser = {
-            "user": 'testUser',
-            "email": 'testUser@gmail.com',
-            "password_hash": bcrypt.hashpw('testPassword'.encode() ,PWD_SALT)
+            "user": 'user',
+            "email": 'user@gmail.com',
+            "password_hash": bcrypt.hashpw('user'.encode() ,PWD_SALT)
         }
 
 
