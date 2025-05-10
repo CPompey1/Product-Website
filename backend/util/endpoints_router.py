@@ -149,19 +149,29 @@ def login_account():
 
     return response 
     
-@accounts.route('/validate_token', methods=['POST'])
-@api_functions.validate_against_xss
-def validate_token():
-    reqData = request.form.to_dict()
-    token = reqData['auth_token']
+# @accounts.route('/validate_token', methods=['POST'])
+# @api_functions.validate_against_xss
+# def validate_token():
+#     reqData = request.form.to_dict()
+#     token = reqData['auth_token']
+#     response = make_response() 
+#     api_functions.add_default_headers(response)
+#     if loggedInUserTracker.user_valid(token):    
+#         response.status = 200
+#     else:
+#         response.status = 403
+#     return response
+
+@accounts.route('/validate_token/<auth_token>', methods=['GET'])
+def validate_token(auth_token):
     response = make_response() 
     api_functions.add_default_headers(response)
-    if loggedInUserTracker.user_valid(token):    
+    if loggedInUserTracker.user_valid(auth_token):    
         response.status = 200
     else:
         response.status = 403
     return response
-    
+
 @accounts.route('/validate_token/store/<storeId>', methods=['GET'])
 def validate_token_by_store(storeId):
     token = request.cookies.get(GlobalStrings.AUTHTOKEN)

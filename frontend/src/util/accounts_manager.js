@@ -6,11 +6,10 @@ export default async function validateUser ()  {
     
     var response
     const checkUser = async () => {
-        let form = new FormData()
-        form.append('auth_token',token) 
-        response  = await fetch("/api/accounts/validate_token",{
-            method: 'POST',
-            body: form
+        // let form = new FormData()
+        // form.append('auth_token',token) 
+        response  = await fetch(`/api/accounts/validate_token/${token}`,{
+            method: 'GET',
         })
 
         if (await response.ok){
