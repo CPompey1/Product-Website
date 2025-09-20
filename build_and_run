@@ -10,12 +10,13 @@ if [ $return_code -ne 0 ]; then
     exit 1
 fi
 # Start process 1 in the background
-cd backend/
-python3 app.py &
+cd backend1/ebazzar/
+mvn clean install
+mvn spring-boot:run &
 process1_pid=$!
 
 # Start process 2 in the background
-cd ../frontend/
+cd ../../frontend/
 npm start &
 process2_pid=$!
 
