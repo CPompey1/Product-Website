@@ -7,6 +7,7 @@ import { AddCircle, AddCircleOutline } from '@mui/icons-material'
 import SubTitleSection, { SubTitleHeaderCustom } from '../global_components/stores/SubTitle'
 import UserStoreRow from './UserStoreRow'
 import UserStoresList from './UserStoresList'
+import { getStrapiDomain, postStrapiData } from '../../../util/strapi_utils'
 
 function AddStoreForm() {
   const [inputs, setInputs] = useState({})
@@ -22,13 +23,7 @@ function AddStoreForm() {
 
   const handleSubmit = async () => {
     console.log("in handle submit")
-    const response = await fetch('/api/stores/add_store', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(inputs)
-    })
+    const response = await postStrapiData(getStrapiDomain() + '/api/stores', inputs)
     if (response.ok) {
       console.log("Store created")
       setAddStoreFormVisible(false)

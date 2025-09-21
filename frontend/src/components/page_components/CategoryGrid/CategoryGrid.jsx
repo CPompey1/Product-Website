@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import styles from "./CategoryGrid.module.css";
 import CategoryItem from "./CategoryItem";
+import { getStrapiData, getStrapiDomain } from "../../../util/strapi_utils";
 
 // const categories = [
 //   { id: 1, name: "Category 1" },
@@ -35,14 +36,17 @@ function CategoryGrid() {
   const [categories, setCategories] = useState([]);
 
   const fetchData = async () => {
-    const fetchResult = await fetch("/api/stores/get_categories");
+    // const fetchResult = await fetch("/api/stores/get_categories");
+    const fetchResult = await getStrapiData(getStrapiDomain() + "/api/categories?populate=*");
+    console.log(fetchResult)
+
     var cleanResult = []
     if (fetchResult.ok) {
       
       const jsonResult = await fetchResult.json()
       console.log(jsonResult)
 
-      cleanResult = gridify(jsonResult)
+      cleanResult = gridify(jsonResult.data)
       setCategories(cleanResult)
 
     }
@@ -63,11 +67,11 @@ function CategoryGrid() {
 
             <div className={styles.grid}>
               {row.map((category) => (
-                <CategoryItem key={category._id} 
+                <CategoryItem key={category.id} 
                               name={category.title} 
                               link ={category.redirect} 
                               // https://cdn.builder.io/api/v1/image/assets%2F6a53bff92dc24a62b49604417a4ec7f2%2F6032d2b5327e4c0687019aafbe79d0c2
-                              imgLink={`/media/${category.imgLink}`} 
+                              imgLink={category.imgLink} 
                               isStore={false}/>
               ))}
             </div>

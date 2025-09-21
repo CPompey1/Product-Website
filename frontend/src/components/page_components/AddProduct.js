@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import './AddProduct.css'
 import backendUrl from '../../globals';
 import { Navigate, redirect } from 'react-router-dom';
+import { getUserStrapiToken, postStrapiData } from '../../util/strapi_utils';
 function AddProduct() {
     const [inputs, setInputs] = useState({});
     const [response,setResponse] = useState({});
@@ -34,19 +35,18 @@ function AddProduct() {
     const HandleSubmit = (event) => {
         event.preventDefault();
         const fetchData = async () => {
-          const formData = new FormData()
-          formData.append("title",inputs.Title)
-          formData.append("description",inputs.Description)
-          formData.append('image',imginputs.Image)
-          formData.append("category",inputs.Category)
-          formData.append("store",inputs.Store)
-          formData.append("cost","$" + inputs.Cost) 
-          
-          const fetchResult = await fetch("/api/products/add_product", {
-            method: "POST",
-            body: formData,
-          });
-
+          const fetchResult = await postStrapiData("/api/products",{
+            title: inputs.Title,
+            description: inputs.Description,
+            image: imginputs.Image,
+            category: inputs.Category,
+            store: inputs.Store,
+            cost: "$" + inputs.Cost
+          }, getUserStrapiToken());
+          if (!fetchResult.ok){
+            console.log("Error in adding product")
+            return
+          }
           const jsonResult = await fetchResult.json()
           setResponse(jsonResult)
           console.log(jsonResult)

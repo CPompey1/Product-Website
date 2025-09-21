@@ -19,7 +19,7 @@ export default function UserStoreProducts() {
         <Navigation/>
         <AddProductForm/>
         <ProductList
-            endPoint="/api/products/product_list"
+            endPoint="/api/products"
             store="Cris's Store"
         />
         <Footer/>

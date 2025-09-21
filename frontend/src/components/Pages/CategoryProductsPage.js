@@ -20,7 +20,7 @@ export default function CategoryProductsPage() {
       <Navigation />
       <SubTitleSection title={category}/>
       <ProductList
-        endPoint="/api/products/product_list"
+        endPoint="/api/products"
         category={category}
       />
 

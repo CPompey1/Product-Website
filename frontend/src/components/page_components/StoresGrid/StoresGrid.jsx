@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import styles from "../CategoryGrid/CategoryGrid.module.css";
 import CategoryItem from "../CategoryGrid/CategoryItem";
+import { getStrapiData, getStrapiDomain } from "../../../util/strapi_utils";
 
 const categories = [
   { id: 1, name: "Category 1" },
@@ -35,14 +36,14 @@ function StoresGrid() {
   const [stores, setStores] = useState([]);
 
   const fetchData = async () => {
-    const fetchResult = await fetch("/api/stores/get_stores");
+    const fetchResult = await getStrapiData(getStrapiDomain() + "/api/stores?populate*");
     var cleanResult = []
     if (fetchResult.ok) {
       
       const jsonResult = await fetchResult.json()
       console.log(jsonResult)
 
-      cleanResult = gridify(jsonResult)
+      cleanResult = gridify(jsonResult.data)
       setStores(cleanResult)
 
     }
@@ -61,10 +62,10 @@ function StoresGrid() {
 
             <div className={styles.grid}>
               {row.map((category) => (
-                <CategoryItem key={category._id} 
-                              link = {`/stores/${category._id}`}
+                <CategoryItem key={category.id} 
+                              link = {`/stores/${category.id}`}
                               name={category.title}  
-                              imgLink={`/media/${category.logo}`} 
+                              imgLink={category.logo} 
                               isStore={false}/>
               ))}
             </div>

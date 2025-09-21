@@ -8,22 +8,17 @@ import { Grid, TextField } from '@mui/material'
 import { SubTitleHeaderCustom } from '../../page_components/global_components/stores/SubTitle'
 import { AttachMoney } from '@mui/icons-material'
 import Button_b from '../../page_components/global_components/Button_b/Button_b'
-
+import { getStrapiDomain, getStrapiData } from '../../../util/strapi_utils'
 function EditProductPage() {
     const productId = useParams();
     const [productResponse, setProductResponse] = useState({})
     useEffect(() => {
         const fetchProduct = async () => {
-            const response = await fetch(`/api/products/product/${productId.productId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
+            const response = await getStrapiData(getStrapiDomain() + `/api/products?filters[id]=${productId.productId}&populate=*`);
             if (response.ok) {
                 const data = await response.json()
                 console.log(data)
-                setProductResponse(data)
+                setProductResponse(data.data[0])
             }
         }
         fetchProduct()
@@ -70,7 +65,7 @@ function EditProductForm({productResponse}){
                         </div> : 
 
                         <div>
-                            <div className='existing-img-container' style={{background: `url(/media/${productResponse.imageSrc}) no-repeat center center/cover`, 
+                            <div className='existing-img-container' style={{background: `url(${productResponse.imageSrc}) no-repeat center center/cover`, 
                                                                             height: '450px', 
                                                                             textAlign: 'center',
                                                                             alignContent: 'center'} }>

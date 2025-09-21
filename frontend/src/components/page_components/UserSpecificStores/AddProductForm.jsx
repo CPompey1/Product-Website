@@ -6,6 +6,7 @@ import { AddCircleOutline } from '@mui/icons-material';
 import { SubTitleHeaderCustom } from '../global_components/stores/SubTitle';
 import './AddItemsForm.css'
 import { Content } from '@builder.io/react';
+import { getStrapiDomain, getUserStrapiToken, postStrapiData } from '../../../util/strapi_utils';
 export default function AddProductForm({storeName,storeId}) {
     const [inputs, setInputs] = useState({});
     const [addProductFormVisible,setAddProductFormVisible] = useState(false);
@@ -25,14 +26,19 @@ export default function AddProductForm({storeName,storeId}) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const fetchData = async () => {
-          
-          const fetchResult = await fetch("/api/products/add_product", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify(inputs),
-          });
+
+          const fetchResult = await postStrapiData(getStrapiDomain() + "/api/products",{
+                      title: inputs.Title,
+                      description: inputs.Description,
+                      image: imginputs.Image,
+                      category: inputs.Category,
+                      store: inputs.Store,
+                      cost: "$" + inputs.Cost
+                    }, getUserStrapiToken());
+                    if (!fetchResult.ok){
+                      console.log("Error in adding product")
+                      return
+                    }
 
           if (fetchResult.ok) {
             console.log("Product created")

@@ -9,21 +9,24 @@ import { LOGO_URL } from '../../../globals'
 import { useParams } from 'react-router-dom'
 import AddProductForm from '../../page_components/UserSpecificStores/AddProductForm'
 import ProductList from '../../page_components/ProductList'
+import { getStrapiData, getStrapiDomain, postStrapiData } from '../../../util/strapi_utils'
 
 export default function StoreProductList() {
   const {storeId} = useParams();
   const [fetchStoreResp, setFetchStoreResp] = useState({})
   useEffect(() => {
     const fetchStore = async () => {
-      const response = await fetch(`/api/stores/get_store/${storeId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      // const response = await fetch(`/api/stores/get_store/${storeId}`, {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // })
+
+      const response = await getStrapiData(getStrapiDomain() + `/api/stores?filters[id]=${storeId}`);
       if (response.ok) {
         const data = await response.json()
-        setFetchStoreResp(data)
+        setFetchStoreResp(data.data[0])
         console.log(data)
       }
     }

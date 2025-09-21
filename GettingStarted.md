@@ -9,9 +9,16 @@
 
 Figure it out, it aint hard
 
-### Python
-Figure it out, it aint hard
+### Java & maven
+```
+sudo apt update
+sudo apt install openjdk-17-jdk
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH="$JAVA_HOME/bin:$PATH"
+source ~/.profile
+sudo apt install maven
 
+```
 ### NodeJs
 Figure it out, it aint hard
 

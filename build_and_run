@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # ./script/build_venv.sh
-source .venv/bin/activate
 sudo systemctl start mongod.service
 return_code=$?
 
@@ -9,8 +8,14 @@ if [ $return_code -ne 0 ]; then
     echo "Failed to start mongoDB"
     exit 1
 fi
+
+#start strapi
+cd backend1/cms/
+npm run develop &
+process0_pid=$!
+
 # Start process 1 in the background
-cd backend1/ebazzar/
+cd ../../backend1/ebazzar/
 mvn clean install
 mvn spring-boot:run &
 process1_pid=$!
@@ -20,11 +25,13 @@ cd ../../frontend/
 npm start &
 process2_pid=$!
 
-echo "Processes started with PIDs: $process1_pid, $process2_pid"
+echo "Processes started with PIDs: $process0_pid, $process1_pid, $process2_pid"
 
 # Function to stop the processes
 stop_processes() {
     echo "Stopping processes..."
+
+    kill $process0_pid
 
     # Send SIGTERM signal to process 1
     kill $process1_pid

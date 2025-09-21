@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import styles from "./CheckoutForm.module.css";
 import { ProductSection } from "../ProductList";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button_b from "../global_components/Button_b/Button_b";
 import { SubTitleHeaderCustom } from "../global_components/stores/SubTitle";
 import { CheckCircleOutlineOutlined } from "@mui/icons-material";
 import { Button, Grid2, Menu, MenuItem } from "@mui/material";
+import { getStrapiData, getStrapiDomain } from "../../../util/strapi_utils";
 const formFields = [
   { id: "name", label: "Name", type: "text" },
   { id: "address1", label: "Address", type: "text" },
@@ -24,6 +25,7 @@ export default function CheckoutForm({productId}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const amountMenuOpen = Boolean(anchorEl);
   const MAX_ORDER_AMOUNT = 10;
+  // const productId = useParams().productId
 
   const handleAmountButtonClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -66,13 +68,15 @@ export default function CheckoutForm({productId}) {
   
   useEffect(() => {
     const fetchData = async () => {
-      const fetchResult = await fetch(`/api/products/product/${productId}`, {
-        method: 'GET',
-      })
+      // const fetchResult = await fetch(`/api/products/product/${productId}`, {
+      //   method: 'GET',
+      // })
+      // const fetchResult = await fetch(`/api/products?filters[id]=${productId}`);
+      const fetchResult = await getStrapiData(getStrapiDomain() + `/api/products?filters[id]=${productId}`);
     
       if (fetchResult.ok){
         const jsonResult = await fetchResult.json()
-        setProductData(jsonResult)
+        setProductData(jsonResult.data[0])
         console.log(jsonResult)
       }
       console.log(productData)
@@ -101,12 +105,12 @@ export default function CheckoutForm({productId}) {
                 <div style={{width: '50%'}}>
                 <ProductSection 
                     className={styles.productWrapper} 
-                    key={productData._id}
-                    imageSrc={`/media/${productData.imageSrc}`}
-                    imageAlt = {productData.imageAlt}
+                    key={productData.id}
+                    imageSrc={productData.image}
+                    imageAlt = {productData.description}
                     text={productData.text}
                     title={productData.title}
-                    link={`/product/${productData._id}`}
+                    link={`/product/${productData.id}`}
                 />
                 </div>
 

@@ -10,7 +10,7 @@ function MainMobilePage() {
         <Header isWebview={true}/>
         <Navigation isWebview={true}/>
         <ProductList
-            endPoint="/api/products/product_list"
+            endPoint="/api/products"
             isWebview={true}
         />
         <Footer />

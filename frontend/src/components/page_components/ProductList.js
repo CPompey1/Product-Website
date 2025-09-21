@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './ProductList.css'
 import { Builder } from '@builder.io/react';
+import { getStrapiData, getStrapiDomain } from '../../util/strapi_utils';
 const ProductSection = ({ id, imageSrc, imageAlt, text, link, isWebview }) => (
   <div>
     <section className="content-section">
@@ -31,18 +32,24 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link, isWebview }) => (
     const [data,setData] = useState([])
     useEffect(() => {
       const fetchData = async () => {
-        const fetchResult = await fetch(endPoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({category:category,store:store})
-        })
-      
+        if (category != undefined){
+          endpoint = endpoint + `?filter[category][$eq]=${category}`
+        }
+        if (store != undefined){
+          endPoint = endPoint + (category != undefined ? `&` : `?`) + `filter[store][$eq]=${store}`
+        }
+
+        if (category == undefined && store == undefined){
+         endPoint = endPoint + `?populate=*`
+        }
+
+        console.log(endPoint)
+        const fetchResult = await getStrapiData(getStrapiDomain() + endPoint)
         if (fetchResult.ok){
           const jsonResult = await fetchResult.json()
+          console.log(jsonResult)
           // const formattedData = jsonResult.map(item => Object.values(item)[0]);
-          setData(jsonResult)
+          setData(jsonResult.data)
           console.log(jsonResult)
         }
         // console.log(data[0].title)
@@ -55,14 +62,14 @@ const ProductSection = ({ id, imageSrc, imageAlt, text, link, isWebview }) => (
       <div>
         {data.map(product => (
           <ProductSection
-            key={product._id}
-            imageSrc={product.imageSrc.startsWith('/media') ? `/${product.imageSrc}` : `/media/${product.imageSrc.replace(/^\/+/, '')}`}
-            imageAlt = {product.imageAlt}
-            text={product.text}
+            key={product.id}
+            imageSrc={product.image}
+            // imageAlt = {product.imageAlt}
+            text={product.description}
             title={product.title}
             link={(edit == undefined || edit == false) ?  
-              (isWebview ? `/m/product/${product._id}` : `/product/${product._id}`) : 
-              (isWebview ?  `/m/edit-product/${product._id}` : `/edit-product/${product._id}`)}
+              (isWebview ? `/m/product/${product.id}` : `/product/${product.id}`) : 
+              (isWebview ?  `/m/edit-product/${product.id}` : `/edit-product/${product.id}`)}
             isWebview={isWebview}
           />
         ))}
