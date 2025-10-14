@@ -10,12 +10,12 @@ if [ $return_code -ne 0 ]; then
 fi
 
 #start strapi
-cd backend1/cms/
+cd backend/cms/
 npm run develop &
 process0_pid=$!
 
 # Start process 1 in the background
-cd ../../backend1/ebazzar/
+cd ../../backend/ebazzar/
 mvn clean install
 mvn spring-boot:run &
 process1_pid=$!

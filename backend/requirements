@@ -1,6 +1,0 @@
-flask
-pymongo
-pyjwt
-bcrypt
-pyopenssl
-gunicorn
